@@ -4,7 +4,10 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT += core gui
+QT += network
+
+include(../QtWebApp/QtWebApp/httpserver/httpserver.pri)
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,3 +26,5 @@ RESOURCES += \
     mainwindow.qrc
 
 DISTFILES +=
+
+OTHER_FILES += etc/earlgrey.ini
