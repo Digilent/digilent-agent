@@ -34,23 +34,20 @@ int main(int argc, char *argv[])
 
 //Search for the HTTP server config ini
 QString searchConfigFile() {
-    QString binDir=QCoreApplication::applicationDirPath();
-    QString appName=QCoreApplication::applicationName();
+    QString binDir = QCoreApplication::applicationDirPath();
+    QString appName = QCoreApplication::applicationName();
     QFile file;
-    file.setFileName(binDir+"/earlgrey.ini");
+    file.setFileName(binDir+"/config.ini");
     if (!file.exists()) {
-        file.setFileName(binDir+"/etc/earlgrey.ini");
+        file.setFileName(binDir+"/../config.ini");
         if (!file.exists()) {
-            file.setFileName(binDir+"/../etc/earlgrey.ini");
+            file.setFileName(binDir+"/../"+appName+"/config.ini");
             if (!file.exists()) {
-                file.setFileName(binDir+"/../"+appName+"/etc/earlgrey.ini");
+                file.setFileName(binDir+"/../../"+appName+"/config.ini");
                 if (!file.exists()) {
-                    file.setFileName(binDir+"/../../"+appName+"/etc/earlgrey.ini");
+                    file.setFileName(binDir+"/../../../../../"+appName+"/config.ini");
                     if (!file.exists()) {
-                        file.setFileName(binDir+"/../../../../../"+appName+"/etc/earlgrey.ini");
-                        if (!file.exists()) {
-                            file.setFileName(QDir::rootPath()+"etc/earlgrey.ini");
-                        }
+                        file.setFileName(QDir::rootPath()+"config.ini");
                     }
                 }
             }

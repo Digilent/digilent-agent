@@ -15,16 +15,19 @@ TARGET = earlgrey
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES += \
+    src/main.cpp \
+    src/mainwindow.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    src/mainwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    mainwindow.ui
 
 RESOURCES += \
     mainwindow.qrc
 
 DISTFILES +=
 
-OTHER_FILES += etc/earlgrey.ini
+OTHER_FILES += config.ini
