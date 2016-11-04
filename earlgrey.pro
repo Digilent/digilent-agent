@@ -17,10 +17,16 @@ TEMPLATE = app
 
 SOURCES += \
     src/main.cpp \
-    src/mainwindow.cpp
+    src/mainwindow.cpp \
+    src/helloworldcontroller.cpp \
+    src/listdatacontroller.cpp \
+    src/requestmapper.cpp
 
 HEADERS  += \
-    src/mainwindow.h
+    src/mainwindow.h \
+    src/helloworldcontroller.h \
+    src/listdatacontroller.h \
+    src/requestmapper.h
 
 FORMS    += \
     mainwindow.ui

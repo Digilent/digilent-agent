@@ -6,6 +6,10 @@
 #include <QString>
 
 #include "httplistener.h"
+#include "helloworldcontroller.h"
+#include "listdatacontroller.h"
+#include "requestmapper.h"
+
 
 #ifndef QT_NO_SYSTEMTRAYICON
 #include "mainwindow.h"
@@ -23,7 +27,7 @@ int main(int argc, char *argv[])
 
     //Create and start the HTTP Server
     listenerSettings->beginGroup("listener");
-    new HttpListener(listenerSettings, new HttpRequestHandler(&app), &app);
+    new HttpListener(listenerSettings, new RequestMapper(&app), &app);
 
 
     MainWindow mainWindow;
