@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "mainWindow.h"
 #include "ui_mainwindow.h"
 
 #ifndef QT_NO_SYSTEMTRAYICON

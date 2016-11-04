@@ -16,23 +16,21 @@ TEMPLATE = app
 
 
 SOURCES += \
+    src/httpServer/httpRouter.cpp \
     src/main.cpp \
-    src/mainwindow.cpp \
-    src/helloworldcontroller.cpp \
-    src/listdatacontroller.cpp \
-    src/requestmapper.cpp
+    src/mainWindow.cpp \
+    src/httpServer/debugController.cpp
 
-HEADERS  += \
-    src/mainwindow.h \
-    src/helloworldcontroller.h \
-    src/listdatacontroller.h \
-    src/requestmapper.h
+HEADERS  += \    
+    src/httpServer/httpRouter.h \
+    src/mainWindow.h \
+    src/httpServer/debugController.h
 
 FORMS    += \
-    mainwindow.ui
+    mainWindow.ui
 
 RESOURCES += \
-    mainwindow.qrc
+    mainWindow.qrc
 
 DISTFILES +=
 

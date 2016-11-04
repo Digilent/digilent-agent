@@ -1,18 +1,21 @@
-
+//QT core includes
 #include <QApplication>
 #include <QSettings>
 #include <QFile>
 #include <QDir>
 #include <QString>
 
+//HTTP core includes
 #include "httplistener.h"
-#include "helloworldcontroller.h"
-#include "listdatacontroller.h"
-#include "requestmapper.h"
+
+//OpenScope Utility HTTP Includes
+#include "httpServer/httpRouter.h"
+#include "httpServer/debugController.h"
+
 
 
 #ifndef QT_NO_SYSTEMTRAYICON
-#include "mainwindow.h"
+#include "mainWindow.h"
 
 //Forward declarations
 QString searchConfigFile();
@@ -25,9 +28,14 @@ int main(int argc, char *argv[])
     QString configFileName = searchConfigFile();
     QSettings* listenerSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
 
+    // Static file controller
+    QSettings* fileSettings=new QSettings(configFileName, QSettings::IniFormat, &app);
+    fileSettings->beginGroup("files");
+    HttpRouter::staticFileController = new StaticFileController(fileSettings,&app);
+
     //Create and start the HTTP Server
     listenerSettings->beginGroup("listener");
-    new HttpListener(listenerSettings, new RequestMapper(&app), &app);
+    new HttpListener(listenerSettings, new HttpRouter(&app), &app);
 
 
     MainWindow mainWindow;
