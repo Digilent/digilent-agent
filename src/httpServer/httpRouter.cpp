@@ -1,5 +1,7 @@
 #include "httpRouter.h"
 #include "debugController.h"
+#include "proxyController.h"
+
 
 StaticFileController* HttpRouter::staticFileController = 0;
 
@@ -13,6 +15,8 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
 
     if (path=="/debug") {
         DebugController().service(request, response);
+    } else if (path=="/proxy") {
+        ProxyController().service(request, response);
     }
     else{
             staticFileController->service(request, response);
