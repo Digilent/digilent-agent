@@ -7,7 +7,7 @@
 QT += core gui
 QT += network
 
-include(../QtWebApp/QtWebApp/httpserver/httpserver.pri)
+include(src/httpServer/core.pri)
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
