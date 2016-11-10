@@ -1,8 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+//HTTP core includes
 #include <QtNetwork>
 #include <QSystemTrayIcon>
+#include <QPushButton>
+#include <QLineEdit>
 
 #ifndef QT_NO_SYSTEMTRAYICON
 #include <QMainWindow>
@@ -24,10 +27,14 @@ protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
-    //void requestReceived(QNetworkReply *reply);
+    void httpSetIpOnRelease();    
 
 private:
+    //UI Elements
     Ui::MainWindow *ui;
+    QLineEdit *httpIp;
+    QPushButton *httpSetIp;
+
 
     QAction *minimizeAction;
     QAction *maximizeAction;
@@ -37,12 +44,8 @@ private:
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
 
-    void createActions();
+    void createWindowActions();
     void createTrayIcon();
-
-    HttpClient* httpClient;
-
-    //void requestShowPage();
 };
 
 #endif // QT_NO_SYSTEMTRAYICON

@@ -1,7 +1,9 @@
 #include "mainWindow.h"
-#include "ui_mainwindow.h"
+#include "ui_mainWindow.h"
 
 #ifndef QT_NO_SYSTEMTRAYICON
+
+//HTTP core includes
 #include <QAction>
 #include <QCloseEvent>
 #include <QMessageBox>
@@ -9,9 +11,17 @@
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     setWindowTitle(tr("OpenScope Utility"));
-    ui->setupUi(this);
 
-    createActions();
+    //Get UI element refs
+    ui->setupUi(this);
+    httpSetIp = ui->httpSetIp;
+    httpIp = ui->httpIp;
+
+
+    //UI Actions
+    connect(httpSetIp, SIGNAL(released()), this, SLOT(httpSetIpOnRelease()));
+
+    createWindowActions();
     createTrayIcon();
 
     //Set Tray Icon
@@ -28,7 +38,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::createActions()
+void MainWindow::createWindowActions()
 {
     minimizeAction = new QAction(tr("Mi&nimize"), this);
     connect(minimizeAction, &QAction::triggered, this, &QWidget::hide);
@@ -54,6 +64,10 @@ void MainWindow::createTrayIcon()
 
     trayIcon = new QSystemTrayIcon(this);
     trayIcon->setContextMenu(trayIconMenu);
+}
+
+void MainWindow::httpSetIpOnRelease() {   
+    qDebug() << httpIp->text();
 }
 
 //Minimize to system tray on close

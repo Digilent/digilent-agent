@@ -18,17 +18,17 @@ TEMPLATE = app
 SOURCES += \
     src/httpServer/httpRouter.cpp \
     src/main.cpp \
-    src/mainWindow.cpp \
     src/httpServer/debugController.cpp \
     src/httpServer/proxyController.cpp \
-    src/httpClient/httpclient.cpp
+    src/httpClient/httpclient.cpp \
+    src/mainWindow.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
-    src/mainWindow.h \
     src/httpServer/debugController.h \
     src/httpServer/proxyController.h \
-    src/httpClient/httpclient.h
+    src/httpClient/httpclient.h \
+    src/mainWindow.h
 
 FORMS    += \
     mainWindow.ui
