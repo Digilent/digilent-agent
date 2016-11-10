@@ -8,9 +8,13 @@
 //HTTP core includes
 #include "httplistener.h"
 
-//OpenScope Utility HTTP Includes
+//OpenScope utility HTTP includes
 #include "httpServer/httpRouter.h"
 #include "httpServer/debugController.h"
+
+//OpenScope device includes
+#include "osDevice/osDevice.h"
+#include "osDevice/osHttpDevice.h"
 
 #ifndef QT_NO_SYSTEMTRAYICON
 #include "mainWindow.h"
@@ -34,7 +38,7 @@ int main(int argc, char *argv[])
 
     //Create and start the HTTP Server
     listenerSettings->beginGroup("listener");
-    new HttpListener(listenerSettings, new HttpRouter(&app, &mainWindow.activeDevice), &app);
+    new HttpListener(listenerSettings, new HttpRouter(&app, mainWindow.activeDevice), &app);
 
 
     mainWindow.show();

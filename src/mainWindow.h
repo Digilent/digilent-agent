@@ -7,9 +7,14 @@
 #include <QPushButton>
 #include <QLineEdit>
 
+//OpenScope device includes
+#include "osDevice/osDevice.h"
+
 #ifndef QT_NO_SYSTEMTRAYICON
 #include <QMainWindow>
-#include "httpClient/httpclient.h"
+#include "httpClient/httpClient.h"
+
+
 
 namespace Ui {
 class MainWindow;
@@ -23,13 +28,16 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    QString activeDevice;
+    //Devices
+    OsDevice* activeDevice;
+    OsDevice* deviceOne;
+    OsDevice* deviceTwo;
 
 protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
-    void httpSetIpOnRelease();    
+    void httpSetIpOnRelease();
 
 private:
     //UI Elements
@@ -37,17 +45,18 @@ private:
     QLineEdit *httpIp;
     QPushButton *httpSetIp;
 
-
+    //System Tray
     QAction *minimizeAction;
     QAction *maximizeAction;
     QAction *restoreAction;
     QAction *quitAction;
-
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
 
     void createWindowActions();
     void createTrayIcon();
+
+
 };
 
 #endif // QT_NO_SYSTEMTRAYICON

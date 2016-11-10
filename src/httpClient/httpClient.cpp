@@ -1,4 +1,4 @@
-#include "httpclient.h"
+#include "httpClient.h"
 
 HttpClient::HttpClient(QObject *parent) : QObject(parent)
 {

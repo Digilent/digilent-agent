@@ -3,9 +3,9 @@
 
 #include "proxyController.h"
 
-ProxyController::ProxyController(QObject* parent, QString *activeDevice) : HttpRequestHandler(parent) {
+ProxyController::ProxyController(QObject* _parent, OsDevice* _activeDevice) : HttpRequestHandler(_parent) {
     httpClient = new HttpClient(this);
-    m_activeDevice = activeDevice;
+    activeDevice = _activeDevice;
 }
 
 void ProxyController::service(HttpRequest &request, HttpResponse &response) {
@@ -22,7 +22,7 @@ void ProxyController::service(HttpRequest &request, HttpResponse &response) {
 
     //Return proxy call response to original requester
     //response.write(proxyResponse.toUtf8());
-    response.write(m_activeDevice->toUtf8());
+    response.write(activeDevice->name.toUtf8());
 }
 
 void ProxyController::onComplete(QNetworkReply *reply) {

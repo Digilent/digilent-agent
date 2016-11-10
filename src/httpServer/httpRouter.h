@@ -5,15 +5,26 @@
 #include "httprequesthandler.h"
 #include "staticfilecontroller.h"
 
+//OpenScope device includes
+#include "../osDevice/osDevice.h"
+
 class HttpRouter : public HttpRequestHandler {
     Q_OBJECT
 public:
-    HttpRouter(QObject* _parent=0, QString* activeDevice=0);
+    HttpRouter(QObject* _parent=0, OsDevice *_activeDevice=0);
     static StaticFileController* staticFileController;
     void service(HttpRequest& request, HttpResponse& response);
 
+signals:
+    void deviceComplete();
+
+private slots:
+    void onComplete(QString _reply);
+
+
 private:       
-    QString* m_activeDevice;
+    OsDevice* activeDevice;
+    QString reply;
 
 };
 

@@ -1,6 +1,11 @@
 #include "mainWindow.h"
 #include "ui_mainWindow.h"
 
+
+//OpenScope device includes
+#include "osDevice/osDevice.h"
+#include "osDevice/osHttpDevice.h"
+
 #ifndef QT_NO_SYSTEMTRAYICON
 
 //HTTP core includes
@@ -17,6 +22,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     httpSetIp = ui->httpSetIp;
     httpIp = ui->httpIp;
 
+    //Create devices
+    deviceOne = new OsHttpDevice(QUrl("http://feeds.labviewmakerhub.com"));
+    deviceTwo = new OsHttpDevice(QUrl("http://www.google.com"));
+    activeDevice = deviceOne;
 
     //UI Actions
     connect(httpSetIp, SIGNAL(released()), this, SLOT(httpSetIpOnRelease()));
@@ -67,8 +76,8 @@ void MainWindow::createTrayIcon()
 }
 
 void MainWindow::httpSetIpOnRelease() {   
-    activeDevice = httpIp->text();
-    qDebug() << activeDevice;
+    activeDevice->name = httpIp->text();
+    qDebug() << activeDevice->name;
 }
 
 //Minimize to system tray on close

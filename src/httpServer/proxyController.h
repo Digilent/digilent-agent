@@ -7,12 +7,15 @@
 
 //HTTP includes
 #include "httprequesthandler.h"
-#include "../httpClient/httpclient.h"
+#include "../httpClient/httpClient.h"
+
+//OpenScope device includes
+#include "../osDevice/osDevice.h"
 
 class ProxyController : public HttpRequestHandler {
     Q_OBJECT
 public:
-    ProxyController(QObject* parent=0, QString* activeDevice=0);
+    ProxyController(QObject* _parent=0, OsDevice* _activeDevice=0);
     void service(HttpRequest& request, HttpResponse& response);
 
 signals:
@@ -24,7 +27,7 @@ private slots:
 private:
     HttpClient* httpClient;
     QString proxyResponse;
-    QString* m_activeDevice;
+    OsDevice* activeDevice;
 };
 
 #endif // PROXYCONTROLLER_H
