@@ -8,9 +8,12 @@
 class HttpRouter : public HttpRequestHandler {
     Q_OBJECT
 public:
-    HttpRouter(QObject* parent=0);
+    HttpRouter(QObject* _parent=0);
     static StaticFileController* staticFileController;
     void service(HttpRequest& request, HttpResponse& response);
+
+private:       
+
 };
 
 #endif // HTTPROUTER_H

@@ -20,13 +20,15 @@ SOURCES += \
     src/main.cpp \
     src/mainWindow.cpp \
     src/httpServer/debugController.cpp \
-    src/httpServer/proxyController.cpp
+    src/httpServer/proxyController.cpp \
+    src/httpClient/httpclient.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
     src/mainWindow.h \
     src/httpServer/debugController.h \
-    src/httpServer/proxyController.h
+    src/httpServer/proxyController.h \
+    src/httpClient/httpclient.h
 
 FORMS    += \
     mainWindow.ui
