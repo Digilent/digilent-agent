@@ -21,6 +21,7 @@ QString searchConfigFile();
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    MainWindow mainWindow;
 
     // Load the http configuration file
     QString configFileName = searchConfigFile();
@@ -33,9 +34,9 @@ int main(int argc, char *argv[])
 
     //Create and start the HTTP Server
     listenerSettings->beginGroup("listener");
-    new HttpListener(listenerSettings, new HttpRouter(&app), &app);
+    new HttpListener(listenerSettings, new HttpRouter(&app, &mainWindow.activeDevice), &app);
 
-    MainWindow mainWindow;
+
     mainWindow.show();
 
     return app.exec();

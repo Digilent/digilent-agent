@@ -23,6 +23,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    QString activeDevice;
+
 protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 

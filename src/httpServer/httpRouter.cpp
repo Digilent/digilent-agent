@@ -4,8 +4,8 @@
 
 StaticFileController* HttpRouter::staticFileController = 0;
 
-HttpRouter::HttpRouter(QObject* parent) : HttpRequestHandler(parent) {
-
+HttpRouter::HttpRouter(QObject* parent, QString *activeDevice) : HttpRequestHandler(parent) {
+    m_activeDevice = activeDevice;
 }
 
 void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
@@ -17,7 +17,7 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         DebugController(this).service(request, response);
     } else if (path=="/proxy") {
         qDebug("Routing To Proxy Controller");
-        ProxyController().service(request, response);
+        ProxyController(this, m_activeDevice).service(request, response);
     }
     else{
         qDebug("Routing To Static Controller");

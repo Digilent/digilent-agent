@@ -8,11 +8,12 @@
 class HttpRouter : public HttpRequestHandler {
     Q_OBJECT
 public:
-    HttpRouter(QObject* _parent=0);
+    HttpRouter(QObject* _parent=0, QString* activeDevice=0);
     static StaticFileController* staticFileController;
     void service(HttpRequest& request, HttpResponse& response);
 
 private:       
+    QString* m_activeDevice;
 
 };
 

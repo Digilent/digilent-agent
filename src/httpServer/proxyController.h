@@ -12,7 +12,7 @@
 class ProxyController : public HttpRequestHandler {
     Q_OBJECT
 public:
-    ProxyController(QObject* parent=0);
+    ProxyController(QObject* parent=0, QString* activeDevice=0);
     void service(HttpRequest& request, HttpResponse& response);
 
 signals:
@@ -24,6 +24,7 @@ private slots:
 private:
     HttpClient* httpClient;
     QString proxyResponse;
+    QString* m_activeDevice;
 };
 
 #endif // PROXYCONTROLLER_H

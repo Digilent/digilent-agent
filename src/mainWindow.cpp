@@ -67,7 +67,8 @@ void MainWindow::createTrayIcon()
 }
 
 void MainWindow::httpSetIpOnRelease() {   
-    qDebug() << httpIp->text();
+    activeDevice = httpIp->text();
+    qDebug() << activeDevice;
 }
 
 //Minimize to system tray on close
