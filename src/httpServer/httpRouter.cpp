@@ -8,7 +8,7 @@
 
 StaticFileController* HttpRouter::staticFileController = 0;
 
-HttpRouter::HttpRouter(QObject* _parent, OsDevice* _activeDevice) : HttpRequestHandler(_parent) {
+HttpRouter::HttpRouter(QObject* _parent, OsDevice **_activeDevice) : HttpRequestHandler(_parent) {
     activeDevice = _activeDevice;
 }
 
@@ -20,11 +20,11 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         qDebug("Routing To Debug Controller");
         DebugController(this).service(request, response);
     } else if (path=="/proxy") {
-        qDebug("Routing To Proxy Controller");
 
         //Setup device request slot and initiate device call
-        connect(activeDevice, SIGNAL(commandComplete(QString)), this, SLOT(onComplete(QString)));
-        activeDevice->execCommand("none");
+        connect(*activeDevice, SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
+        qDebug("before");
+        (*activeDevice)->execCommand(request.getBody());
 
         //Wait for signal that device call has returned
         QEventLoop loop;

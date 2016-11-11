@@ -16,10 +16,13 @@ public:
     //Variables
     QString name;
 
-signals:
-    void commandComplete(QString response);
+signals:    
+    void execCommandComplete(QString response);
 
 public slots:
+
+private:
+
 };
 
 #endif // OSDEVICE_H

@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 
     //Create and start the HTTP Server
     listenerSettings->beginGroup("listener");
-    new HttpListener(listenerSettings, new HttpRouter(&app, mainWindow.activeDevice), &app);
+    new HttpListener(listenerSettings, new HttpRouter(&app, &mainWindow.activeDevice), &app);
 
 
     mainWindow.show();

@@ -5,18 +5,25 @@
 #include <QUrl>
 
 #include "osDevice.h"
+#include "../httpClient/httpClient.h"
 
 class OsHttpDevice : public OsDevice {
+    Q_OBJECT
 
 public:
     OsHttpDevice(QUrl _url);
     virtual void execCommand(QString cmd);
 
+    QUrl url;
+
 signals:
-    //virtual void commandComplete(QString response);
+    void commandComplete();
+
+public slots:
+    void onHttpComplete(QNetworkReply *reply);
 
 private:
-    QUrl url;
+    HttpClient* httpClient;
 };
 
 #endif // OSHTTPDEVICE_H

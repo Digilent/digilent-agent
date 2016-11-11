@@ -1,7 +1,6 @@
 #include "mainWindow.h"
 #include "ui_mainWindow.h"
 
-
 //OpenScope device includes
 #include "osDevice/osDevice.h"
 #include "osDevice/osHttpDevice.h"
@@ -12,6 +11,7 @@
 #include <QAction>
 #include <QCloseEvent>
 #include <QMessageBox>
+#include <QComboBox>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -21,14 +21,15 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this);
     httpSetIp = ui->httpSetIp;
     httpIp = ui->httpIp;
+    deviceDropDown = ui->deviceDropDown;
 
     //Create devices
-    deviceOne = new OsHttpDevice(QUrl("http://feeds.labviewmakerhub.com"));
-    deviceTwo = new OsHttpDevice(QUrl("http://www.google.com"));
-    activeDevice = deviceOne;
+    devicesHead = 0;
+    activeDevice = 0;
 
     //UI Actions
-    connect(httpSetIp, SIGNAL(released()), this, SLOT(httpSetIpOnRelease()));
+    connect(httpSetIp, SIGNAL(released()), this, SLOT(onHttpSetIpRelease()));
+    connect(deviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onDeviceDropDownCurrentIndexChanged(int)));
 
     createWindowActions();
     createTrayIcon();
@@ -75,10 +76,25 @@ void MainWindow::createTrayIcon()
     trayIcon->setContextMenu(trayIconMenu);
 }
 
-void MainWindow::httpSetIpOnRelease() {   
-    activeDevice->name = httpIp->text();
-    qDebug() << activeDevice->name;
+void MainWindow::onHttpSetIpRelease() {
+    qDebug() << "Adding Device: " << httpIp->text();
+
+    devices[devicesHead] = new OsHttpDevice(QUrl(httpIp->text()));
+    devices[devicesHead]->name = httpIp->text();
+    deviceDropDown->addItem(QIcon(), httpIp->text(), QVariant());
+    devicesHead++;
 }
+
+void MainWindow::onDeviceDropDownCurrentIndexChanged(int index) {
+    activeDevice = devices[index];
+    if(activeDevice != 0) {
+        qDebug() << "Name: " << activeDevice->name;
+
+    }
+}
+
+
+
 
 //Minimize to system tray on close
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -100,3 +116,4 @@ void MainWindow::closeEvent(QCloseEvent *event)
 }
 
 #endif //QT_NO_SYSTEMTRAYICON
+

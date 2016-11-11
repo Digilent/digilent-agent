@@ -6,6 +6,8 @@
 #include <QSystemTrayIcon>
 #include <QPushButton>
 #include <QLineEdit>
+#include <QComboBox>
+#include <QVector>
 
 //OpenScope device includes
 #include "osDevice/osDevice.h"
@@ -13,7 +15,6 @@
 #ifndef QT_NO_SYSTEMTRAYICON
 #include <QMainWindow>
 #include "httpClient/httpClient.h"
-
 
 
 namespace Ui {
@@ -29,21 +30,27 @@ public:
     ~MainWindow();
 
     //Devices
+    OsDevice* devices[8];
+    int devicesHead = 0;
     OsDevice* activeDevice;
     OsDevice* deviceOne;
     OsDevice* deviceTwo;
+
+    QComboBox *deviceDropDown;
 
 protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
-    void httpSetIpOnRelease();
+    void onHttpSetIpRelease();
+    void onDeviceDropDownCurrentIndexChanged(int);
 
 private:
     //UI Elements
     Ui::MainWindow *ui;
     QLineEdit *httpIp;
     QPushButton *httpSetIp;
+    //QComboBox *deviceDropDown;
 
     //System Tray
     QAction *minimizeAction;
