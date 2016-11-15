@@ -4,24 +4,40 @@
 //QT core includes
 #include <QNetworkReply>
 #include <QUrl>
+#include <QMutex>
+#include <QWaitCondition>
+#include <QThread>
+#include <QObject>
 
-class HttpClient : public QObject
+class HttpClient : public QThread
 {
     Q_OBJECT
 public:
-    explicit HttpClient(QObject *parent = 0);
+    HttpClient(QObject *parent = 0);
+    ~HttpClient();
+
     void get(QUrl url);
-    void post(QUrl url, QString body);
     void post(QNetworkRequest request, QString body);
 
+    void run() Q_DECL_OVERRIDE;
+
 signals:
+
     void complete(QNetworkReply *reply);
+    void reqestComplete();
+    void error(int socketError, const QString &message);
 
 private slots:
     void onRequestComplete(QNetworkReply *reply);
 
 private:
-    QNetworkAccessManager* networkManager;   
+    QNetworkRequest request;
+    QUrl url;
+    QString body;
+    QString method;
+    QMutex mutex;
+    QWaitCondition cond;
+    bool quit;
 };
 
 #endif // HTTPCLIENT_H

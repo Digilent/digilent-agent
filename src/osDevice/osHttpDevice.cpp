@@ -10,7 +10,7 @@ OsHttpDevice::OsHttpDevice(QUrl _url){
     url = _url;
 }
 
-void OsHttpDevice::execCommand(QString cmd) {
+void OsHttpDevice::execCommand(QString cmd) {    
     qDebug() << "OsHttpDevice::execCommand() - " << name;
     qDebug(cmd.toUtf8());
 
