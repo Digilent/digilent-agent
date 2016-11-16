@@ -59,9 +59,15 @@ QString searchConfigFile() {
             if (!file.exists()) {
                 file.setFileName(binDir+"/../../"+appName+"/config.ini");
                 if (!file.exists()) {
-                    file.setFileName(binDir+"/../../../../../"+appName+"/config.ini");
+                    file.setFileName(binDir+"/../../../"+appName+"/config.ini");
                     if (!file.exists()) {
-                        file.setFileName(QDir::rootPath()+"config.ini");
+                        file.setFileName(binDir+"/../../../../"+appName+"/config.ini");
+                        if (!file.exists()) {
+                            file.setFileName(binDir+"/../../../../../"+appName+"/config.ini");
+                            if (!file.exists()) {
+                                file.setFileName(QDir::rootPath()+"config.ini");
+                            }
+                        }
                     }
                 }
             }
