@@ -1,3 +1,6 @@
+//Disable SSL
+#define QT_NO_SSL
+
 //QT core includes
 #include <QApplication>
 #include <QSettings>
