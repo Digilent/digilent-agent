@@ -1,6 +1,7 @@
 #ifndef HTTPROUTER_H
 #define HTTPROUTER_H
 
+//QT core includes
 #include <QtCore>
 
 //HTTP Core Includes
@@ -28,9 +29,7 @@ private:
     OsDevice** activeDevice;
     QEventLoop loop;
     QString reply;
-
     bool waitingForResponse;
-
 };
 
 #endif // HTTPROUTER_H

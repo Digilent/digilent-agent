@@ -48,7 +48,7 @@ void HttpClient::run() {
     mutex.unlock();
 
     QNetworkAccessManager networkManager;
-    connect(&networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onRequestComplete(QNetworkReply*)));
+    connect(&networkManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onRequestFinished(QNetworkReply*)));
     if(_method == "get") {
 
         networkManager.get(QNetworkRequest(_url));
@@ -58,14 +58,14 @@ void HttpClient::run() {
 
     //Wait for signal that proxy call has returned
     QEventLoop loop;
-    connect(this, SIGNAL(reqestComplete()), &loop, SLOT(quit()));
+    connect(this, SIGNAL(taskComplete()), &loop, SLOT(quit()));
     loop.exec();
     qDebug("HttpClient Done");
     return;
 }
 
-void HttpClient::onRequestComplete(QNetworkReply *reply) {
+void HttpClient::onRequestFinished(QNetworkReply *reply) {
     qDebug("HttpClient::onRequestComplete()");
     emit complete(reply);
-    emit reqestComplete();
+    emit taskComplete();
 }

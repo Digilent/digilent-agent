@@ -22,11 +22,10 @@ public:
 
 signals:
     void complete(QNetworkReply *reply);
-    void reqestComplete();
-    void error(int socketError, const QString &message);
+    void taskComplete();
 
 private slots:
-    void onRequestComplete(QNetworkReply *reply);
+    void onRequestFinished(QNetworkReply *reply);
 
 private:
     QNetworkRequest request;
