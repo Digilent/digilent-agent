@@ -8,6 +8,8 @@ OsHttpDevice::OsHttpDevice(QUrl _url){
     name = "HTTP Device";
     httpClient = new HttpClient(this);
     url = _url;
+
+    connect(httpClient, SIGNAL(complete(QNetworkReply*)), this, SLOT(onHttpComplete(QNetworkReply*)));
 }
 
 void OsHttpDevice::execCommand(QString cmd) {    
@@ -15,7 +17,7 @@ void OsHttpDevice::execCommand(QString cmd) {
     qDebug(cmd.toUtf8());
 
     //Setup HTTP request slot and initiate proxy call
-    connect(httpClient, SIGNAL(complete(QNetworkReply*)), this, SLOT(onHttpComplete(QNetworkReply*)));
+    //connect(httpClient, SIGNAL(complete(QNetworkReply*)), this, SLOT(onHttpComplete(QNetworkReply*)));
 
     //Build HTTP POST request
     QNetworkRequest request = QNetworkRequest(url);
@@ -28,9 +30,11 @@ void OsHttpDevice::execCommand(QString cmd) {
     QEventLoop loop;
     connect(this, SIGNAL(commandComplete()), &loop, SLOT(quit()));
     loop.exec();
+    qDebug("OsHttpDevice Done");
 }
 
 void OsHttpDevice::onHttpComplete(QNetworkReply *reply) {
+    qDebug("OsHttpDevice::onHttpComplete()");
     emit commandComplete();
     emit execCommandComplete(QString(reply->readAll()));
 }

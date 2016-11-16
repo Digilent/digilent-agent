@@ -18,11 +18,9 @@ public:
 
     void get(QUrl url);
     void post(QNetworkRequest request, QString body);
-
     void run() Q_DECL_OVERRIDE;
 
 signals:
-
     void complete(QNetworkReply *reply);
     void reqestComplete();
     void error(int socketError, const QString &message);

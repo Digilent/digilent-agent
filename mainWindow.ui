@@ -60,7 +60,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>http://</string>
+     <string>http://192.168.1.15</string>
     </property>
    </widget>
    <widget class="QComboBox" name="deviceDropDown">
@@ -103,7 +103,7 @@
      <x>0</x>
      <y>0</y>
      <width>536</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

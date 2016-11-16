@@ -60,10 +60,12 @@ void HttpClient::run() {
     QEventLoop loop;
     connect(this, SIGNAL(reqestComplete()), &loop, SLOT(quit()));
     loop.exec();
+    qDebug("HttpClient Done");
     return;
 }
 
 void HttpClient::onRequestComplete(QNetworkReply *reply) {
+    qDebug("HttpClient::onRequestComplete()");
     emit complete(reply);
     emit reqestComplete();
 }

@@ -13,6 +13,12 @@ HttpRouter::HttpRouter(QObject* _parent, OsDevice **_activeDevice) : HttpRequest
 }
 
 void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
+
+    connect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
+    connect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
+
+
+
     QByteArray path = request.getPath();
     QByteArray method = request.getMethod();
 
@@ -30,24 +36,35 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         DebugController(this).service(request, response);
     } else if (path=="/proxy" || path=="/proxy/") {
 
+
+
+
         //Setup device request slot and initiate device call
-        connect(*activeDevice, SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
+
         qDebug("before");
+        waitingForResponse = true;
         (*activeDevice)->execCommand(request.getBody());
 
         //Wait for signal that device call has returned
-        QEventLoop loop;
-        connect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
-        loop.exec();
+        if(waitingForResponse){
+            loop.exec();
+        }
 
+        qDebug("about to write response...");
         //Return device call response to original requester
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Cache-Control", "no-cache");
         response.setHeader("Connection", "close");
         response.setHeader("Content-Type", "application/json");
         response.setStatus(200, "OK");
+
         //response.setHeader("Content-Length", "1416");
+
         response.write(reply.toUtf8(), true);
+
+        disconnect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
+        //disconnect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
+
     }
     else{
         qDebug("Routing To Static Controller");
@@ -57,10 +74,10 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
     qDebug("HttpRouter: Request Complete");
 }
 
-void HttpRouter::onComplete(QString _reply){
-
+void HttpRouter::onComplete(QString reply){
     qDebug("HttpRouter::onComplete()");
-    reply = _reply;
+    waitingForResponse = false;
+    this->reply = reply;
     emit deviceComplete();
 }
 

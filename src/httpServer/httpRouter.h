@@ -1,6 +1,8 @@
 #ifndef HTTPROUTER_H
 #define HTTPROUTER_H
 
+#include <QtCore>
+
 //HTTP Core Includes
 #include "httprequesthandler.h"
 #include "staticfilecontroller.h"
@@ -19,12 +21,15 @@ signals:
     void deviceComplete();
 
 private slots:
-    void onComplete(QString _reply);
+    void onComplete(QString reply);
 
 
 private:       
     OsDevice** activeDevice;
+    QEventLoop loop;
     QString reply;
+
+    bool waitingForResponse;
 
 };
 
