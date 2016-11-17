@@ -15,6 +15,7 @@
 #ifndef QT_NO_SYSTEMTRAYICON
 #include <QMainWindow>
 #include "httpClient/httpClient.h"
+#include "uartClient/uartClient.h"
 
 
 namespace Ui {
@@ -42,14 +43,22 @@ protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:
-    void onHttpSetIpRelease();
+    void onHttpAddDeviceRelease();
+    void onUartAddDeviceRelease();
     void onDeviceDropDownCurrentIndexChanged(int);
+
+    void onUartComplete(QString response);
+    void onUartTimeout(QString message);
 
 private:
     //UI Elements
     Ui::MainWindow *ui;
-    QLineEdit *httpIp;
-    QPushButton *httpSetIp;
+    QLineEdit *httpAddress;
+    QPushButton *httpAddDevice;
+
+    QLineEdit *uartAddress;
+    QPushButton *uartAddDevice;
+
     //QComboBox *deviceDropDown;
 
     //System Tray
@@ -62,6 +71,8 @@ private:
 
     void createWindowActions();
     void createTrayIcon();
+
+    UartClient* uart;
 
 
 };

@@ -4,6 +4,10 @@
 //OpenScope device includes
 #include "osDevice/osDevice.h"
 #include "osDevice/osHttpDevice.h"
+#include "osDevice/osUartDevice.h"
+
+//TEST UART CODE
+#include "uartClient/uartClient.h"
 
 #ifndef QT_NO_SYSTEMTRAYICON
 
@@ -19,8 +23,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //Get UI element refs
     ui->setupUi(this);
-    httpSetIp = ui->httpSetIp;
-    httpIp = ui->httpIp;
+    httpAddDevice = ui->httpAddDevice;
+    httpAddress = ui->httpAddress;
+    uartAddDevice = ui->uartAddDevice;
+    uartAddress = ui->uartAddress;
+
     deviceDropDown = ui->deviceDropDown;
 
     //Create devices
@@ -28,7 +35,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     activeDevice = 0;
 
     //UI Actions
-    connect(httpSetIp, SIGNAL(released()), this, SLOT(onHttpSetIpRelease()));
+    connect(httpAddDevice, SIGNAL(released()), this, SLOT(onHttpAddDeviceRelease()));
+    connect(uartAddDevice, SIGNAL(released()), this, SLOT(onUartAddDeviceRelease()));
     connect(deviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onDeviceDropDownCurrentIndexChanged(int)));
 
     createWindowActions();
@@ -41,6 +49,23 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //requestShowPage();
     trayIcon->show();
+
+    //TEST UART CODE
+    this->uart = new UartClient(this);
+    connect(uart, SIGNAL(response(QString)), this, SLOT(onUartComplete(QString)));
+    connect(uart, SIGNAL(timeout(QString)), this, SLOT(onUartTimeout(QString)));
+
+    //uart->writeRead(QString("COM7"), 1000, QString("12345678901234567890 with some extra letters and maybe even an extra number"));
+}
+
+void MainWindow::onUartComplete(QString response) {
+    qDebug("MainWindow::onUartComplete()");
+    qDebug() << response;
+}
+
+void MainWindow::onUartTimeout(QString message) {
+    qDebug("MainWindow::onUartTimeout()");
+    qDebug() << message;
 }
 
 MainWindow::~MainWindow()
@@ -76,12 +101,21 @@ void MainWindow::createTrayIcon()
     trayIcon->setContextMenu(trayIconMenu);
 }
 
-void MainWindow::onHttpSetIpRelease() {
-    qDebug() << "Adding Device: " << httpIp->text();
+void MainWindow::onHttpAddDeviceRelease() {
+    qDebug() << "Adding HTTP Device: " << httpAddress->text();
 
-    devices[devicesHead] = new OsHttpDevice(QUrl(httpIp->text()));
-    devices[devicesHead]->name = httpIp->text();
-    deviceDropDown->addItem(QIcon(), httpIp->text(), QVariant());
+    devices[devicesHead] = new OsHttpDevice(QUrl(httpAddress->text()));
+    devices[devicesHead]->name = httpAddress->text();
+    deviceDropDown->addItem(QIcon(), httpAddress->text(), QVariant());
+    devicesHead++;
+}
+
+void MainWindow::onUartAddDeviceRelease() {
+    qDebug() << "Adding UART Device: " << uartAddress->text();
+
+    devices[devicesHead] = new OsUartDevice(uartAddress->text());
+    devices[devicesHead]->name = uartAddress->text();
+    deviceDropDown->addItem(QIcon(), uartAddress->text(), QVariant());
     devicesHead++;
 }
 

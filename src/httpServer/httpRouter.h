@@ -23,11 +23,10 @@ signals:
 
 private slots:
     void onComplete(QString reply);
-
+    void onDeviceCompleteTest();
 
 private:       
-    OsDevice** activeDevice;
-    QEventLoop loop;
+    OsDevice** activeDevice;    
     QString reply;
     bool waitingForResponse;
 };

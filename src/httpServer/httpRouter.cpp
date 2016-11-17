@@ -6,13 +6,19 @@ StaticFileController* HttpRouter::staticFileController = 0;
 
 HttpRouter::HttpRouter(QObject* _parent, OsDevice **_activeDevice) : HttpRequestHandler(_parent) {
     activeDevice = _activeDevice;
+
+    connect(this, SIGNAL(deviceComplete()), this, SLOT(onDeviceCompleteTest()));
+
 }
 
 void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
 
+    QEventLoop loop;
     //Connect slots and signals
-    connect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
     connect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
+
+    connect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
+
 
     QByteArray path = request.getPath();
     QByteArray method = request.getMethod();
@@ -35,7 +41,9 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
 
         //Wait for signal that device call has returned
         if(waitingForResponse){
+            qDebug("HttpRouter Loop Begin");
             loop.exec();
+            qDebug("HttpRouter Loop Done");
         }
 
         //Add headers and return device call response to original requester
@@ -44,6 +52,7 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         response.setHeader("Connection", "close");
         response.setHeader("Content-Type", "application/json");
         response.setStatus(200, "OK");
+        qDebug(reply.toUtf8());
         response.write(reply.toUtf8(), true);
 
         //Disconnect signals to prevent multiple responses on subsequent calls
@@ -62,6 +71,10 @@ void HttpRouter::onComplete(QString reply){
     qDebug("HttpRouter::onComplete()");
     waitingForResponse = false;
     this->reply = reply;
+    qDebug() << this->reply;
     emit deviceComplete();
 }
 
+void HttpRouter::onDeviceCompleteTest() {
+    qDebug("HttpRouter::onDeviceCompleteTest()");
+}

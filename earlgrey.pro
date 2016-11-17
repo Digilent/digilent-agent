@@ -6,6 +6,7 @@
 
 QT += core gui
 QT += network
+QT += serialport
 
 include(src/httpServer/core/httpserver.pri)
 
@@ -22,7 +23,9 @@ SOURCES += \
     src/mainWindow.cpp \
     src/httpClient/httpClient.cpp \
     src/osDevice/osDevice.cpp \
-    src/osDevice/osHttpDevice.cpp
+    src/osDevice/osHttpDevice.cpp \
+    src/osDevice/osUartDevice.cpp \
+    src/uartClient/uartClient.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
@@ -30,7 +33,9 @@ HEADERS  += \
     src/mainWindow.h \
     src/httpClient/httpClient.h \
     src/osDevice/osDevice.h \
-    src/osDevice/osHttpDevice.h
+    src/osDevice/osHttpDevice.h \
+    src/osDevice/osUartDevice.h \
+    src/uartClient/uartClient.h
 
 FORMS    += \
     mainWindow.ui

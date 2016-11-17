@@ -19,11 +19,13 @@ void OsHttpDevice::execCommand(QString cmd) {
     QNetworkRequest request = QNetworkRequest(url);
     request.setRawHeader("Content-Type", "application/json");
 
+    QEventLoop loop;
+    connect(this, SIGNAL(commandComplete()), &loop, SLOT(quit()));
     httpClient->post(request, cmd);
 
     //Wait for signal that proxy call has returned
-    QEventLoop loop;
-    connect(this, SIGNAL(commandComplete()), &loop, SLOT(quit()));
+
+
     loop.exec();
     qDebug("OsHttpDevice Done");
 }
