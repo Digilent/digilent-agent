@@ -12,7 +12,6 @@ public:
     virtual void execCommand(QString cmd);
 
 signals:
-    void commandComplete();
 
 public slots:
     void onUartComplete(QString reply);

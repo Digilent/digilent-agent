@@ -47,9 +47,6 @@ private slots:
     void onUartAddDeviceRelease();
     void onDeviceDropDownCurrentIndexChanged(int);
 
-    void onUartComplete(QString response);
-    void onUartTimeout(QString message);
-
 private:
     //UI Elements
     Ui::MainWindow *ui;
@@ -72,7 +69,7 @@ private:
     void createWindowActions();
     void createTrayIcon();
 
-    UartClient* uart;
+    //UartClient* uart;
 
 
 };

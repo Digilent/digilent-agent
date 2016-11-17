@@ -50,22 +50,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //requestShowPage();
     trayIcon->show();
 
-    //TEST UART CODE
-    this->uart = new UartClient(this);
-    connect(uart, SIGNAL(response(QString)), this, SLOT(onUartComplete(QString)));
-    connect(uart, SIGNAL(timeout(QString)), this, SLOT(onUartTimeout(QString)));
-
-    //uart->writeRead(QString("COM7"), 1000, QString("12345678901234567890 with some extra letters and maybe even an extra number"));
-}
-
-void MainWindow::onUartComplete(QString response) {
-    qDebug("MainWindow::onUartComplete()");
-    qDebug() << response;
-}
-
-void MainWindow::onUartTimeout(QString message) {
-    qDebug("MainWindow::onUartTimeout()");
-    qDebug() << message;
 }
 
 MainWindow::~MainWindow()
@@ -126,9 +110,6 @@ void MainWindow::onDeviceDropDownCurrentIndexChanged(int index) {
 
     }
 }
-
-
-
 
 //Minimize to system tray on close
 void MainWindow::closeEvent(QCloseEvent *event)

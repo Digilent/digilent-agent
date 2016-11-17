@@ -23,7 +23,6 @@ signals:
 
 private slots:
     void onComplete(QString reply);
-    void onDeviceCompleteTest();
 
 private:       
     OsDevice** activeDevice;    

@@ -60,7 +60,7 @@ void UartClient::run()
         serial.write(bytesToSend);
         // Wait for bytes to be written or timeout
         if(serial.waitForBytesWritten(currentWaitTimeout)) {
-            qDebug("UART Data Written");
+            //qDebug("UART Data Written");
             // Wait for the first byte to come in
             if(serial.waitForReadyRead(currentWaitTimeout)) {
                 QByteArray bytesRead = serial.readAll();
@@ -70,12 +70,12 @@ void UartClient::run()
                     bytesRead += serial.readAll();
                 }
 
-                qDebug("UART Data Read: " + bytesRead);
+                //qDebug("UART Data Read: " + bytesRead);
 
                 QString dataRead(bytesRead);
                 emit this->response(dataRead);
             } else {
-                qDebug("UART timed out trying to read data.");
+                //qDebug("UART timed out trying to read data.");
                 emit timeout(tr("Wait read response timeout %1").arg(QTime::currentTime().toString()));
             }
         } else {

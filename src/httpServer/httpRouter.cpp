@@ -74,7 +74,3 @@ void HttpRouter::onComplete(QString reply){
     qDebug() << this->reply;
     emit deviceComplete();
 }
-
-void HttpRouter::onDeviceCompleteTest() {
-    qDebug("HttpRouter::onDeviceCompleteTest()");
-}

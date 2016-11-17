@@ -16,20 +16,13 @@ OsUartDevice::OsUartDevice(QString address){
 void OsUartDevice::execCommand(QString cmd) {
     qDebug() << "OsUartDevice::execCommand() - " << name;
 
-    //Wait for signal that proxy call has returned
-    //QEventLoop loop;
-    //connect(this, SIGNAL(commandComplete()), &loop, SLOT(quit()));
-    uartClient->writeRead(address, 1000, "Hello UART!");
-    //loop.exec();
-    qDebug(" OsUartDevice::execCommand Complete");
-
+    uartClient->writeRead(address, 1000, cmd);
 }
 
 void OsUartDevice::onUartComplete(QString reply) {
 
     qDebug("OsUartDevice::onUartComplete()");
-    qDebug() << reply;
-    //emit commandComplete();
+    qDebug() << reply;    
     emit execCommandComplete(reply);
 }
 
