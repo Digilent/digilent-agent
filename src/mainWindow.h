@@ -15,7 +15,7 @@
 #ifndef QT_NO_SYSTEMTRAYICON
 #include <QMainWindow>
 #include "httpClient/httpClient.h"
-#include "uartClient/uartClient.h"
+#include "uartClient/uartInfo.h"
 
 
 namespace Ui {
@@ -69,7 +69,8 @@ private:
     void createWindowActions();
     void createTrayIcon();
 
-    //UartClient* uart;
+    //UART
+    UartInfo *uartInfo;
 
 
 };

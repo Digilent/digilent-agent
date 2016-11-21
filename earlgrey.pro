@@ -25,7 +25,8 @@ SOURCES += \
     src/osDevice/osDevice.cpp \
     src/osDevice/osHttpDevice.cpp \
     src/osDevice/osUartDevice.cpp \
-    src/uartClient/uartClient.cpp
+    src/uartClient/uartClient.cpp \
+    src/uartClient/uartInfo.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
@@ -35,7 +36,8 @@ HEADERS  += \
     src/osDevice/osDevice.h \
     src/osDevice/osHttpDevice.h \
     src/osDevice/osUartDevice.h \
-    src/uartClient/uartClient.h
+    src/uartClient/uartClient.h \
+    src/uartClient/uartInfo.h
 
 FORMS    += \
     mainWindow.ui

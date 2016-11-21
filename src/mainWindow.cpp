@@ -6,6 +6,9 @@
 #include "osDevice/osHttpDevice.h"
 #include "osDevice/osUartDevice.h"
 
+//
+#include "uartClient/uartInfo.h"
+
 //TEST UART CODE
 #include "uartClient/uartClient.h"
 
@@ -33,6 +36,23 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //Create devices
     devicesHead = 0;
     activeDevice = 0;
+
+    //UART
+    uartInfo = new UartInfo();
+    uartInfo->refreshPortInfo();
+
+    //Add UARTS to device drop down.
+    for(int i=0; i<uartInfo->ports.count(); i++)
+    {
+        if(!uartInfo->ports[i].isBusy())
+        {
+            QString portName = uartInfo->ports[i].portName();
+            devices[devicesHead] = new OsUartDevice(portName);
+            devices[devicesHead]->name = portName;
+            deviceDropDown->addItem(QIcon(), portName, QVariant());
+            devicesHead++;
+        }
+    }
 
     //UI Actions
     connect(httpAddDevice, SIGNAL(released()), this, SLOT(onHttpAddDeviceRelease()));
