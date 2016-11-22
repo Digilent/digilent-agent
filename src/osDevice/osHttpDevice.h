@@ -11,8 +11,11 @@ class OsHttpDevice : public OsDevice {
     Q_OBJECT
 
 public:
+    OsHttpDevice();
     OsHttpDevice(QUrl _url);
+
     virtual void execCommand(QString cmd);
+    void setUrl(QUrl _url);
 
     QUrl url;
 

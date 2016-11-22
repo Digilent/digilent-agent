@@ -3,6 +3,7 @@
 OsDevice::OsDevice(QObject *parent) : QObject(parent)
 {
     qDebug("OsDevice Constructor");
+    deviceType = "Generic OpenScope Device";
     name = "Unknown Device";
 }
 

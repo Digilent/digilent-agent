@@ -44,6 +44,7 @@ void UartClient::run()
     QString _dataToSend = dataToSend;
     mutex.unlock();
     QSerialPort serial;
+    serial.setBaudRate(1250000);
 
     while(!quit) {
         if(currentPortNameChanged) {

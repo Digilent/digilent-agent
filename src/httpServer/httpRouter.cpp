@@ -13,17 +13,13 @@ HttpRouter::HttpRouter(QObject* _parent, OsDevice **_activeDevice) : HttpRequest
 
 void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
 
-    QEventLoop loop;
-    //Connect slots and signals
-    connect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
 
-    connect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
 
 
     QByteArray path = request.getPath();
     QByteArray method = request.getMethod();
 
-    qDebug() << "HttpRouter: method = " << method << "path = ", path.data();
+    //qDebug() << "HttpRouter: method = " << method << "path = ", path.data();
 
     if(method == "OPTIONS"){
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -36,28 +32,40 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         DebugController(this).service(request, response);
     }
     else if (path=="/proxy" || path=="/proxy/") {
-        waitingForResponse = true;
-        (*activeDevice)->execCommand(request.getBody());
 
-        //Wait for signal that device call has returned
-        if(waitingForResponse){
-            qDebug("HttpRouter Loop Begin");
-            loop.exec();
-            qDebug("HttpRouter Loop Done");
-        }
+     if(*activeDevice == 0) {
+         qDebug("No Active Device Selected!!!");
+         response.write("No Active Device Selected!!!", true);
+     }
+     else
+     {
+         QEventLoop loop;
+         //Connect slots and signals
+         connect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
+         connect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
 
-        //Add headers and return device call response to original requester
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setHeader("Connection", "close");
-        response.setHeader("Content-Type", "application/json");
-        response.setStatus(200, "OK");
-        qDebug(reply.toUtf8());
-        response.write(reply.toUtf8(), true);
+         waitingForResponse = true;
+         (*activeDevice)->execCommand(request.getBody());
 
-        //Disconnect signals to prevent multiple responses on subsequent calls
-        disconnect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
-        //disconnect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
+         //Wait for signal that device call has returned
+         if(waitingForResponse){
+             qDebug("HttpRouter Loop Begin");
+             loop.exec();
+             qDebug("HttpRouter Loop Done");
+         }
+
+         //Add headers and return device call response to original requester
+         response.setHeader("Access-Control-Allow-Origin", "*");
+         response.setHeader("Cache-Control", "no-cache");
+         response.setHeader("Connection", "close");
+         response.setHeader("Content-Type", "application/json");
+         response.setStatus(200, "OK");
+         qDebug(reply.toUtf8());
+         response.write(reply.toUtf8(), true);
+
+         //Disconnect signals to prevent multiple responses on subsequent calls
+         disconnect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
+     }
     }
     else{
         qDebug("Routing To Static Controller");

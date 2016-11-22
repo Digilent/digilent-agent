@@ -17,6 +17,8 @@
 #include "httpClient/httpClient.h"
 #include "uartClient/uartInfo.h"
 
+#define MAX_DEVICE_COUNT 16
+
 
 namespace Ui {
 class MainWindow;
@@ -31,32 +33,24 @@ public:
     ~MainWindow();
 
     //Devices
-    OsDevice* devices[8];
-    int devicesHead = 0;
-    OsDevice* activeDevice;
-    OsDevice* deviceOne;
-    OsDevice* deviceTwo;
-
-    QComboBox *deviceDropDown;
+    OsDevice *devices[MAX_DEVICE_COUNT];
+    OsDevice *activeDevice;
+    QComboBox *activeDeviceDropDown;
 
 protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
-private slots:
-    void onHttpAddDeviceRelease();
-    void onUartAddDeviceRelease();
-    void onDeviceDropDownCurrentIndexChanged(int);
+private slots:   
+    void onActiveDeviceDropDownSelectionChanged(int);
+    void refreshDeviceList();
+    void onConnectReleased();
 
 private:
     //UI Elements
     Ui::MainWindow *ui;
-    QLineEdit *httpAddress;
-    QPushButton *httpAddDevice;
-
-    QLineEdit *uartAddress;
-    QPushButton *uartAddDevice;
-
-    //QComboBox *deviceDropDown;
+    QLineEdit *hostnameIp;
+    QPushButton *connectBtn;
+    QPushButton *refreshDeviceListBtn;
 
     //System Tray
     QAction *minimizeAction;
@@ -71,8 +65,6 @@ private:
 
     //UART
     UartInfo *uartInfo;
-
-
 };
 
 #endif // QT_NO_SYSTEMTRAYICON

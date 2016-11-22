@@ -4,7 +4,8 @@
 
 OsUartDevice::OsUartDevice(QString address){
     qDebug("OsUartDevice Constructor");
-    this->name = "UART Device";
+    name = "UART Device";
+    deviceType = "UART";
     this->address = address;
 
     this->uartClient = new UartClient(this);

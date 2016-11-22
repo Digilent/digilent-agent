@@ -15,6 +15,7 @@ public:
 
     //Variables
     QString name;
+    QString deviceType;
 
 signals:    
     void execCommandComplete(QString response);

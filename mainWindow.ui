@@ -14,74 +14,21 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="label_addDevice">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>80</y>
-      <width>128</width>
-      <height>13</height>
+      <x>140</x>
+      <y>81</y>
+      <width>104</width>
+      <height>51</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Add Device</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="deviceDropDown">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>100</y>
-      <width>128</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_selectDevice">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>80</y>
-      <width>128</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Active Device</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>100</y>
-      <width>259</width>
-      <height>56</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_addDevice_2">
+    <layout class="QVBoxLayout" name="activeDevice">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMinimumSize</enum>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_selectDevice">
        <property name="font">
         <font>
          <pointsize>11</pointsize>
@@ -90,53 +37,30 @@
         </font>
        </property>
        <property name="text">
-        <string>HTTP</string>
+        <string>Active Device</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" rowspan="2">
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QSplitter" name="splitter">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <widget class="QLineEdit" name="httpAddress">
-          <property name="text">
-           <string>http://192.168.1.15</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="httpAddDevice">
-          <property name="text">
-           <string>Add</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QSplitter" name="splitter_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <widget class="QLineEdit" name="uartAddress">
-          <property name="text">
-           <string>COM3</string>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="uartAddDevice">
-          <property name="text">
-           <string>Add</string>
-          </property>
-         </widget>
-        </widget>
-       </item>
-      </layout>
+     <item>
+      <widget class="QComboBox" name="activeDeviceDropDown"/>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_addDevice_3">
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>90</y>
+      <width>135</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="hostNameIp">
+     <item>
+      <widget class="QLabel" name="hostnameIpLabel">
        <property name="font">
         <font>
          <pointsize>11</pointsize>
@@ -145,14 +69,51 @@
         </font>
        </property>
        <property name="text">
-        <string>UART</string>
+        <string>Hostname or IP</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="hostnameIp">
+       <property name="text">
+        <string>http://192.168.1.15</string>
        </property>
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="connectBtn">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>140</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Connect</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="refreshDeviceListBtn">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>110</y>
+      <width>31</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>images/refresh-arrow.png</normaloff>images/refresh-arrow.png</iconset>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

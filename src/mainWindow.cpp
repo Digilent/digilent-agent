@@ -25,39 +25,29 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     setWindowTitle(tr("OpenScope Utility"));
 
     //Get UI element refs
-    ui->setupUi(this);
-    httpAddDevice = ui->httpAddDevice;
-    httpAddress = ui->httpAddress;
-    uartAddDevice = ui->uartAddDevice;
-    uartAddress = ui->uartAddress;
-
-    deviceDropDown = ui->deviceDropDown;
+    ui->setupUi(this);    
+    hostnameIp = ui->hostnameIp;
+    connectBtn = ui->connectBtn;
+    refreshDeviceListBtn = ui->refreshDeviceListBtn;
+    activeDeviceDropDown = ui->activeDeviceDropDown;
 
     //Create devices
-    devicesHead = 0;
+    for(int i=0; i<MAX_DEVICE_COUNT; i++)
+    {
+        devices[i] = 0;
+    }
     activeDevice = 0;
 
     //UART
     uartInfo = new UartInfo();
-    uartInfo->refreshPortInfo();
 
-    //Add UARTS to device drop down.
-    for(int i=0; i<uartInfo->ports.count(); i++)
-    {
-        if(!uartInfo->ports[i].isBusy())
-        {
-            QString portName = uartInfo->ports[i].portName();
-            devices[devicesHead] = new OsUartDevice(portName);
-            devices[devicesHead]->name = portName;
-            deviceDropDown->addItem(QIcon(), portName, QVariant());
-            devicesHead++;
-        }
-    }
+    refreshDeviceList();
 
     //UI Actions
-    connect(httpAddDevice, SIGNAL(released()), this, SLOT(onHttpAddDeviceRelease()));
-    connect(uartAddDevice, SIGNAL(released()), this, SLOT(onUartAddDeviceRelease()));
-    connect(deviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onDeviceDropDownCurrentIndexChanged(int)));
+    connect(activeDeviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onActiveDeviceDropDownSelectionChanged(int)));
+    connect(refreshDeviceListBtn, SIGNAL(released()), this, SLOT(refreshDeviceList()));
+    connect(connectBtn, SIGNAL(released()), this, SLOT(onConnectReleased()));
+
 
     createWindowActions();
     createTrayIcon();
@@ -105,30 +95,64 @@ void MainWindow::createTrayIcon()
     trayIcon->setContextMenu(trayIconMenu);
 }
 
-void MainWindow::onHttpAddDeviceRelease() {
-    qDebug() << "Adding HTTP Device: " << httpAddress->text();
+void MainWindow::refreshDeviceList(){
+    //Clear previous device list
+    //delete[] devices;
 
-    devices[devicesHead] = new OsHttpDevice(QUrl(httpAddress->text()));
-    devices[devicesHead]->name = httpAddress->text();
-    deviceDropDown->addItem(QIcon(), httpAddress->text(), QVariant());
-    devicesHead++;
-}
+    //Clear dropdown items
+    activeDeviceDropDown->clear();
 
-void MainWindow::onUartAddDeviceRelease() {
-    qDebug() << "Adding UART Device: " << uartAddress->text();
-
-    devices[devicesHead] = new OsUartDevice(uartAddress->text());
-    devices[devicesHead]->name = uartAddress->text();
-    deviceDropDown->addItem(QIcon(), uartAddress->text(), QVariant());
-    devicesHead++;
-}
-
-void MainWindow::onDeviceDropDownCurrentIndexChanged(int index) {
-    activeDevice = devices[index];
-    if(activeDevice != 0) {
-        qDebug() << "Name: " << activeDevice->name;
-
+    //Deallocate previous osDevice objects
+    for(int i=0; i<MAX_DEVICE_COUNT; i++)
+    {
+        if(devices[i] != 0)
+        {
+            delete devices[i];
+            devices[i] = 0;
+        }
     }
+
+    //Refresh UART device info
+    uartInfo->refreshPortInfo();
+    int httpIndex = uartInfo->ports.count();
+
+    //Add UARTS to device drop down.
+    for(int i=0; i<uartInfo->ports.count(); i++)
+    {
+        if(!uartInfo->ports[i].isBusy())
+        {
+            QString portName = uartInfo->ports[i].portName();
+            devices[i] = new OsUartDevice(portName);
+            devices[i]->name = portName;
+            activeDeviceDropDown->addItem(QIcon(), portName, QVariant());
+        }
+    }
+    //Add HTTP option
+    devices[httpIndex] = new OsHttpDevice();
+    devices[httpIndex]->name = "HTTP";
+    activeDeviceDropDown->addItem(QIcon(), "HTTP", QVariant());
+}
+
+void MainWindow::onActiveDeviceDropDownSelectionChanged(int index) {
+    qDebug("MainWindow::onActiveDeviceDropDownSelectionChanged()");
+    //activeDevice = devices[index];
+    //activeDeviceIndex = index;
+}
+
+void MainWindow::onConnectReleased() {
+    qDebug("MainWindow::onConnectReleased()");
+    int devIndex = activeDeviceDropDown->currentIndex();
+    activeDevice = devices[activeDeviceDropDown->currentIndex()];
+
+    //if(activeDevice->deviceType == "HTTP")
+    //{
+        //If device is an (the) HTTP device set it's url to the value in the hostname / ip box
+        OsHttpDevice* httpDevPtr = dynamic_cast<OsHttpDevice*>(devices[activeDeviceDropDown->currentIndex()]);
+        if(httpDevPtr != nullptr)
+        {
+            httpDevPtr->setUrl(QUrl(hostnameIp->text()));
+        }
+    //}
 }
 
 //Minimize to system tray on close

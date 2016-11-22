@@ -3,11 +3,16 @@
 #include "../httpClient/httpClient.h"
 
 OsHttpDevice::OsHttpDevice(QUrl _url){
-    qDebug("OsHttpDevice Constructor");
-    name = "HTTP Device";
-    httpClient = new HttpClient(this);
+    qDebug("OsHttpDevice::OsHttpDevice(QUrl _url)");
     url = _url;
+    OsHttpDevice();
+}
 
+OsHttpDevice::OsHttpDevice() {
+    qDebug("OsHttpDevice::OsHttpDevice()");
+    name = "HTTP Device";
+    deviceType = "HTTP";
+    httpClient = new HttpClient(this);
     connect(httpClient, SIGNAL(complete(QNetworkReply*)), this, SLOT(onHttpComplete(QNetworkReply*)));
 }
 
@@ -28,6 +33,10 @@ void OsHttpDevice::execCommand(QString cmd) {
 
     loop.exec();
     qDebug("OsHttpDevice Done");
+}
+
+void OsHttpDevice::setUrl(QUrl _url) {
+    url = _url;
 }
 
 void OsHttpDevice::onHttpComplete(QNetworkReply *reply) {
