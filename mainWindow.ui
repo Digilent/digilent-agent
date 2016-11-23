@@ -45,7 +45,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="activeDeviceDropDown"/>
+      <widget class="QComboBox" name="deviceDropDown"/>
      </item>
     </layout>
    </widget>

@@ -26,7 +26,8 @@ SOURCES += \
     src/osDevice/osHttpDevice.cpp \
     src/osDevice/osUartDevice.cpp \
     src/uartClient/uartClient.cpp \
-    src/uartClient/uartInfo.cpp
+    src/uartClient/uartInfo.cpp \
+    src/core/comboBoxEventFilter.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
@@ -37,7 +38,8 @@ HEADERS  += \
     src/osDevice/osHttpDevice.h \
     src/osDevice/osUartDevice.h \
     src/uartClient/uartClient.h \
-    src/uartClient/uartInfo.h
+    src/uartClient/uartInfo.h \
+    src/core/comboBoxEventFilter.h
 
 FORMS    += \
     mainWindow.ui

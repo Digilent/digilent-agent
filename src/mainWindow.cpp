@@ -6,11 +6,7 @@
 #include "osDevice/osHttpDevice.h"
 #include "osDevice/osUartDevice.h"
 
-//
 #include "uartClient/uartInfo.h"
-
-//TEST UART CODE
-#include "uartClient/uartClient.h"
 
 #ifndef QT_NO_SYSTEMTRAYICON
 
@@ -19,6 +15,8 @@
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QComboBox>
+#include <QEvent>
+
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -29,7 +27,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     hostnameIp = ui->hostnameIp;
     connectBtn = ui->connectBtn;
     refreshDeviceListBtn = ui->refreshDeviceListBtn;
-    activeDeviceDropDown = ui->activeDeviceDropDown;
+    deviceDropDown = ui->deviceDropDown;
+
+    comboBoxEventFilter = new ComboBoxEventFilter(this);
+    deviceDropDown->installEventFilter(comboBoxEventFilter);
+
+    connect(comboBoxEventFilter, SIGNAL(mouseClick()), this, SLOT(refreshDeviceList()));
+
 
     //Create devices
     for(int i=0; i<MAX_DEVICE_COUNT; i++)
@@ -44,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     refreshDeviceList();
 
     //UI Actions
-    connect(activeDeviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onSelectedDeviceComboChange(int)));
+    connect(deviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onDeviceDropDownChange(int)));
     connect(refreshDeviceListBtn, SIGNAL(released()), this, SLOT(refreshDeviceList()));
     connect(connectBtn, SIGNAL(released()), this, SLOT(onConnectReleased()));
 
@@ -96,11 +100,12 @@ void MainWindow::createTrayIcon()
 }
 
 void MainWindow::refreshDeviceList(){
+    qDebug("Refreshing Device List");
     //Clear previous device list
     //delete[] devices;
 
     //Clear dropdown items
-    activeDeviceDropDown->clear();
+    deviceDropDown->clear();
 
     //Deallocate previous osDevice objects
     for(int i=0; i<MAX_DEVICE_COUNT; i++)
@@ -124,14 +129,14 @@ void MainWindow::refreshDeviceList(){
             QString portName = uartInfo->ports[i].portName();
             devices[i] = new OsUartDevice(portName);
             devices[i]->name = portName;
-            activeDeviceDropDown->addItem(QIcon(), portName, QVariant());
+            deviceDropDown->addItem(QIcon(), portName, QVariant());
         }
     }
     //Add HTTP option
     devices[httpIndex] = new OsHttpDevice();
     devices[httpIndex]->name = "HTTP";
-    activeDeviceDropDown->addItem(QIcon(), "HTTP", QVariant());
-    if(activeDeviceDropDown->currentIndex() == httpIndex)
+    deviceDropDown->addItem(QIcon(), "HTTP", QVariant());
+    if(deviceDropDown->currentIndex() == httpIndex)
     {
         hostnameIp->setEnabled(true);
     }
@@ -141,9 +146,9 @@ void MainWindow::refreshDeviceList(){
     }
 }
 
-void MainWindow::onSelectedDeviceComboChange(int index) {
+void MainWindow::onDeviceDropDownChange(int index) {
     qDebug("MainWindow::onActiveDeviceDropDownSelectionChanged()");
-    OsHttpDevice* httpDevPtr = dynamic_cast<OsHttpDevice*>(devices[activeDeviceDropDown->currentIndex()]);
+    OsHttpDevice* httpDevPtr = dynamic_cast<OsHttpDevice*>(devices[deviceDropDown->currentIndex()]);
     if(httpDevPtr != nullptr) {
         //HTTP device
         hostnameIp->setEnabled(true);
@@ -156,18 +161,15 @@ void MainWindow::onSelectedDeviceComboChange(int index) {
 
 void MainWindow::onConnectReleased() {
     qDebug("MainWindow::onConnectReleased()");
-    int devIndex = activeDeviceDropDown->currentIndex();
-    activeDevice = devices[activeDeviceDropDown->currentIndex()];
+    int devIndex = deviceDropDown->currentIndex();
+    activeDevice = devices[deviceDropDown->currentIndex()];
 
-    //if(activeDevice->deviceType == "HTTP")
-    //{
-        //If device is an (the) HTTP device set it's url to the value in the hostname / ip box
-        OsHttpDevice* httpDevPtr = dynamic_cast<OsHttpDevice*>(devices[activeDeviceDropDown->currentIndex()]);
-        if(httpDevPtr != nullptr)
-        {
-            httpDevPtr->setUrl(QUrl(hostnameIp->text()));
-        }
-    //}
+    //If device is an (the) HTTP device set it's url to the value in the hostname / ip box
+    OsHttpDevice* httpDevPtr = dynamic_cast<OsHttpDevice*>(devices[deviceDropDown->currentIndex()]);
+    if(httpDevPtr != nullptr)
+    {
+        httpDevPtr->setUrl(QUrl(hostnameIp->text()));
+    }
 }
 
 //Minimize to system tray on close

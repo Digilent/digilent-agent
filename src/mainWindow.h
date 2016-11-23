@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QVector>
+#include <QEvent>
 
 //OpenScope device includes
 #include "osDevice/osDevice.h"
@@ -16,6 +17,7 @@
 #include <QMainWindow>
 #include "httpClient/httpClient.h"
 #include "uartClient/uartInfo.h"
+#include "core/comboBoxEventFilter.h"
 
 #define MAX_DEVICE_COUNT 16
 
@@ -35,13 +37,13 @@ public:
     //Devices
     OsDevice *devices[MAX_DEVICE_COUNT];
     OsDevice *activeDevice;
-    QComboBox *activeDeviceDropDown;
+    QComboBox *deviceDropDown;
 
 protected:
-    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
+    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;    
 
 private slots:   
-    void onSelectedDeviceComboChange(int);
+    void onDeviceDropDownChange(int);
     void refreshDeviceList();
     void onConnectReleased();
 
@@ -51,6 +53,9 @@ private:
     QLineEdit *hostnameIp;
     QPushButton *connectBtn;
     QPushButton *refreshDeviceListBtn;
+
+    //Event Filters
+    ComboBoxEventFilter* comboBoxEventFilter;
 
     //System Tray
     QAction *minimizeAction;
