@@ -16,9 +16,9 @@ OsHttpDevice::OsHttpDevice() {
     connect(httpClient, SIGNAL(complete(QNetworkReply*)), this, SLOT(onHttpComplete(QNetworkReply*)));
 }
 
-void OsHttpDevice::execCommand(QString cmd) {    
+void OsHttpDevice::execCommand(QByteArray cmd) {
     qDebug() << "OsHttpDevice::execCommand() - " << name;
-    qDebug(cmd.toUtf8());
+    qDebug(cmd);
 
     //Build HTTP POST request
     QNetworkRequest request = QNetworkRequest(url);
@@ -42,5 +42,5 @@ void OsHttpDevice::setUrl(QUrl _url) {
 void OsHttpDevice::onHttpComplete(QNetworkReply *reply) {
     qDebug("OsHttpDevice::onHttpComplete()");
     emit commandComplete();
-    emit execCommandComplete(QString(reply->readAll()));
+    emit execCommandComplete(reply->readAll());
 }

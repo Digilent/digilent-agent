@@ -9,17 +9,17 @@ class OsUartDevice : public OsDevice {
 
 public:
     OsUartDevice(QString address);
-    virtual void execCommand(QString cmd);
+    virtual void execCommand(QByteArray cmd);
 
 signals:
 
 public slots:
-    void onUartComplete(QString reply);
-    void onUartTimeout(QString message);
+    void onUartComplete(QByteArray reply);
+    void onUartTimeout(QByteArray message);
 
 private:
     QString address;
-    QString reply;
+    QByteArray reply;
     UartClient* uartClient;
 
 };

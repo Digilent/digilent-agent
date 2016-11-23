@@ -22,11 +22,11 @@ signals:
     void deviceComplete();
 
 private slots:
-    void onComplete(QString reply);
+    void onComplete(QByteArray reply);
 
 private:       
     OsDevice** activeDevice;    
-    QString reply;
+    QByteArray reply;
     bool waitingForResponse;
 };
 

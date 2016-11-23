@@ -11,14 +11,14 @@ public:
     explicit OsDevice(QObject *parent = 0);
 
     //Functions
-    virtual void execCommand(QString cmd);
+    virtual void execCommand(QByteArray cmd);
 
     //Variables
     QString name;
     QString deviceType;
 
 signals:    
-    void execCommandComplete(QString response);
+    void execCommandComplete(QByteArray response);
 
 public slots:
 

@@ -6,15 +6,9 @@ StaticFileController* HttpRouter::staticFileController = 0;
 
 HttpRouter::HttpRouter(QObject* _parent, OsDevice **_activeDevice) : HttpRequestHandler(_parent) {
     activeDevice = _activeDevice;
-
-    connect(this, SIGNAL(deviceComplete()), this, SLOT(onDeviceCompleteTest()));
-
 }
 
 void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
-
-
-
 
     QByteArray path = request.getPath();
     QByteArray method = request.getMethod();
@@ -42,9 +36,10 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
          QEventLoop loop;
          //Connect slots and signals
          connect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
-         connect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
+         connect((*activeDevice), SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray)));
 
          waitingForResponse = true;
+         qDebug("::::Request:::: " + request.getBody());
          (*activeDevice)->execCommand(request.getBody());
 
          //Wait for signal that device call has returned
@@ -53,6 +48,7 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
              loop.exec();
              qDebug("HttpRouter Loop Done");
          }
+         qDebug("::::Response:::: " + reply);
 
          //Add headers and return device call response to original requester
          response.setHeader("Access-Control-Allow-Origin", "*");
@@ -60,11 +56,11 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
          response.setHeader("Connection", "close");
          response.setHeader("Content-Type", "application/json");
          response.setStatus(200, "OK");
-         qDebug(reply.toUtf8());
-         response.write(reply.toUtf8(), true);
+
+         response.write(reply, true);
 
          //Disconnect signals to prevent multiple responses on subsequent calls
-         disconnect((*activeDevice), SIGNAL(execCommandComplete(QString)), this, SLOT(onComplete(QString)));
+         disconnect((*activeDevice), SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray)));
      }
     }
     else{
@@ -75,10 +71,10 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
     qDebug("HttpRouter: Request Complete");
 }
 
-void HttpRouter::onComplete(QString reply){
+void HttpRouter::onComplete(QByteArray reply){
     qDebug("HttpRouter::onComplete()");
     waitingForResponse = false;
     this->reply = reply;
-    qDebug() << this->reply;
+    //qDebug() << this->reply;
     emit deviceComplete();
 }

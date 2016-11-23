@@ -14,7 +14,7 @@ public:
     OsHttpDevice();
     OsHttpDevice(QUrl _url);
 
-    virtual void execCommand(QString cmd);
+    virtual void execCommand(QByteArray cmd);
     void setUrl(QUrl _url);
 
     QUrl url;

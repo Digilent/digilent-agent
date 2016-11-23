@@ -9,6 +9,7 @@
 #include <QComboBox>
 #include <QVector>
 #include <QEvent>
+#include <QLabel>
 
 //OpenScope device includes
 #include "osDevice/osDevice.h"
@@ -51,6 +52,7 @@ private:
     //UI Elements
     Ui::MainWindow *ui;
     QLineEdit *hostnameIp;
+    QLabel *activeDeviceName;
     QPushButton *connectBtn;
     QPushButton *refreshDeviceListBtn;
 

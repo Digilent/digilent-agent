@@ -17,7 +17,7 @@ UartClient::~UartClient() {
     wait();
 }
 
-void UartClient::writeRead(const QString &portName, int waitTimeout, const QString &dataToSend) {
+void UartClient::writeRead(const QString &portName, int waitTimeout, const QByteArray &dataToSend) {
     QMutexLocker locker(&mutex);
     this->portName = portName;
     this->waitTimeout = waitTimeout;
@@ -41,7 +41,7 @@ void UartClient::run()
     }
 
     int currentWaitTimeout = waitTimeout;
-    QString _dataToSend = dataToSend;
+    QByteArray _dataToSend = dataToSend;
     mutex.unlock();
     QSerialPort serial;
     serial.setBaudRate(1250000);
@@ -52,12 +52,12 @@ void UartClient::run()
             serial.setPortName(currentPortName);
 
             if(!serial.open(QIODevice::ReadWrite)) {
-                emit error(tr("Can't open %1, error code %2").arg(portName).arg(serial.error()));
+                emit error(tr("Can't open %1, error code %2").arg(portName).arg(serial.error()).toUtf8());
                 return;
             }
         }
         // write request
-        QByteArray bytesToSend = dataToSend.toLocal8Bit();
+        QByteArray bytesToSend = dataToSend;
         serial.write(bytesToSend);
         // Wait for bytes to be written or timeout
         if(serial.waitForBytesWritten(currentWaitTimeout)) {
@@ -66,21 +66,22 @@ void UartClient::run()
             if(serial.waitForReadyRead(currentWaitTimeout)) {
                 QByteArray bytesRead = serial.readAll();
                 // Then continue reading until no bytes come in for at least 20 ms
-                while(serial.waitForReadyRead(20))
+                while(serial.waitForReadyRead(40))
                 {
                     bytesRead += serial.readAll();
                 }
 
-                //qDebug("UART Data Read: " + bytesRead);
+                int size = bytesRead.size();
+                qDebug("UART Data Read: " + bytesRead);
 
-                QString dataRead(bytesRead);
+                QByteArray dataRead(bytesRead);
                 emit this->response(dataRead);
             } else {
                 //qDebug("UART timed out trying to read data.");
-                emit timeout(tr("Wait read response timeout %1").arg(QTime::currentTime().toString()));
+                emit timeout(tr("Wait read response timeout %1").arg(QTime::currentTime().toString()).toUtf8());
             }
         } else {
-            emit timeout(tr("Wait write request timeout %1").arg(QTime::currentTime().toString()));
+            emit timeout(tr("Wait write request timeout %1").arg(QTime::currentTime().toString()).toUtf8());
         }
         mutex.lock();
         cond.wait(&mutex);

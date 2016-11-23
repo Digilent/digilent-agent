@@ -9,25 +9,25 @@ OsUartDevice::OsUartDevice(QString address){
     this->address = address;
 
     this->uartClient = new UartClient(this);
-    connect(uartClient, SIGNAL(response(QString)), this, SLOT(onUartComplete(QString)));
-    connect(uartClient, SIGNAL(timeout(QString)), this, SLOT(onUartTimeout(QString)));
+    connect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onUartComplete(QByteArray)));
+    connect(uartClient, SIGNAL(timeout(QByteArray)), this, SLOT(onUartTimeout(QByteArray)));
 
 }
 
-void OsUartDevice::execCommand(QString cmd) {
+void OsUartDevice::execCommand(QByteArray cmd) {
     qDebug() << "OsUartDevice::execCommand() - " << name;
 
     uartClient->writeRead(address, 1000, cmd);
 }
 
-void OsUartDevice::onUartComplete(QString reply) {
+void OsUartDevice::onUartComplete(QByteArray reply) {
 
     qDebug("OsUartDevice::onUartComplete()");
-    qDebug() << reply;    
+    //qDebug() << reply;
     emit execCommandComplete(reply);
 }
 
-void OsUartDevice::onUartTimeout(QString message) {
+void OsUartDevice::onUartTimeout(QByteArray message) {
     qDebug("MainWindow::onUartTimeout()");
     qDebug() << message;
 }

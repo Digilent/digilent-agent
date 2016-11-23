@@ -15,17 +15,17 @@ public:
     UartClient(QObject *parent = 0);
     ~UartClient();
 
-    void writeRead(const QString &portName, int waitTimeout, const QString &dataToSend);
+    void writeRead(const QString &portName, int waitTimeout, const QByteArray &dataToSend);
     void run();
 
 signals:
-    void response(QString response);
-    void error(QString response);
-    void timeout(QString response);
+    void response(QByteArray response);
+    void error(QByteArray response);
+    void timeout(QByteArray response);
 
 private:
     QString portName;
-    QString dataToSend;
+    QByteArray dataToSend;
     int waitTimeout;
     QMutex mutex;
     QWaitCondition cond;

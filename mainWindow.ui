@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>536</width>
-    <height>306</height>
+    <width>496</width>
+    <height>437</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>81</y>
+      <x>53</x>
+      <y>21</y>
       <width>104</width>
       <height>51</height>
      </rect>
@@ -31,13 +31,13 @@
       <widget class="QLabel" name="label_selectDevice">
        <property name="font">
         <font>
-         <pointsize>11</pointsize>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>Active Device</string>
+        <string>Devices</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -52,8 +52,8 @@
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>90</y>
+      <x>163</x>
+      <y>25</y>
       <width>135</width>
       <height>46</height>
      </rect>
@@ -63,7 +63,7 @@
       <widget class="QLabel" name="hostnameIpLabel">
        <property name="font">
         <font>
-         <pointsize>11</pointsize>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -88,8 +88,8 @@
    <widget class="QPushButton" name="connectBtn">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>140</y>
+      <x>83</x>
+      <y>80</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -101,9 +101,9 @@
    <widget class="QPushButton" name="refreshDeviceListBtn">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>110</y>
-      <width>31</width>
+      <x>20</x>
+      <y>50</y>
+      <width>30</width>
       <height>23</height>
      </rect>
     </property>
@@ -115,13 +115,46 @@
       <normaloff>images/refresh-arrow.png</normaloff>images/refresh-arrow.png</iconset>
     </property>
    </widget>
+   <widget class="QLabel" name="activeDeviceLabel">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>140</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Active Device</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="activeDeviceName">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>160</y>
+      <width>161</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>No Active Device</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>536</width>
+     <width>496</width>
      <height>21</height>
     </rect>
    </property>

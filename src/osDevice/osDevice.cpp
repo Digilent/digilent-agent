@@ -7,6 +7,6 @@ OsDevice::OsDevice(QObject *parent) : QObject(parent)
     name = "Unknown Device";
 }
 
-void OsDevice::execCommand(QString cmd){
+void OsDevice::execCommand(QByteArray cmd){
     qDebug("OsDevice::execCommand()");
 }
