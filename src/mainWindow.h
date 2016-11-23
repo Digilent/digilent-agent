@@ -41,7 +41,7 @@ protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:   
-    void onActiveDeviceDropDownSelectionChanged(int);
+    void onSelectedDeviceComboChange(int);
     void refreshDeviceList();
     void onConnectReleased();
 

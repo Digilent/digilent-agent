@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     refreshDeviceList();
 
     //UI Actions
-    connect(activeDeviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onActiveDeviceDropDownSelectionChanged(int)));
+    connect(activeDeviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onSelectedDeviceComboChange(int)));
     connect(refreshDeviceListBtn, SIGNAL(released()), this, SLOT(refreshDeviceList()));
     connect(connectBtn, SIGNAL(released()), this, SLOT(onConnectReleased()));
 
@@ -131,12 +131,27 @@ void MainWindow::refreshDeviceList(){
     devices[httpIndex] = new OsHttpDevice();
     devices[httpIndex]->name = "HTTP";
     activeDeviceDropDown->addItem(QIcon(), "HTTP", QVariant());
+    if(activeDeviceDropDown->currentIndex() == httpIndex)
+    {
+        hostnameIp->setEnabled(true);
+    }
+    else
+    {
+        hostnameIp->setEnabled(false);
+    }
 }
 
-void MainWindow::onActiveDeviceDropDownSelectionChanged(int index) {
+void MainWindow::onSelectedDeviceComboChange(int index) {
     qDebug("MainWindow::onActiveDeviceDropDownSelectionChanged()");
-    //activeDevice = devices[index];
-    //activeDeviceIndex = index;
+    OsHttpDevice* httpDevPtr = dynamic_cast<OsHttpDevice*>(devices[activeDeviceDropDown->currentIndex()]);
+    if(httpDevPtr != nullptr) {
+        //HTTP device
+        hostnameIp->setEnabled(true);
+
+    } else {
+        //Non-HTTP device
+        hostnameIp->setEnabled(false);
+    }
 }
 
 void MainWindow::onConnectReleased() {
