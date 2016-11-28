@@ -7,6 +7,7 @@
 //HTTP Core Includes
 #include "httprequesthandler.h"
 #include "staticfilecontroller.h"
+#include "agentConfigCtrl.h"
 
 //OpenScope device includes
 #include "../osDevice/osDevice.h"
@@ -26,6 +27,7 @@ private slots:
 
 private:       
     OsDevice** activeDevice;    
+    AgentConfigCtrl *agentConfigCtrl;
     QByteArray reply;
     bool waitingForResponse;
 };

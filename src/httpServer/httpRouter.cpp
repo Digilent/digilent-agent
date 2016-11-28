@@ -5,6 +5,7 @@
 StaticFileController* HttpRouter::staticFileController = 0;
 
 HttpRouter::HttpRouter(QObject* _parent, OsDevice **_activeDevice) : HttpRequestHandler(_parent) {
+    agentConfigCtrl = new AgentConfigCtrl(this);
     activeDevice = _activeDevice;
 }
 
@@ -20,6 +21,9 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Max-Age", "86400");
         response.write("Options Response....", true);
+    }
+    else if (path=="/config" || path=="/config/") {
+        agentConfigCtrl->service(request, response);
     }
     else if (path=="/debug" || path=="/debug/") {
         qDebug("Routing To Debug Controller");

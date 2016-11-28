@@ -66,7 +66,7 @@ void UartClient::run()
             if(serial.waitForReadyRead(currentWaitTimeout)) {
                 QByteArray bytesRead = serial.readAll();
                 // Then continue reading until no bytes come in for at least 20 ms
-                while(serial.waitForReadyRead(40))
+                while(serial.waitForReadyRead(50))
                 {
                     bytesRead += serial.readAll();
                 }

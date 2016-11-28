@@ -27,11 +27,12 @@ SOURCES += \
     src/osDevice/osUartDevice.cpp \
     src/uartClient/uartClient.cpp \
     src/uartClient/uartInfo.cpp \
-    src/core/comboBoxEventFilter.cpp
+    src/core/comboBoxEventFilter.cpp \
+    src/httpServer/agentConfigCtrl.cpp \
+    src/core/agent.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
-    src/httpServer/debugController.h \
     src/mainWindow.h \
     src/httpClient/httpClient.h \
     src/osDevice/osDevice.h \
@@ -39,7 +40,10 @@ HEADERS  += \
     src/osDevice/osUartDevice.h \
     src/uartClient/uartClient.h \
     src/uartClient/uartInfo.h \
-    src/core/comboBoxEventFilter.h
+    src/core/comboBoxEventFilter.h \
+    src/httpServer/agentConfigCtrl.h \
+    src/httpServer/debugController.h \
+    src/core/agent.h
 
 FORMS    += \
     mainWindow.ui
