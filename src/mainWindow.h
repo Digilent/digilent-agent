@@ -23,8 +23,6 @@
 #ifndef QT_NO_SYSTEMTRAYICON
 #include <QMainWindow>
 
-#define MAX_DEVICE_COUNT 16
-
 namespace Ui {
 class MainWindow;
 }
@@ -37,11 +35,7 @@ public:
     explicit MainWindow(Agent* agent, QWidget *parent = 0);
     ~MainWindow();
 
-    Agent *agent;
-
-    //Devices
-    OsDevice *devices[MAX_DEVICE_COUNT];
-    OsDevice *activeDevice;
+    Agent *agent;   
     QComboBox *deviceDropDown;
 
 protected:
