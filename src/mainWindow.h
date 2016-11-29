@@ -11,17 +11,19 @@
 #include <QEvent>
 #include <QLabel>
 
+//WFL Agent Core
+#include "httpClient/httpClient.h"
+#include "uartClient/uartInfo.h"
+#include "core/agent.h"
+#include "core/comboBoxEventFilter.h"
+
 //OpenScope device includes
 #include "osDevice/osDevice.h"
 
 #ifndef QT_NO_SYSTEMTRAYICON
 #include <QMainWindow>
-#include "httpClient/httpClient.h"
-#include "uartClient/uartInfo.h"
-#include "core/comboBoxEventFilter.h"
 
 #define MAX_DEVICE_COUNT 16
-
 
 namespace Ui {
 class MainWindow;
@@ -32,8 +34,10 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(Agent* agent, QWidget *parent = 0);
     ~MainWindow();
+
+    Agent *agent;
 
     //Devices
     OsDevice *devices[MAX_DEVICE_COUNT];

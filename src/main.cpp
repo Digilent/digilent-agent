@@ -11,11 +11,12 @@
 //HTTP core includes
 #include "httplistener.h"
 
-//OpenScope utility HTTP includes
+//WFL Agent HTTP includes
 #include "httpServer/httpRouter.h"
 #include "httpServer/debugController.h"
 
-//OpenScope device includes
+//WFL Agent includes
+#include "core/agent.h"
 #include "osDevice/osDevice.h"
 #include "osDevice/osHttpDevice.h"
 
@@ -28,7 +29,10 @@ QString searchConfigFile();
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    MainWindow mainWindow;
+
+    //Instantiate the agent and mainWindow
+    Agent* agent = new Agent();
+    MainWindow mainWindow(agent);
 
     // Load the http configuration file
     QString configFileName = searchConfigFile();
@@ -41,8 +45,8 @@ int main(int argc, char *argv[])
 
     //Create and start the HTTP Server
     listenerSettings->beginGroup("listener");
-    new HttpListener(listenerSettings, new HttpRouter(&app, &mainWindow.activeDevice), &app);
-
+    //new HttpListener(listenerSettings, new HttpRouter(&app, &mainWindow.activeDevice), &app);
+    new HttpListener(listenerSettings, new HttpRouter(agent, &app), &app);
 
     mainWindow.show();
 

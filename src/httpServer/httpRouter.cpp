@@ -4,9 +4,9 @@
 
 StaticFileController* HttpRouter::staticFileController = 0;
 
-HttpRouter::HttpRouter(QObject* _parent, OsDevice **_activeDevice) : HttpRequestHandler(_parent) {
-    agentConfigCtrl = new AgentConfigCtrl(this);
-    activeDevice = _activeDevice;
+HttpRouter::HttpRouter(Agent* agent, QObject* parent) : HttpRequestHandler(parent) {
+    this->agent = agent;
+    agentConfigCtrl = new AgentConfigCtrl(this->agent, this);
 }
 
 void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
@@ -29,6 +29,8 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         qDebug("Routing To Debug Controller");
         DebugController(this).service(request, response);
     }
+    /*
+    //TODO Remove - Pre Agent
     else if (path=="/proxy" || path=="/proxy/") {
 
      if(*activeDevice == 0) {
@@ -65,9 +67,10 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
 
          //Disconnect signals to prevent multiple responses on subsequent calls
          disconnect((*activeDevice), SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray)));
-     }
+     }  
     }
-    else{
+    */
+    else {
         qDebug("Routing To Static Controller");
         staticFileController->service(request, response);
     }

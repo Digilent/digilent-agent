@@ -18,9 +18,11 @@
 #include <QEvent>
 
 
-MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     setWindowTitle(tr("OpenScope Utility"));
+
+    this->agent = agent;
 
     //Get UI element refs
     ui->setupUi(this);    
@@ -34,7 +36,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //deviceDropDown->installEventFilter(comboBoxEventFilter);
 
     connect(comboBoxEventFilter, SIGNAL(mouseClick()), this, SLOT(refreshDeviceList()));
-
 
     //Create devices
     for(int i=0; i<MAX_DEVICE_COUNT; i++)

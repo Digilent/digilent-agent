@@ -4,9 +4,8 @@
 #include <QJsonArray>
 #include <QDebug>
 
-AgentConfigCtrl::AgentConfigCtrl(QObject* parent) : HttpRequestHandler(parent) {
-    this->agent = new Agent();
-
+AgentConfigCtrl::AgentConfigCtrl(Agent* agent, QObject* parent) : HttpRequestHandler(parent) {
+    this->agent = agent;
 }
 
 void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {

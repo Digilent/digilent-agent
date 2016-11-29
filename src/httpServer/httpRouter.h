@@ -5,6 +5,7 @@
 #include <QtCore>
 
 //HTTP Core Includes
+#include "../core/agent.h"
 #include "httprequesthandler.h"
 #include "staticfilecontroller.h"
 #include "agentConfigCtrl.h"
@@ -15,8 +16,11 @@
 class HttpRouter : public HttpRequestHandler {
     Q_OBJECT
 public:
-    HttpRouter(QObject* _parent=0, OsDevice **_activeDevice=0);
+    HttpRouter(Agent* agent, QObject* parent=0);
+
+    Agent *agent;
     static StaticFileController* staticFileController;
+
     void service(HttpRequest& request, HttpResponse& response);
 
 signals:
@@ -25,8 +29,7 @@ signals:
 private slots:
     void onComplete(QByteArray reply);
 
-private:       
-    OsDevice** activeDevice;    
+private:           
     AgentConfigCtrl *agentConfigCtrl;
     QByteArray reply;
     bool waitingForResponse;

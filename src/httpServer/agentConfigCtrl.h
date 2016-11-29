@@ -11,7 +11,7 @@ class AgentConfigCtrl : public HttpRequestHandler {
     Q_OBJECT
 
 public:
-    AgentConfigCtrl(QObject* parent=0);
+    AgentConfigCtrl(Agent* agent, QObject* parent=0);
     void service(HttpRequest& request, HttpResponse& response);
 
 private:
