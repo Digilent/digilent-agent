@@ -23,6 +23,10 @@ Agent::Agent()
 QVector<QString> Agent::enumerateDevices() {
     //---------- UART ----------
     QVector<QString> devices = QVector<QString>();
+    if(this->activeDevice != 0)
+    {
+        devices.append(this->activeDevice->name);
+    }
     uartInfo->refreshPortInfo();    
     for(int i=0; i<uartInfo->ports.count(); i++)
     {
@@ -68,9 +72,16 @@ int Agent::getPatchVersion() {
 bool Agent::setActiveDeviceByName(QString deviceName) {
     if(this->activeDevice != 0)
     {
+       if(this->activeDevice->name == deviceName)
+       {
+           return true;
+       } else {
         delete this->activeDevice;
+        this->activeDevice = 0;
+       }
     }
     this->activeDevice = new WflUartDevice(deviceName);
+    this->activeDevice->name = deviceName;
     return true;
 }
 
