@@ -10,6 +10,14 @@ AgentConfigCtrl::AgentConfigCtrl(Agent* agent, QObject* parent) : HttpRequestHan
 
 void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {
 
+    //Add headers and return device call response to original requester
+    qDebug("---------------setting headers");
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Cache-Control", "no-cache");
+    response.setHeader("Connection", "close");
+    response.setHeader("Content-Type", "application/json");
+    response.setStatus(200, "OK");
+
     QJsonDocument reqDoc = QJsonDocument::fromJson(request.getBody());
     if(!reqDoc.isNull()){
         QJsonObject reqObj = reqDoc.object();
@@ -27,17 +35,29 @@ void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {
         response.write(QJsonDocument(jsonResponse).toJson());
         return;
     }
-    response.write(agent->getVersion(), true);
+    response.write("Invalid Request", true);
 }
 
 QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
     QJsonObject res = QJsonObject();
     QString command = cmdObj.value("command").toString();
     res.insert("command", command);
-    res.insert("status", 0);
+    res.insert("statusCode", 0);
 
     //Switch over command
     switch(parseCmd(command)){
+        case e_enumerateDevices:
+        {
+            QJsonArray devices = QJsonArray();
+            QVector<QString> deviceNames = agent->enumerateDevices();
+
+            for(int i=0; i<deviceNames.size(); i++)
+            {
+                devices.insert(devices.size(), deviceNames[i]);
+            }
+            res.insert("devices", devices);
+            break;
+        }
         case e_getInfo:
         {
             QJsonObject version = QJsonObject();
@@ -45,6 +65,12 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
             version.insert("minor", agent->getMinorVersion());
             version.insert("patch", agent->getPatchVersion());
             res.insert("version", version);
+            break;
+        }
+        case e_setActiveDevice:
+        {
+            QString port = cmdObj.value("device").toString();
+            agent->setActiveDeviceByName(port);
             break;
         }
         case e_unknownCommand:
@@ -60,6 +86,12 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
 AgentConfigCtrl::CmdCode AgentConfigCtrl::parseCmd(QString cmdString){
     if(cmdString == "getInfo"){
         return e_getInfo;
+    }
+    if(cmdString == "enumerateDevices"){
+        return e_enumerateDevices;
+    }
+    if(cmdString == "setActiveDevice"){
+        return e_setActiveDevice;
     }
     return e_unknownCommand;
 }

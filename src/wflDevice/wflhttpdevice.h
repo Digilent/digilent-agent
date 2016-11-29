@@ -1,18 +1,18 @@
-#ifndef OSHTTPDEVICE_H
-#define OSHTTPDEVICE_H
+#ifndef WFLHTTPDEVICE_H
+#define WFLHTTPDEVICE_H
 
 //QT core includes
 #include <QUrl>
 
-#include "osDevice.h"
+#include "wflDevice.h"
 #include "../httpClient/httpClient.h"
 
-class OsHttpDevice : public OsDevice {
+class WflHttpDevice : public WflDevice {
     Q_OBJECT
 
 public:
-    OsHttpDevice();
-    OsHttpDevice(QUrl _url);
+    WflHttpDevice();
+    WflHttpDevice(QUrl _url);
 
     virtual void execCommand(QByteArray cmd);
     void setUrl(QUrl _url);
@@ -29,4 +29,4 @@ private:
     HttpClient* httpClient;
 };
 
-#endif // OSHTTPDEVICE_H
+#endif // WFLHTTPDEVICE_H

@@ -1,19 +1,17 @@
 #include "mainWindow.h"
 #include "ui_mainWindow.h"
 
-//OpenScope device includes
-#include "osDevice/osDevice.h"
-#include "osDevice/osHttpDevice.h"
-#include "osDevice/osUartDevice.h"
-
 #ifndef QT_NO_SYSTEMTRAYICON
 
-//HTTP core includes
+//QT core includes
 #include <QAction>
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QComboBox>
 #include <QEvent>
+
+#include "wflDevice/wflDevice.h"
+#include "wflDevice/wflhttpdevice.h"
 
 
 MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
@@ -33,12 +31,12 @@ MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(n
     comboBoxEventFilter = new ComboBoxEventFilter(this);
     //deviceDropDown->installEventFilter(comboBoxEventFilter);
 
-    connect(comboBoxEventFilter, SIGNAL(mouseClick()), this, SLOT(refreshDeviceList()));
+    //connect(comboBoxEventFilter, SIGNAL(mouseClick()), this, SLOT(refreshDeviceList()));
 
     //UI Actions
-    connect(deviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onDeviceDropDownChange(int)));
-    connect(refreshDeviceListBtn, SIGNAL(released()), this, SLOT(refreshDeviceList()));
-    connect(connectBtn, SIGNAL(released()), this, SLOT(onConnectReleased()));
+    //connect(deviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onDeviceDropDownChange(int)));
+    //connect(refreshDeviceListBtn, SIGNAL(released()), this, SLOT(refreshDeviceList()));
+    //connect(connectBtn, SIGNAL(released()), this, SLOT(onConnectReleased()));
 
     createWindowActions();
     createTrayIcon();
@@ -86,6 +84,8 @@ void MainWindow::createTrayIcon()
     trayIcon->setContextMenu(trayIconMenu);
 }
 
+
+/*
 void MainWindow::refreshDeviceList(){
     qDebug("Refreshing Device List");
 
@@ -103,7 +103,7 @@ void MainWindow::onDeviceDropDownChange(int index) {
     qDebug("MainWindow::onActiveDeviceDropDownSelectionChanged()");
     if(agent->devices[deviceDropDown->currentIndex()] != 0)
     {
-        OsHttpDevice* httpDevPtr = dynamic_cast<OsHttpDevice*>(agent->devices[deviceDropDown->currentIndex()]);
+        WflHttpDevice* httpDevPtr = dynamic_cast<WflHttpDevice*>(agent->devices[deviceDropDown->currentIndex()]);
         if(httpDevPtr != nullptr) {
             //HTTP device
             hostnameIp->setEnabled(true);
@@ -123,12 +123,14 @@ void MainWindow::onConnectReleased() {
     activeDeviceName->setText(agent->activeDevice->name);
 
     //If device is an (the) HTTP device set it's url to the value in the hostname / ip box
-    OsHttpDevice* httpDevPtr = dynamic_cast<OsHttpDevice*>(agent->devices[deviceDropDown->currentIndex()]);
+    WflHttpDevice* httpDevPtr = dynamic_cast<WflHttpDevice*>(agent->devices[deviceDropDown->currentIndex()]);
     if(httpDevPtr != nullptr)
     {
         httpDevPtr->setUrl(QUrl(hostnameIp->text()));
     }
 }
+*/
+
 
 //Minimize to system tray on close
 void MainWindow::closeEvent(QCloseEvent *event)

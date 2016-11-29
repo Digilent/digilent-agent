@@ -17,8 +17,8 @@
 
 //WFL Agent includes
 #include "core/agent.h"
-#include "osDevice/osDevice.h"
-#include "osDevice/osHttpDevice.h"
+#include "wflDevice/wflDevice.h"
+#include "wflDevice/wflHttpDevice.h"
 
 #ifndef QT_NO_SYSTEMTRAYICON
 #include "mainWindow.h"

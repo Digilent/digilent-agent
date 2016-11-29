@@ -13,12 +13,8 @@
 
 //WFL Agent Core
 #include "httpClient/httpClient.h"
-#include "uartClient/uartInfo.h"
 #include "core/agent.h"
 #include "core/comboBoxEventFilter.h"
-
-//OpenScope device includes
-#include "osDevice/osDevice.h"
 
 #ifndef QT_NO_SYSTEMTRAYICON
 #include <QMainWindow>
@@ -42,9 +38,9 @@ protected:
     void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;    
 
 private slots:   
-    void onDeviceDropDownChange(int);
-    void refreshDeviceList();
-    void onConnectReleased();
+    //void onDeviceDropDownChange(int);
+    //void refreshDeviceList();
+    //void onConnectReleased();
 
 private:
     //UI Elements
@@ -67,9 +63,6 @@ private:
 
     void createWindowActions();
     void createTrayIcon();
-
-    //UART
-    UartInfo *uartInfo;
 };
 
 #endif // QT_NO_SYSTEMTRAYICON

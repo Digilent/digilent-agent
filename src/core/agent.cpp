@@ -9,36 +9,36 @@ Agent::Agent()
 
     //Initialize devices array with null pointers
     this->activeDevice = 0;
+    /*
     this->deviceCount = 0;
     for(int i=0; i < MAX_DEVICE_COUNT; i++)
     {
         devices[i] = 0;
     }
-
+    */
     //Uart
     this->uartInfo = new UartInfo();
 }
 
-void Agent::enumerateDevices() {
-    flushDevices();
-
+QVector<QString> Agent::enumerateDevices() {
     //---------- UART ----------
+    QVector<QString> devices = QVector<QString>();
     uartInfo->refreshPortInfo();    
     for(int i=0; i<uartInfo->ports.count(); i++)
     {
         if(!uartInfo->ports[i].isBusy())
         {
-            QString portName = uartInfo->ports[i].portName();
-            devices[deviceCount] = new OsUartDevice(portName);
-            devices[deviceCount]->name = portName;
-            this->deviceCount++;
+            devices.append((uartInfo->ports[i].portName()));
          }
     }
 
     //---------- HTTP ----------
-    //TODO
+    //TODO?
+
+    return devices;
 }
 
+/*
 void Agent::flushDevices() {
     for(int i=0; i < MAX_DEVICE_COUNT; i++)
     {
@@ -47,6 +47,7 @@ void Agent::flushDevices() {
     }
     this->deviceCount = 0;
 }
+*/
 
 QByteArray Agent::getVersion() {
     return QByteArray(QString("%1.%2.%3").arg(majorVersion).arg(minorVersion).arg(patchVersion).toUtf8());
@@ -64,6 +65,12 @@ int Agent::getPatchVersion() {
     return this->patchVersion;
 }
 
+bool Agent::setActiveDeviceByName(QString deviceName) {
+    this->activeDevice = new WflUartDevice(deviceName);
+    return true;
+}
+
+/*
 bool Agent::setActiveDeviceByIndex(int index){
     if(index > 0 && index < this->deviceCount){
         this->activeDevice = devices[index];
@@ -71,3 +78,4 @@ bool Agent::setActiveDeviceByIndex(int index){
     }
     return false;
 }
+*/

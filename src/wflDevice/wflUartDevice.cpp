@@ -1,9 +1,9 @@
 #include <QEventLoop>
-#include "osUartDevice.h"
-#include "osHttpDevice.h"
+#include "wflUartDevice.h"
+#include "wflHttpDevice.h"
 
-OsUartDevice::OsUartDevice(QString address){
-    qDebug("OsUartDevice Constructor");
+WflUartDevice::WflUartDevice(QString address){
+    qDebug("WflUartDevice Constructor");
     name = "UART Device";
     deviceType = "UART";
     this->address = address;
@@ -14,20 +14,18 @@ OsUartDevice::OsUartDevice(QString address){
 
 }
 
-void OsUartDevice::execCommand(QByteArray cmd) {
+void WflUartDevice::execCommand(QByteArray cmd) {
     qDebug() << "OsUartDevice::execCommand() - " << name;
-
     uartClient->writeRead(address, 1000, cmd);
 }
 
-void OsUartDevice::onUartComplete(QByteArray reply) {
-
+void WflUartDevice::onUartComplete(QByteArray reply) {
     qDebug("OsUartDevice::onUartComplete()");
     //qDebug() << reply;
     emit execCommandComplete(reply);
 }
 
-void OsUartDevice::onUartTimeout(QByteArray message) {
+void WflUartDevice::onUartTimeout(QByteArray message) {
     qDebug("MainWindow::onUartTimeout()");
     qDebug() << message;
 }

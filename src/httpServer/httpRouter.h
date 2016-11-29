@@ -11,7 +11,7 @@
 #include "agentConfigCtrl.h"
 
 //OpenScope device includes
-#include "../osDevice/osDevice.h"
+#include "../wflDevice/wflDevice.h"
 
 class HttpRouter : public HttpRequestHandler {
     Q_OBJECT

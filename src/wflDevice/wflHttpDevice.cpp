@@ -1,14 +1,14 @@
 #include <QEventLoop>
-#include "osHttpDevice.h"
+#include "wflHttpDevice.h"
 #include "../httpClient/httpClient.h"
 
-OsHttpDevice::OsHttpDevice(QUrl _url){
+WflHttpDevice::WflHttpDevice(QUrl _url){
     qDebug("OsHttpDevice::OsHttpDevice(QUrl _url)");
     url = _url;
-    OsHttpDevice();
+    WflHttpDevice();
 }
 
-OsHttpDevice::OsHttpDevice() {
+WflHttpDevice::WflHttpDevice() {
     qDebug("OsHttpDevice::OsHttpDevice()");
     name = "HTTP Device";
     deviceType = "HTTP";
@@ -16,7 +16,7 @@ OsHttpDevice::OsHttpDevice() {
     connect(httpClient, SIGNAL(complete(QNetworkReply*)), this, SLOT(onHttpComplete(QNetworkReply*)));
 }
 
-void OsHttpDevice::execCommand(QByteArray cmd) {
+void WflHttpDevice::execCommand(QByteArray cmd) {
     qDebug() << "OsHttpDevice::execCommand() - " << name;
     qDebug(cmd);
 
@@ -35,11 +35,11 @@ void OsHttpDevice::execCommand(QByteArray cmd) {
     qDebug("OsHttpDevice Done");
 }
 
-void OsHttpDevice::setUrl(QUrl _url) {
+void WflHttpDevice::setUrl(QUrl _url) {
     url = _url;
 }
 
-void OsHttpDevice::onHttpComplete(QNetworkReply *reply) {
+void WflHttpDevice::onHttpComplete(QNetworkReply *reply) {
     qDebug("OsHttpDevice::onHttpComplete()");
     emit commandComplete();
     emit execCommandComplete(reply->readAll());

@@ -21,29 +21,29 @@ SOURCES += \
     src/main.cpp \
     src/httpServer/debugController.cpp \
     src/mainWindow.cpp \
-    src/httpClient/httpClient.cpp \
-    src/osDevice/osDevice.cpp \
-    src/osDevice/osHttpDevice.cpp \
-    src/osDevice/osUartDevice.cpp \
+    src/httpClient/httpClient.cpp \    
     src/uartClient/uartClient.cpp \
     src/uartClient/uartInfo.cpp \
     src/core/comboBoxEventFilter.cpp \
     src/httpServer/agentConfigCtrl.cpp \
-    src/core/agent.cpp
+    src/core/agent.cpp \
+    src/wflDevice/wflDevice.cpp \
+    src/wflDevice/wflHttpDevice.cpp \
+    src/wflDevice/wflUartDevice.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
     src/mainWindow.h \
-    src/httpClient/httpClient.h \
-    src/osDevice/osDevice.h \
-    src/osDevice/osHttpDevice.h \
-    src/osDevice/osUartDevice.h \
+    src/httpClient/httpClient.h \   
     src/uartClient/uartClient.h \
     src/uartClient/uartInfo.h \
     src/core/comboBoxEventFilter.h \
     src/httpServer/agentConfigCtrl.h \
     src/httpServer/debugController.h \
-    src/core/agent.h
+    src/core/agent.h \
+    src/wflDevice/wflDevice.h \
+    src/wflDevice/wflhttpdevice.h \
+    src/wflDevice/wflUartDevice.h
 
 FORMS    += \
     mainWindow.ui

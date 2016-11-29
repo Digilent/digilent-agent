@@ -1,14 +1,14 @@
-#ifndef OSUARTDEVICE_H
-#define OSUARTDEVICE_H
+#ifndef WFLUARTDEVICE_H
+#define WFLUARTDEVICE_H
 
-#include "osDevice.h"
+#include "wflDevice.h"
 #include "../uartClient/uartClient.h"
 
-class OsUartDevice : public OsDevice {
+class WflUartDevice : public WflDevice {
     Q_OBJECT
 
 public:
-    OsUartDevice(QString address);
+    WflUartDevice(QString address);
     virtual void execCommand(QByteArray cmd);
 
 signals:
@@ -24,4 +24,4 @@ private:
 
 };
 
-#endif // OSUARTDEVICE_H
+#endif // WFLUARTDEVICE_H

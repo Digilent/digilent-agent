@@ -16,7 +16,9 @@ public:
 
 private:
     enum CmdCode {
+        e_enumerateDevices,
         e_getInfo,
+        e_setActiveDevice,
         e_unknownCommand,
     };
 

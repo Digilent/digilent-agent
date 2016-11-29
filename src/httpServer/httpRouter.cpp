@@ -14,7 +14,7 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
     QByteArray path = request.getPath();
     QByteArray method = request.getMethod();
 
-    //qDebug() << "HttpRouter: method = " << method << "path = ", path.data();
+    qDebug() << "HttpRouter: method = " << method << "path = ", path.data();
 
     if(method == "OPTIONS"){
         response.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -29,52 +29,49 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         qDebug("Routing To Debug Controller");
         DebugController(this).service(request, response);
     }
-    /*
-    //TODO Remove - Pre Agent
-    else if (path=="/proxy" || path=="/proxy/") {
+    else if (path=="/" && method == "POST") {
+        if(agent->activeDevice == 0)
+        {
+            qDebug("No Active Device Selected!!!");
+            response.write("No Active Device Selected!!!", true);
+            //TODO Send Back Command Response
+        }
+        else
+        {
+            QEventLoop loop;
+            //Connect slots and signals
+            connect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
+            connect(agent->activeDevice, SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray)));
 
-     if(*activeDevice == 0) {
-         qDebug("No Active Device Selected!!!");
-         response.write("No Active Device Selected!!!", true);
-     }
-     else
-     {
-         QEventLoop loop;
-         //Connect slots and signals
-         connect(this, SIGNAL(deviceComplete()), &loop, SLOT(quit()));
-         connect((*activeDevice), SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray)));
+            waitingForResponse = true;
+            qDebug("::::Request:::: " + request.getBody());
+            agent->activeDevice->execCommand(request.getBody());
 
-         waitingForResponse = true;
-         qDebug("::::Request:::: " + request.getBody());
-         (*activeDevice)->execCommand(request.getBody());
+            //Wait for signal that device call has returned
+            if(waitingForResponse){
+                qDebug("HttpRouter Loop Begin");
+                loop.exec();
+                qDebug("HttpRouter Loop Done");
+            }
+            qDebug("::::Response:::: " + reply);
 
-         //Wait for signal that device call has returned
-         if(waitingForResponse){
-             qDebug("HttpRouter Loop Begin");
-             loop.exec();
-             qDebug("HttpRouter Loop Done");
-         }
-         qDebug("::::Response:::: " + reply);
+            //Add headers and return device call response to original requester
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Cache-Control", "no-cache");
+            response.setHeader("Connection", "close");
+            response.setHeader("Content-Type", "application/json");
+            response.setStatus(200, "OK");
 
-         //Add headers and return device call response to original requester
-         response.setHeader("Access-Control-Allow-Origin", "*");
-         response.setHeader("Cache-Control", "no-cache");
-         response.setHeader("Connection", "close");
-         response.setHeader("Content-Type", "application/json");
-         response.setStatus(200, "OK");
+            response.write(reply, true);
 
-         response.write(reply, true);
-
-         //Disconnect signals to prevent multiple responses on subsequent calls
-         disconnect((*activeDevice), SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray)));
-     }  
+            //Disconnect signals to prevent multiple responses on subsequent calls
+            disconnect(agent->activeDevice, SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray)));
+        }
     }
-    */
     else {
         qDebug("Routing To Static Controller");
         staticFileController->service(request, response);
     }
-
     qDebug("HttpRouter: Request Complete");
 }
 

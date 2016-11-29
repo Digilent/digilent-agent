@@ -8,28 +8,28 @@
 
 //WFL Agent includes
 #include "../uartClient/uartInfo.h"
-#include "../osDevice/osDevice.h"
-#include "../osDevice/osUartDevice.h"
-#include "../osDevice/oshttpdevice.h"
+#include "../wflDevice/wflDevice.h"
+#include "../wflDevice/wflUartDevice.h"
 
-#define MAX_DEVICE_COUNT 32
+//#define MAX_DEVICE_COUNT 32
 
 class Agent
 {
 public:
     Agent();
 
-    OsDevice* activeDevice;
-    OsDevice* devices[MAX_DEVICE_COUNT];
+    WflDevice* activeDevice;
+    //WflDevice* devices[MAX_DEVICE_COUNT];
     UartInfo* uartInfo;
 
-    void enumerateDevices();
-    void flushDevices();
+    QVector<QString> enumerateDevices();
+    //void flushDevices();
     QByteArray getVersion();
     int getMajorVersion();
     int getMinorVersion();
     int getPatchVersion();
-    bool setActiveDeviceByIndex(int index);
+    bool setActiveDeviceByName(QString deviceName);
+    //bool setActiveDeviceByIndex(int index);
 
 private:
     //Variables
