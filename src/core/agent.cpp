@@ -66,6 +66,10 @@ int Agent::getPatchVersion() {
 }
 
 bool Agent::setActiveDeviceByName(QString deviceName) {
+    if(this->activeDevice != 0)
+    {
+        delete this->activeDevice;
+    }
     this->activeDevice = new WflUartDevice(deviceName);
     return true;
 }
