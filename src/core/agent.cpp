@@ -1,5 +1,6 @@
 #include <QDesktopServices>
 #include <QUrl>
+#include <QDebug>
 
 #include "agent.h"
 
@@ -36,7 +37,20 @@ QVector<QString> Agent::enumerateDevices() {
     {
         if(!uartInfo->ports[i].isBusy())
         {
-            devices.append((uartInfo->ports[i].portName()));
+            QString portName = uartInfo->ports[i].portName();
+            if(this->activeDevice != 0)
+            {
+                qDebug() << this->activeDevice->name;
+                qDebug() << portName;
+
+                if(this->activeDevice->name != portName){
+                    devices.append(portName);
+                }
+            }
+            else
+            {
+                devices.append(portName);
+            }
          }
     }
 
@@ -74,7 +88,7 @@ int Agent::getPatchVersion() {
 }
 
 bool Agent::launchWfl() {
-    QDesktopServices::openUrl(QUrl("http://openscope.s3-website-us-west-2.amazonaws.com/"));
+    return QDesktopServices::openUrl(QUrl("http://openscope.s3-website-us-west-2.amazonaws.com/"));
 }
 
 bool Agent::setActiveDeviceByName(QString deviceName) {

@@ -49,7 +49,7 @@ void MainWindow::createWindowActions()
     quitAction = new QAction(tr("&Exit"), this);
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
 
-    launchWflAction = new QAction(tr("Launch WaveForms Live"));
+    launchWflAction = new QAction(tr("Launch WaveForms Live"), this);
     connect(launchWflAction, &QAction::triggered, this, &launchWfl);
 }
 

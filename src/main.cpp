@@ -35,8 +35,35 @@ int main(int argc, char *argv[])
     MainWindow mainWindow(agent);
 
     // Load the http configuration file
+
     QString configFileName = searchConfigFile();
     QSettings* listenerSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
+
+        /*
+    if(configFileName != "") {
+
+    } else  {
+        listenerSettings = new QSettings();
+        listenerSettings->beginGroup("listener");
+        listenerSettings->setValue("port", 56089);
+        listenerSettings->setValue("minThreads", 4);
+        listenerSettings->setValue("maxThreads", 100);
+        listenerSettings->setValue("cleanupInterval", 60000);
+        listenerSettings->setValue("readTimeout", 60000);
+        listenerSettings->setValue("maxRequestSize", 16000);
+        listenerSettings->setValue("maxMultiPartSize", 10000000);
+        listenerSettings->endGroup();
+
+        listenerSettings->beginGroup("files");
+        listenerSettings->setValue("path", "./www");
+        listenerSettings->setValue("encoding", "UTF-8");
+        listenerSettings->setValue("maxAge", 90000);
+        listenerSettings->setValue("cacheTime", 60000);
+        listenerSettings->setValue("cacheSize", 1000000);
+        listenerSettings->setValue("maxCachedFileSize", 65536);
+        listenerSettings->endGroup();
+    }
+    */
 
     // Static file controller
     QSettings* fileSettings=new QSettings(configFileName, QSettings::IniFormat, &app);
@@ -86,7 +113,7 @@ QString searchConfigFile() {
         return configFileName;
     }
     else {
-        qFatal("Config file not found.");
+        return QString();
     }
 }
 

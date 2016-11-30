@@ -1,2 +1,4 @@
+*.exe
+installer/packages/com.digilent.wfl/data/*
 debug/
 release/

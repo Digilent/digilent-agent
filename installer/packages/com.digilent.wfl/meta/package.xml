@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>WaveForms Live Agent</DisplayName>
+    <Description>WaveForms Live Agent</Description>
+    <Version>0.1.0</Version>
+    <ReleaseDate>2016-11-30</ReleaseDate>
+    <Licenses>
+        <License name="MIT" file="license.txt" />
+    </Licenses>
+    <Default>true</Default>
+    <Script>installScript.qs</Script>
+</Package>
