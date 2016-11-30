@@ -28,6 +28,7 @@ public:
     int getMajorVersion();
     int getMinorVersion();
     int getPatchVersion();
+    bool launchWfl();
     bool setActiveDeviceByName(QString deviceName);
     //bool setActiveDeviceByIndex(int index);
 

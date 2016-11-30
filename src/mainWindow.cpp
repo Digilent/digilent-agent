@@ -22,21 +22,7 @@ MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(n
 
     //Get UI element refs
     ui->setupUi(this);    
-    hostnameIp = ui->hostnameIp;
-    connectBtn = ui->connectBtn;
-    activeDeviceName = ui->activeDeviceName;
-    refreshDeviceListBtn = ui->refreshDeviceListBtn;
-    deviceDropDown = ui->deviceDropDown;
-
-    comboBoxEventFilter = new ComboBoxEventFilter(this);
-    //deviceDropDown->installEventFilter(comboBoxEventFilter);
-
-    //connect(comboBoxEventFilter, SIGNAL(mouseClick()), this, SLOT(refreshDeviceList()));
-
-    //UI Actions
-    //connect(deviceDropDown, SIGNAL(currentIndexChanged(int)), this, SLOT(onDeviceDropDownChange(int)));
-    //connect(refreshDeviceListBtn, SIGNAL(released()), this, SLOT(refreshDeviceList()));
-    //connect(connectBtn, SIGNAL(released()), this, SLOT(onConnectReleased()));
+    //hostnameIp = ui->hostnameIp;
 
     createWindowActions();
     createTrayIcon();
@@ -44,11 +30,10 @@ MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(n
     //Set Tray Icon
     QIcon icon = QIcon(":/images/icon.png");
     trayIcon->setIcon(icon);
-    setWindowIcon(icon);   
+    setWindowIcon(icon);
 
-    //requestShowPage();
+    //Show system tray icon
     trayIcon->show();
-
 }
 
 MainWindow::~MainWindow()
@@ -58,25 +43,22 @@ MainWindow::~MainWindow()
 
 void MainWindow::createWindowActions()
 {
-    minimizeAction = new QAction(tr("Mi&nimize"), this);
-    connect(minimizeAction, &QAction::triggered, this, &QWidget::hide);
+    versionAction = new QAction(QString("Agent Version: ") + QString(this->agent->getVersion()), this);
+    versionAction->setEnabled(false);
 
-    maximizeAction = new QAction(tr("Ma&ximize"), this);
-    connect(maximizeAction, &QAction::triggered, this, &QWidget::showMaximized);
-
-    restoreAction = new QAction(tr("&Restore"), this);
-    connect(restoreAction, &QAction::triggered, this, &QWidget::showNormal);
-
-    quitAction = new QAction(tr("&Quit"), this);
+    quitAction = new QAction(tr("&Exit"), this);
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
+
+    launchWflAction = new QAction(tr("Launch WaveForms Live"));
+    connect(launchWflAction, &QAction::triggered, this, &launchWfl);
 }
 
 void MainWindow::createTrayIcon()
 {
-    trayIconMenu = new QMenu(this);
-    trayIconMenu->addAction(minimizeAction);
-    trayIconMenu->addAction(maximizeAction);
-    trayIconMenu->addAction(restoreAction);
+    trayIconMenu = new QMenu(this);    
+    trayIconMenu->addAction(launchWflAction);
+    trayIconMenu->addAction(versionAction);
+
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(quitAction);
 
@@ -84,55 +66,12 @@ void MainWindow::createTrayIcon()
     trayIcon->setContextMenu(trayIconMenu);
 }
 
-
-/*
-void MainWindow::refreshDeviceList(){
-    qDebug("Refreshing Device List");
-
-    //Clear dropdown items
-    deviceDropDown->clear();
-
-    //Deallocate previous osDevice objects
-    agent->flushDevices();
-
-    //Refresh UART device info
-    agent->enumerateDevices();
+void MainWindow::launchWfl(){
+    agent->launchWfl();
 }
-
-void MainWindow::onDeviceDropDownChange(int index) {
-    qDebug("MainWindow::onActiveDeviceDropDownSelectionChanged()");
-    if(agent->devices[deviceDropDown->currentIndex()] != 0)
-    {
-        WflHttpDevice* httpDevPtr = dynamic_cast<WflHttpDevice*>(agent->devices[deviceDropDown->currentIndex()]);
-        if(httpDevPtr != nullptr) {
-            //HTTP device
-            hostnameIp->setEnabled(true);
-
-        } else {
-            //Non-HTTP device
-            hostnameIp->setEnabled(false);
-        }
-    }
-}
-
-void MainWindow::onConnectReleased() {
-    qDebug("MainWindow::onConnectReleased()");
-    int devIndex = deviceDropDown->currentIndex();
-    agent->activeDevice = agent->devices[deviceDropDown->currentIndex()];
-
-    activeDeviceName->setText(agent->activeDevice->name);
-
-    //If device is an (the) HTTP device set it's url to the value in the hostname / ip box
-    WflHttpDevice* httpDevPtr = dynamic_cast<WflHttpDevice*>(agent->devices[deviceDropDown->currentIndex()]);
-    if(httpDevPtr != nullptr)
-    {
-        httpDevPtr->setUrl(QUrl(hostnameIp->text()));
-    }
-}
-*/
-
 
 //Minimize to system tray on close
+/*
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 #ifdef Q_OS_OSX
@@ -150,6 +89,6 @@ void MainWindow::closeEvent(QCloseEvent *event)
         event->ignore();
     }
 }
-
+*/
 #endif //QT_NO_SYSTEMTRAYICON
 

@@ -1,10 +1,14 @@
+#include <QDesktopServices>
+#include <QUrl>
+
 #include "agent.h"
+
 
 Agent::Agent()
 {
     this->httpCapable = true;
-    this->majorVersion = 1;
-    this->minorVersion = 0;
+    this->majorVersion = 0;
+    this->minorVersion = 1;
     this->patchVersion = 0;
 
     //Initialize devices array with null pointers
@@ -67,6 +71,10 @@ int Agent::getMinorVersion() {
 
 int Agent::getPatchVersion() {
     return this->patchVersion;
+}
+
+bool Agent::launchWfl() {
+    QDesktopServices::openUrl(QUrl("http://openscope.s3-website-us-west-2.amazonaws.com/"));
 }
 
 bool Agent::setActiveDeviceByName(QString deviceName) {

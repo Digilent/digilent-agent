@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
     //new HttpListener(listenerSettings, new HttpRouter(&app, &mainWindow.activeDevice), &app);
     new HttpListener(listenerSettings, new HttpRouter(agent, &app), &app);
 
-    mainWindow.show();
+    mainWindow.hide();
 
     return app.exec();
 }

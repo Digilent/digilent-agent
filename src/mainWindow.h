@@ -35,7 +35,7 @@ public:
     QComboBox *deviceDropDown;
 
 protected:
-    void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;    
+    //void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:   
     //void onDeviceDropDownChange(int);
@@ -45,24 +45,17 @@ private slots:
 private:
     //UI Elements
     Ui::MainWindow *ui;
-    QLineEdit *hostnameIp;
-    QLabel *activeDeviceName;
-    QPushButton *connectBtn;
-    QPushButton *refreshDeviceListBtn;
-
-    //Event Filters
-    ComboBoxEventFilter* comboBoxEventFilter;
 
     //System Tray
-    QAction *minimizeAction;
-    QAction *maximizeAction;
-    QAction *restoreAction;
+    QAction *launchWflAction;
     QAction *quitAction;
+    QAction * versionAction;
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
 
     void createWindowActions();
     void createTrayIcon();
+    void launchWfl();
 };
 
 #endif // QT_NO_SYSTEMTRAYICON
