@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
-
     <Name>WaveForms Live Agent</Name>
     <Version>0.1.0</Version>
     <Title>WaveForms Live Agent</Title>
     <Publisher>Digilent</Publisher>
-    <StartMenuDir>Digilent</StartMenuDir>
     <TargetDir>@ApplicationsDir@/Digilent/Waveforms Live Agent</TargetDir>
     <AllowSpaceInPath>true</AllowSpaceInPath>
     <RemoveTargetDir>true</RemoveTargetDir>
-    <WizardStyle>Classic</WizardStyle>
+    <WizardStyle>Modern</WizardStyle>
 </Installer>
