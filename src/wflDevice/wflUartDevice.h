@@ -8,8 +8,9 @@ class WflUartDevice : public WflDevice {
     Q_OBJECT
 
 public:
-    WflUartDevice(QString address);
+    WflUartDevice(QString address);        
     virtual void execCommand(QByteArray cmd);
+    virtual void write(QByteArray cmd);
 
 signals:
 

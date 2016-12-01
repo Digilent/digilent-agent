@@ -8,11 +8,24 @@ function Component() {
 
 Component.prototype.installationFinished = function () {
     try {
-        if (installer.isInstaller() && installer.status == QInstaller.Success) {
-            QDesktopServices.openUrl("file:///" + installer.value("TargetDir") + "/earlgrey.exe");
+        //Windows Post Install Actions
+        if (systemInfo.productType === "windows") {
+            if (installer.isInstaller() && installer.status == QInstaller.Success) {
+                //Launch agent now
+                QDesktopServices.openUrl("file:///" + installer.value("TargetDir") + "/earlgrey.exe");
+            }
         }
     } catch (e) {
         console.log(e);
     }
+}
 
+Component.prototype.createOperations = function () {
+    component.createOperations();
+
+    ////Windows Install Actions
+    if (systemInfo.productType === "windows") {
+        var exePath = installer.value("TargetDir") + "/earlgrey.exe";
+        component.addOperation("CreateShortcut", exePath, "@UserStartMenuProgramsPath@/Startup/WaveForms-Live-Agent.lnk", "workingDirectory=@TargetDir@", "iconPath=%SystemRoot%/system32/SHELL32.dll", "iconId=2");
+    }
 }

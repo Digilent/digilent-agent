@@ -54,3 +54,7 @@ RESOURCES += \
 DISTFILES +=
 
 OTHER_FILES += config.ini
+
+#QMAKE_CXXFLAGS += -static-libgcc -static-libstdc++
+#QMAKE_LFLAGS += -static -lpthread -static-libgcc -static-libstdc++
+

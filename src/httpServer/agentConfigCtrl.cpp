@@ -70,7 +70,11 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
         case e_setActiveDevice:
         {
             QString port = cmdObj.value("device").toString();
-            agent->setActiveDeviceByName(port);
+            bool success = agent->setActiveDeviceByName(port);
+            if(!success) {
+                //setActiveDevice() failed, return error code
+                res.insert("statusCode", 2147483648);
+            }
             break;
         }
         case e_unknownCommand:

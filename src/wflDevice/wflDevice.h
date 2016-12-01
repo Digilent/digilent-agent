@@ -10,8 +10,9 @@ class WflDevice : public QObject
 public:
     explicit WflDevice(QObject *parent = 0);
 
-    //Functions
+    //Functions    
     virtual void execCommand(QByteArray cmd);
+    virtual void write(QByteArray cmd);
 
     //Variables
     QString name;

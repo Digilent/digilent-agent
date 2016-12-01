@@ -19,6 +19,10 @@ void WflUartDevice::execCommand(QByteArray cmd) {
     uartClient->writeRead(address, 1000, cmd);
 }
 
+void WflUartDevice::write(QByteArray cmd){
+
+}
+
 void WflUartDevice::onUartComplete(QByteArray reply) {
     qDebug("OsUartDevice::onUartComplete()");
     //qDebug() << reply;

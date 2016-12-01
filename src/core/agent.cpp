@@ -25,6 +25,16 @@ Agent::Agent()
     this->uartInfo = new UartInfo();
 }
 
+Agent::~Agent(){
+    qDebug("Agent Descructor");
+    if(this->activeDevice != 0)
+    {
+        qDebug("Freeing Active Device");
+        delete this->activeDevice;
+        this->activeDevice = 0;
+    }
+}
+
 QVector<QString> Agent::enumerateDevices() {
     //---------- UART ----------
     QVector<QString> devices = QVector<QString>();
@@ -60,17 +70,6 @@ QVector<QString> Agent::enumerateDevices() {
     return devices;
 }
 
-/*
-void Agent::flushDevices() {
-    for(int i=0; i < MAX_DEVICE_COUNT; i++)
-    {
-        delete devices[i];
-        devices[i] = 0;
-    }
-    this->deviceCount = 0;
-}
-*/
-
 QByteArray Agent::getVersion() {
     return QByteArray(QString("%1.%2.%3").arg(majorVersion).arg(minorVersion).arg(patchVersion).toUtf8());
 }
@@ -92,27 +91,31 @@ bool Agent::launchWfl() {
 }
 
 bool Agent::setActiveDeviceByName(QString deviceName) {
+
+    QVector<QString> devices = enumerateDevices();
     if(this->activeDevice != 0)
     {
-       if(this->activeDevice->name == deviceName)
-       {
-           return true;
-       } else {
-        delete this->activeDevice;
-        this->activeDevice = 0;
-       }
+        if(this->activeDevice->name == deviceName)
+        {
+            return true;
+        } else {
+            delete this->activeDevice;
+            this->activeDevice = 0;
+        }
     }
-    this->activeDevice = new WflUartDevice(deviceName);
-    this->activeDevice->name = deviceName;
-    return true;
-}
+    //Check if devices still exists and is not busy
+    for(int i=0; i<devices.size(); i++)
+    {
+        if(devices[i] == deviceName)
+        {
+            this->activeDevice = new WflUartDevice(deviceName);
+            this->activeDevice->name = deviceName;
+            this->activeDevice->execCommand("{\"mode\":\"JSON\"}\r\n");
 
-/*
-bool Agent::setActiveDeviceByIndex(int index){
-    if(index > 0 && index < this->deviceCount){
-        this->activeDevice = devices[index];
-        return true;
+            return true;
+        }
     }
+
+    //Selected device does not exist
     return false;
 }
-*/

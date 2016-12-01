@@ -17,6 +17,7 @@ class Agent
 {
 public:
     Agent();
+    ~Agent();
 
     WflDevice* activeDevice;
     //WflDevice* devices[MAX_DEVICE_COUNT];
@@ -30,7 +31,6 @@ public:
     int getPatchVersion();
     bool launchWfl();
     bool setActiveDeviceByName(QString deviceName);
-    //bool setActiveDeviceByIndex(int index);
 
 private:
     //Variables
