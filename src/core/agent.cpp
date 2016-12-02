@@ -38,30 +38,25 @@ Agent::~Agent(){
 QVector<QString> Agent::enumerateDevices() {
     //---------- UART ----------
     QVector<QString> devices = QVector<QString>();
-    if(this->activeDevice != 0)
-    {
-        devices.append(this->activeDevice->name);
-    }
-    uartInfo->refreshPortInfo();    
+
+    this->uartInfo->refreshPortInfo();
+
+    //Loop over all devices on the system
     for(int i=0; i<uartInfo->ports.count(); i++)
     {
-        if(!uartInfo->ports[i].isBusy())
+        if(uartInfo->ports[i].isBusy())
         {
-            QString portName = uartInfo->ports[i].portName();
-            if(this->activeDevice != 0)
+            //Only add a busy device if it is the active device
+            if(uartInfo->ports[i].portName() == this->activeDevice->name)
             {
-                qDebug() << this->activeDevice->name;
-                qDebug() << portName;
-
-                if(this->activeDevice->name != portName){
-                    devices.append(portName);
-                }
+                devices.append(uartInfo->ports[i].portName());
             }
-            else
-            {
-                devices.append(portName);
-            }
-         }
+        }
+        else
+        {
+            //Device is available, add it
+            devices.append(uartInfo->ports[i].portName());
+        }
     }
 
     //---------- HTTP ----------
@@ -90,32 +85,50 @@ bool Agent::launchWfl() {
     return QDesktopServices::openUrl(QUrl("http://openscope.s3-website-us-west-2.amazonaws.com/"));
 }
 
+//Set the active device by name.  A new device object is created unless the target device is already active and open.  This command also puts the device into JSON mode.
 bool Agent::setActiveDeviceByName(QString deviceName) {
 
     QVector<QString> devices = enumerateDevices();
+
     if(this->activeDevice != 0)
     {
+        //An active device exists
         if(this->activeDevice->name == deviceName)
         {
-            return true;
+            //The target device matches the active device, check if it is still available
+            for(int i=0; i<devices.size(); i++)
+            {
+                if(deviceName == devices[i])
+                {
+                    //Target device is already active but needs to be re-opened
+                    delete this->activeDevice;
+                    this->activeDevice = new WflUartDevice(deviceName);
+                    this->activeDevice->name = deviceName;
+                    this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
+                    return true;
+                }
+            }
+                //Target device is already active but no longer available
+                return false;
         } else {
+            //The current active device is not the target active device, free it
             delete this->activeDevice;
             this->activeDevice = 0;
         }
     }
-    //Check if devices still exists and is not busy
+    //Check if target device is available
     for(int i=0; i<devices.size(); i++)
     {
         if(devices[i] == deviceName)
         {
+            //Create device object and enable JSON mode
             this->activeDevice = new WflUartDevice(deviceName);
             this->activeDevice->name = deviceName;
-            this->activeDevice->execCommand("{\"mode\":\"JSON\"}\r\n");
-
+            this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
             return true;
         }
     }
 
-    //Selected device does not exist
+    //Target device does not exist
     return false;
 }

@@ -9,27 +9,54 @@ WflUartDevice::WflUartDevice(QString address){
     this->address = address;
 
     this->uartClient = new UartClient(this);
-    connect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onUartComplete(QByteArray)));
     connect(uartClient, SIGNAL(timeout(QByteArray)), this, SLOT(onUartTimeout(QByteArray)));
 
 }
 
 void WflUartDevice::execCommand(QByteArray cmd) {
     qDebug() << "OsUartDevice::execCommand() - " << name;
+    connect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onUartExecCmdComplete(QByteArray)));
     uartClient->writeRead(address, 1000, cmd);
 }
 
-void WflUartDevice::write(QByteArray cmd){
+QByteArray WflUartDevice::writeRead(QByteArray cmd){
 
+    QEventLoop loop;
+
+    //Connect slots and signals
+    connect(this, SIGNAL(writeReadComplete()), &loop, SLOT(quit()));
+    connect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onWriteReadComplete(QByteArray)));
+
+    bool waitingForResponse = true;
+    uartClient->writeRead(address, 1000, cmd);
+
+    //Wait for signal that device call has returned
+    if(waitingForResponse){
+        qDebug("UART writeRead() Loop Begin");
+        loop.exec();
+          qDebug("UART writeRead() Loop Done");
+    }
+    qDebug("::::UART Response:::: " + this->reply);
+
+    return reply;
 }
 
-void WflUartDevice::onUartComplete(QByteArray reply) {
+void WflUartDevice::onUartExecCmdComplete(QByteArray reply) {
     qDebug("OsUartDevice::onUartComplete()");
-    //qDebug() << reply;
+    disconnect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onUartExecCmdComplete(QByteArray)));
     emit execCommandComplete(reply);
 }
 
 void WflUartDevice::onUartTimeout(QByteArray message) {
     qDebug("MainWindow::onUartTimeout()");
     qDebug() << message;
+
+    disconnect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onUartExecCmdComplete(QByteArray)));
+}
+
+void WflUartDevice::onWriteReadComplete(QByteArray reply){
+    qDebug("WflUartDevice::onWriteReadComplete()");
+    this->reply = reply;
+    //disconnect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onUartExecCmdComplete(QByteArray)));
+    emit writeReadComplete();
 }

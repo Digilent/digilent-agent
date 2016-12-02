@@ -65,7 +65,16 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
             response.write(reply, true);
 
             //Disconnect signals to prevent multiple responses on subsequent calls
-            disconnect(agent->activeDevice, SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray)));
+
+           if(disconnect(agent->activeDevice, SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray))))
+           {
+              qDebug("Succesfully disconnected execCommandComplete signal");
+           }
+           else
+           {
+               qDebug("Failed to disconnected execCommandComplete signal");
+           }
+
         }
     }
     else {
@@ -76,7 +85,7 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
 }
 
 void HttpRouter::onComplete(QByteArray reply){
-    qDebug("HttpRouter::onComplete()");
+    qDebug("HttpRouter::onComplete(): " + reply);
     waitingForResponse = false;
     this->reply = reply;
     //qDebug() << this->reply;

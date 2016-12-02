@@ -72,8 +72,11 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
             QString port = cmdObj.value("device").toString();
             bool success = agent->setActiveDeviceByName(port);
             if(!success) {
+                qDebug("Set Active Device Failed");
                 //setActiveDevice() failed, return error code
                 res.insert("statusCode", 2147483648);
+            } else {
+                qDebug("Set Active Device Success");
             }
             break;
         }

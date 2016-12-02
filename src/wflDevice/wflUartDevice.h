@@ -10,13 +10,15 @@ class WflUartDevice : public WflDevice {
 public:
     WflUartDevice(QString address);        
     virtual void execCommand(QByteArray cmd);
-    virtual void write(QByteArray cmd);
+    virtual QByteArray writeRead(QByteArray cmd);
 
 signals:
 
+
 public slots:
-    void onUartComplete(QByteArray reply);
+    void onUartExecCmdComplete(QByteArray reply);
     void onUartTimeout(QByteArray message);
+    void onWriteReadComplete(QByteArray reply);
 
 private:
     QString address;

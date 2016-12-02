@@ -15,6 +15,7 @@ public:
     WflHttpDevice(QUrl _url);
 
     virtual void execCommand(QByteArray cmd);
+    virtual QByteArray writeRead(QByteArray cmd);
     void setUrl(QUrl _url);
 
     QUrl url;
@@ -24,6 +25,7 @@ signals:
 
 public slots:
     void onHttpComplete(QNetworkReply *reply);
+    void onWriteReadComplete(QByteArray reply);
 
 private:
     HttpClient* httpClient;

@@ -44,3 +44,13 @@ void WflHttpDevice::onHttpComplete(QNetworkReply *reply) {
     emit commandComplete();
     emit execCommandComplete(reply->readAll());
 }
+
+QByteArray WflHttpDevice::writeRead(QByteArray cmd){
+    qDebug("WflHttpDevice::write() NOT IMPLEMENTED !!!!!!!!!");
+}
+
+void WflHttpDevice::onWriteReadComplete(QByteArray reply){
+    qDebug("WflUartDevice::onWriteReadComplete() NOT IMPLEMENTED !!!!!!!!!");
+    emit writeReadComplete();
+}
+

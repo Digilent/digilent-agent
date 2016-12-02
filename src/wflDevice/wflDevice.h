@@ -12,7 +12,7 @@ public:
 
     //Functions    
     virtual void execCommand(QByteArray cmd);
-    virtual void write(QByteArray cmd);
+    virtual QByteArray writeRead(QByteArray cmd) = 0;
 
     //Variables
     QString name;
@@ -20,6 +20,7 @@ public:
 
 signals:    
     void execCommandComplete(QByteArray response);
+    void writeReadComplete();
 
 public slots:
 
