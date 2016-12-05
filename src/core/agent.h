@@ -5,22 +5,21 @@
 #include <QString>
 #include <QJsonObject>
 #include <QVector>
+#include <QObject>
 
 //WFL Agent includes
 #include "../uartClient/uartInfo.h"
 #include "../wflDevice/wflDevice.h"
 #include "../wflDevice/wflUartDevice.h"
 
-//#define MAX_DEVICE_COUNT 32
-
 class Agent
 {
+
 public:
     Agent();
-    ~Agent();
+    virtual ~Agent();
 
     WflDevice* activeDevice;
-    //WflDevice* devices[MAX_DEVICE_COUNT];
     UartInfo* uartInfo;
 
     QVector<QString> enumerateDevices();
@@ -30,7 +29,11 @@ public:
     int getMinorVersion();
     int getPatchVersion();
     bool launchWfl();
+    bool clearActiveDevice();
     bool setActiveDeviceByName(QString deviceName);
+
+signals:
+    //void activeDeviceChanged(QString activeDeviceName);
 
 private:
     //Variables

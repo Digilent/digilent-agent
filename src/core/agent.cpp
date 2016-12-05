@@ -30,8 +30,7 @@ Agent::~Agent(){
     if(this->activeDevice != 0)
     {
         qDebug("Freeing Active Device");
-        delete this->activeDevice;
-        this->activeDevice = 0;
+        clearActiveDevice();
     }
 }
 
@@ -101,9 +100,10 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                 if(deviceName == devices[i])
                 {
                     //Target device is already active but needs to be re-opened
-                    delete this->activeDevice;
+                    clearActiveDevice();
                     this->activeDevice = new WflUartDevice(deviceName);
                     this->activeDevice->name = deviceName;
+                    //emit activeDeviceChanged(QString(deviceName));
                     this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
                     return true;
                 }
@@ -112,8 +112,7 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                 return false;
         } else {
             //The current active device is not the target active device, free it
-            delete this->activeDevice;
-            this->activeDevice = 0;
+            clearActiveDevice();
         }
     }
     //Check if target device is available
@@ -124,6 +123,7 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
             //Create device object and enable JSON mode
             this->activeDevice = new WflUartDevice(deviceName);
             this->activeDevice->name = deviceName;
+            //emit activeDeviceChanged(QString(deviceName));
             this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
             return true;
         }
@@ -131,4 +131,11 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
 
     //Target device does not exist
     return false;
+}
+
+bool Agent::clearActiveDevice(){
+    if(this->activeDevice != 0) {
+        delete this->activeDevice;
+        this->activeDevice = 0;
+    }
 }

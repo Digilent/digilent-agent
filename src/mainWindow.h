@@ -38,7 +38,7 @@ protected:
     //void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
 private slots:   
-    //void onDeviceDropDownChange(int);
+    void onActiveDeviceNameChange(QString activeDeviceName);
     //void refreshDeviceList();
     //void onConnectReleased();
 
@@ -49,7 +49,8 @@ private:
     //System Tray
     QAction *launchWflAction;
     QAction *quitAction;
-    QAction * versionAction;
+    QAction *versionAction;
+    QAction *activeDeviceNameAction;
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
 

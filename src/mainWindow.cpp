@@ -46,6 +46,10 @@ void MainWindow::createWindowActions()
     versionAction = new QAction(QString("Agent Version: ") + QString(this->agent->getVersion()), this);
     versionAction->setEnabled(false);
 
+    activeDeviceNameAction = new QAction(QString("Active Device: -"), this);
+    activeDeviceNameAction->setEnabled(false);
+    //connect(this->agent, SIGNAL(activeDeviceChanged(QString), this, SLOT(onActiveDeviceNameChange(QString));
+
     quitAction = new QAction(tr("&Exit"), this);
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
 
@@ -58,6 +62,7 @@ void MainWindow::createTrayIcon()
     trayIconMenu = new QMenu(this);    
     trayIconMenu->addAction(launchWflAction);
     trayIconMenu->addAction(versionAction);
+    trayIconMenu->addAction(activeDeviceNameAction);
 
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(quitAction);
@@ -68,6 +73,11 @@ void MainWindow::createTrayIcon()
 
 void MainWindow::launchWfl(){
     agent->launchWfl();
+}
+
+void MainWindow::onActiveDeviceNameChange(QString activeDeviceName) {
+    qDebug("MainWindow::onActiveDeviceNameChange()");
+    this->activeDeviceNameAction->setText(activeDeviceName);
 }
 
 //Minimize to system tray on close
