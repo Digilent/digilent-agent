@@ -25,7 +25,7 @@ QByteArray WflUartDevice::writeRead(QByteArray cmd){
 
     //Connect slots and signals
     connect(this, SIGNAL(writeReadComplete()), &loop, SLOT(quit()));
-    connect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onWriteReadComplete(QByteArray)));
+    connect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onWriteReadResponse(QByteArray)));
 
     bool waitingForResponse = true;
     uartClient->writeRead(address, 1000, cmd);
@@ -48,15 +48,20 @@ void WflUartDevice::onUartExecCmdComplete(QByteArray reply) {
 }
 
 void WflUartDevice::onUartTimeout(QByteArray message) {
-    qDebug("MainWindow::onUartTimeout()");
+    qDebug("WflUartDevice::onUartTimeout()");
     qDebug() << message;
 
-    disconnect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onUartExecCmdComplete(QByteArray)));
+    //Not sure which event timed out but only one will be connected so emit both signals
+    emit execCommandComplete("");
+    emit writeReadComplete();
+
+
+    //disconnect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onUartExecCmdComplete(QByteArray)));
 }
 
-void WflUartDevice::onWriteReadComplete(QByteArray reply){
-    qDebug("WflUartDevice::onWriteReadComplete()");
+void WflUartDevice::onWriteReadResponse(QByteArray reply){
+    qDebug("WflUartDevice::onWriteReadResponse()");
     this->reply = reply;
-    //disconnect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onUartExecCmdComplete(QByteArray)));
+    disconnect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onWriteReadResponse(QByteArray)));
     emit writeReadComplete();
 }

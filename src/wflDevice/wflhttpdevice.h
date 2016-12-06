@@ -25,7 +25,7 @@ signals:
 
 public slots:
     void onHttpComplete(QNetworkReply *reply);
-    void onWriteReadComplete(QByteArray reply);
+    void onWriteReadResponse(QByteArray reply);
 
 private:
     HttpClient* httpClient;

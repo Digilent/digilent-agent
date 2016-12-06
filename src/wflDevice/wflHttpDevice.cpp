@@ -49,7 +49,7 @@ QByteArray WflHttpDevice::writeRead(QByteArray cmd){
     qDebug("WflHttpDevice::write() NOT IMPLEMENTED !!!!!!!!!");
 }
 
-void WflHttpDevice::onWriteReadComplete(QByteArray reply){
+void WflHttpDevice::onWriteReadResponse(QByteArray reply){
     qDebug("WflUartDevice::onWriteReadComplete() NOT IMPLEMENTED !!!!!!!!!");
     emit writeReadComplete();
 }

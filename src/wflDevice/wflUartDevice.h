@@ -18,7 +18,7 @@ signals:
 public slots:
     void onUartExecCmdComplete(QByteArray reply);
     void onUartTimeout(QByteArray message);
-    void onWriteReadComplete(QByteArray reply);
+    void onWriteReadResponse(QByteArray reply);
 
 private:
     QString address;

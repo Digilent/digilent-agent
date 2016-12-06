@@ -78,7 +78,7 @@ void UartClient::run()
                 emit this->response(dataRead);
             } else {
                 //qDebug("UART timed out trying to read data.");
-                emit timeout(tr("Wait read response timeout %1").arg(QTime::currentTime().toString()).toUtf8());
+                emit timeout(tr("UART read response timeout %1").arg(QTime::currentTime().toString()).toUtf8());
             }
         } else {
             emit timeout(tr("Wait write request timeout %1").arg(QTime::currentTime().toString()).toUtf8());
