@@ -37,6 +37,7 @@ INPUT(
 ./debug\moc_comboBoxEventFilter.o
 ./debug\moc_agentConfigCtrl.o
 ./debug\moc_debugController.o
+./debug\moc_agent.o
 ./debug\moc_wflDevice.o
 ./debug\moc_wflhttpdevice.o
 ./debug\moc_wflUartDevice.o

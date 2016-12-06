@@ -52,7 +52,9 @@ private:
     QAction *versionAction;
     QAction *activeDeviceNameAction;
     QSystemTrayIcon *trayIcon;
+
     QMenu *trayIconMenu;
+    QMenu* activeDeviceSubMenu;
 
     void createWindowActions();
     void createTrayIcon();

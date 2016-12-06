@@ -12,11 +12,13 @@
 #include "../wflDevice/wflDevice.h"
 #include "../wflDevice/wflUartDevice.h"
 
-class Agent
+//class Agent
+class Agent : public QObject
 {
+    Q_OBJECT
 
 public:
-    Agent();
+    explicit Agent(QObject *parent = 0);
     virtual ~Agent();
 
     WflDevice* activeDevice;
@@ -29,11 +31,11 @@ public:
     int getMinorVersion();
     int getPatchVersion();
     bool launchWfl();
-    bool clearActiveDevice();
+    void clearActiveDevice();
     bool setActiveDeviceByName(QString deviceName);
 
 signals:
-    //void activeDeviceChanged(QString activeDeviceName);
+    void activeDeviceChanged(QString activeDeviceName);
 
 private:
     //Variables

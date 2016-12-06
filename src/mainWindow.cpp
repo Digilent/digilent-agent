@@ -46,9 +46,10 @@ void MainWindow::createWindowActions()
     versionAction = new QAction(QString("Agent Version: ") + QString(this->agent->getVersion()), this);
     versionAction->setEnabled(false);
 
-    activeDeviceNameAction = new QAction(QString("Active Device: -"), this);
-    activeDeviceNameAction->setEnabled(false);
-    //connect(this->agent, SIGNAL(activeDeviceChanged(QString), this, SLOT(onActiveDeviceNameChange(QString));
+    //Active Device
+    //activeDeviceNameAction = new QAction(QString("Active Device:  -"), this);
+    //activeDeviceNameAction->setEnabled(false);
+    connect(this->agent, SIGNAL(activeDeviceChanged(QString)), this, SLOT(onActiveDeviceNameChange(QString)));
 
     quitAction = new QAction(tr("&Exit"), this);
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
@@ -62,7 +63,12 @@ void MainWindow::createTrayIcon()
     trayIconMenu = new QMenu(this);    
     trayIconMenu->addAction(launchWflAction);
     trayIconMenu->addAction(versionAction);
-    trayIconMenu->addAction(activeDeviceNameAction);
+
+    //Active Device
+    //trayIconMenu->addAction(activeDeviceNameAction);
+    this->activeDeviceSubMenu = trayIconMenu->addMenu("Active Device:  -");
+    QAction* activeDeviceSubMenuRelease = activeDeviceSubMenu->addAction("Release");
+    activeDeviceSubMenu->setEnabled(false);
 
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(quitAction);
@@ -76,8 +82,19 @@ void MainWindow::launchWfl(){
 }
 
 void MainWindow::onActiveDeviceNameChange(QString activeDeviceName) {
-    qDebug("MainWindow::onActiveDeviceNameChange()");
-    this->activeDeviceNameAction->setText(activeDeviceName);
+    qDebug("onActiveDeviceNameChange()");
+    if(activeDeviceName == "")
+    {
+        activeDeviceSubMenu->setTitle("Active Device:  -");
+        activeDeviceSubMenu->setEnabled(false);
+    }
+    else
+    {
+        activeDeviceSubMenu->setTitle("Active Device: " + activeDeviceName);
+        activeDeviceSubMenu->setEnabled(true);
+    }
+
+    //this->activeDeviceNameAction->setText("Active Device: " + activeDeviceName);
 }
 
 //Minimize to system tray on close

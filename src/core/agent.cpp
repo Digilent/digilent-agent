@@ -5,7 +5,8 @@
 #include "agent.h"
 
 
-Agent::Agent()
+//Agent::Agent()
+Agent::Agent(QObject *parent) : QObject(parent)
 {
     this->httpCapable = true;
     this->majorVersion = 0;
@@ -103,7 +104,7 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                     clearActiveDevice();
                     this->activeDevice = new WflUartDevice(deviceName);
                     this->activeDevice->name = deviceName;
-                    //emit activeDeviceChanged(QString(deviceName));
+                    emit activeDeviceChanged(QString(deviceName));
                     this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
                     return true;
                 }
@@ -123,7 +124,7 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
             //Create device object and enable JSON mode
             this->activeDevice = new WflUartDevice(deviceName);
             this->activeDevice->name = deviceName;
-            //emit activeDeviceChanged(QString(deviceName));
+            emit activeDeviceChanged(QString(deviceName));
             this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
             return true;
         }
@@ -133,7 +134,7 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
     return false;
 }
 
-bool Agent::clearActiveDevice(){
+void Agent::clearActiveDevice(){
     if(this->activeDevice != 0) {
         delete this->activeDevice;
         this->activeDevice = 0;
