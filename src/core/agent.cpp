@@ -31,7 +31,7 @@ Agent::~Agent(){
     if(this->activeDevice != 0)
     {
         qDebug("Freeing Active Device");
-        clearActiveDevice();
+        releaseActiveDevice();
     }
 }
 
@@ -101,7 +101,7 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                 if(deviceName == devices[i])
                 {
                     //Target device is already active but needs to be re-opened
-                    clearActiveDevice();
+                    releaseActiveDevice();
                     this->activeDevice = new WflUartDevice(deviceName);
                     this->activeDevice->name = deviceName;
                     emit activeDeviceChanged(QString(deviceName));
@@ -113,7 +113,7 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                 return false;
         } else {
             //The current active device is not the target active device, free it
-            clearActiveDevice();
+            releaseActiveDevice();
         }
     }
     //Check if target device is available
@@ -134,9 +134,11 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
     return false;
 }
 
-void Agent::clearActiveDevice(){
+void Agent::releaseActiveDevice(){
+    qDebug("Agent::releaseActiveDevice()");
     if(this->activeDevice != 0) {
         delete this->activeDevice;
         this->activeDevice = 0;
+        emit activeDeviceChanged("");
     }
 }

@@ -46,15 +46,23 @@ private:
     //UI Elements
     Ui::MainWindow *ui;
 
-    //System Tray
-    QAction *launchWflAction;
-    QAction *quitAction;
-    QAction *versionAction;
-    QAction *activeDeviceNameAction;
-    QSystemTrayIcon *trayIcon;
 
+    //System Tray
     QMenu *trayIconMenu;
     QMenu* activeDeviceSubMenu;
+
+    QAction *launchWflAction;
+
+    QAction *activeDeviceNameAction;
+    QAction *activeDeviceSubMenuRelease;
+
+    QAction *versionAction;
+    QAction *quitAction;
+
+
+    QSystemTrayIcon *trayIcon;
+
+
 
     void createWindowActions();
     void createTrayIcon();

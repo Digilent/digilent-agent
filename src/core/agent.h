@@ -31,7 +31,7 @@ public:
     int getMinorVersion();
     int getPatchVersion();
     bool launchWfl();
-    void clearActiveDevice();
+    void releaseActiveDevice();
     bool setActiveDeviceByName(QString deviceName);
 
 signals:

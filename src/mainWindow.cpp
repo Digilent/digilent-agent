@@ -62,15 +62,15 @@ void MainWindow::createTrayIcon()
 {
     trayIconMenu = new QMenu(this);    
     trayIconMenu->addAction(launchWflAction);
-    trayIconMenu->addAction(versionAction);
 
-    //Active Device
-    //trayIconMenu->addAction(activeDeviceNameAction);
+    //Active Device    
     this->activeDeviceSubMenu = trayIconMenu->addMenu("Active Device:  -");
-    QAction* activeDeviceSubMenuRelease = activeDeviceSubMenu->addAction("Release");
+    this->activeDeviceSubMenuRelease = activeDeviceSubMenu->addAction("Release");
+    connect(activeDeviceSubMenuRelease, &QAction::triggered, agent, &Agent::releaseActiveDevice);
     activeDeviceSubMenu->setEnabled(false);
 
     trayIconMenu->addSeparator();
+    trayIconMenu->addAction(versionAction);
     trayIconMenu->addAction(quitAction);
 
     trayIcon = new QSystemTrayIcon(this);
@@ -93,29 +93,7 @@ void MainWindow::onActiveDeviceNameChange(QString activeDeviceName) {
         activeDeviceSubMenu->setTitle("Active Device: " + activeDeviceName);
         activeDeviceSubMenu->setEnabled(true);
     }
-
-    //this->activeDeviceNameAction->setText("Active Device: " + activeDeviceName);
 }
 
-//Minimize to system tray on close
-/*
-void MainWindow::closeEvent(QCloseEvent *event)
-{
-#ifdef Q_OS_OSX
-    if (!event->spontaneous() || !isVisible()) {
-        return;
-    }
-#endif
-    if (trayIcon->isVisible()) {
-        QMessageBox::information(this, tr("Systray"),
-                                 tr("The program will keep running in the "
-                                    "system tray. To terminate the program, "
-                                    "choose <b>Quit</b> in the context menu "
-                                    "of the system tray entry."));
-        hide();
-        event->ignore();
-    }
-}
-*/
 #endif //QT_NO_SYSTEMTRAYICON
 
