@@ -54,3 +54,7 @@ void WflHttpDevice::onWriteReadResponse(QByteArray reply){
     emit writeReadComplete();
 }
 
+void WflHttpDevice::softReset(){
+    qDebug("WflHttpDevice::softReset() NOT IMPLEMENTED !!!!!!!!!");
+}
+

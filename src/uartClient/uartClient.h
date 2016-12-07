@@ -17,6 +17,12 @@ public:
 
     void writeRead(const QString &portName, int waitTimeout, const QByteArray &dataToSend);
     void run();
+    void softReset();
+
+    QString getPortName();
+    bool portIsOpen();
+
+    bool softResetRequired;
 
 signals:
     void response(QByteArray response);
@@ -30,6 +36,7 @@ private:
     QMutex mutex;
     QWaitCondition cond;
     bool quit;
+    bool isOpen;
 };
 
 #endif // UARTCLIENT_H

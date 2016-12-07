@@ -16,7 +16,9 @@ public:
 
     virtual void execCommand(QByteArray cmd);
     virtual QByteArray writeRead(QByteArray cmd);
+    virtual void softReset();
     void setUrl(QUrl _url);
+
 
     QUrl url;
 

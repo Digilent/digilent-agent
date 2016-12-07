@@ -19,6 +19,7 @@ void WflUartDevice::execCommand(QByteArray cmd) {
     uartClient->writeRead(address, 1000, cmd);
 }
 
+//Synchronous UART Write / Read
 QByteArray WflUartDevice::writeRead(QByteArray cmd){
 
     QEventLoop loop;
@@ -64,4 +65,10 @@ void WflUartDevice::onWriteReadResponse(QByteArray reply){
     this->reply = reply;
     disconnect(uartClient, SIGNAL(response(QByteArray)), this, SLOT(onWriteReadResponse(QByteArray)));
     emit writeReadComplete();
+}
+
+void WflUartDevice::softReset(){
+    qDebug("WflUartDevice::softReset()");
+    this->uartClient->softReset();
+
 }

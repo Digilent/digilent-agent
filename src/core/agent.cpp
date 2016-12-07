@@ -1,6 +1,8 @@
-#include <QDesktopServices>
-#include <QUrl>
 #include <QDebug>
+#include <QDesktopServices>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QUrl>
 
 #include "agent.h"
 
@@ -35,6 +37,7 @@ Agent::~Agent(){
     }
 }
 
+//Return all UART devices on the system that are not busy plus the active device even if it is busy
 QVector<QString> Agent::enumerateDevices() {
     //---------- UART ----------
     QVector<QString> devices = QVector<QString>();
@@ -47,9 +50,12 @@ QVector<QString> Agent::enumerateDevices() {
         if(uartInfo->ports[i].isBusy())
         {
             //Only add a busy device if it is the active device
-            if(uartInfo->ports[i].portName() == this->activeDevice->name)
+            if(this->activeDevice != 0)
             {
-                devices.append(uartInfo->ports[i].portName());
+                if(uartInfo->ports[i].portName() == this->activeDevice->name)
+                {
+                    devices.append(uartInfo->ports[i].portName());
+                }
             }
         }
         else
@@ -100,23 +106,52 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
             {
                 if(deviceName == devices[i])
                 {
-                    //Target device is already active but needs to be re-opened
+                    //Target device is already active and still exists.  Try to put it in JSON mode to confirm the agent has the device open and not some other app
+                    this->activeDevice->softReset();
+                    QByteArray res = this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
+                    qDebug("Agent::setActiveDeviceByName() - Target Already Active - " + res);
+                    QJsonDocument resDoc = QJsonDocument::fromJson(res);
+                    if(!resDoc.isNull()){
+                        QJsonObject resObj = resDoc.object();
+                        QString mode = resObj.value("mode").toString();
+                        if(mode == "JSON")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            //No response from the device, something else must have it open
+                            releaseActiveDevice();
+                            return false;
+                        }
+                    } else {
+                        //No response from the device, something else must have it open
+                        releaseActiveDevice();
+                        return false;
+                    }
+
+                    //TODO check response to make sure we can still communicate with the device
+
+                    //TODO Check if the uart is busy, if so don't try to re-open it (it's either open by the agent and does not need to be re-opened or it's open by something else and cannot be opened by the agent)
+                    /*
                     releaseActiveDevice();
                     this->activeDevice = new WflUartDevice(deviceName);
                     this->activeDevice->name = deviceName;
                     emit activeDeviceChanged(QString(deviceName));
                     this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
                     return true;
+                    */
                 }
             }
                 //Target device is already active but no longer available
+                releaseActiveDevice();
                 return false;
         } else {
             //The current active device is not the target active device, free it
             releaseActiveDevice();
         }
     }
-    //Check if target device is available
+    //No active device, check if target device is available, if so set it as the active device
     for(int i=0; i<devices.size(); i++)
     {
         if(devices[i] == deviceName)

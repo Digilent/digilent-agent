@@ -6,12 +6,14 @@
 QT_USE_NAMESPACE
 
 UartClient::UartClient(QObject *parent) : QThread(parent), waitTimeout(0), quit(false) {
+    this->softResetRequired = false;
 
 }
 
 UartClient::~UartClient() {
     mutex.lock();
     quit = true;
+    isOpen = false;
     cond.wakeOne();
     mutex.unlock();
     wait();
@@ -38,6 +40,7 @@ void UartClient::run()
     if(currentPortName != portName) {
         currentPortName = portName;
         currentPortNameChanged = true;
+        qDebug("UartClient::run -- Port Name Changed");
     }
 
     int currentWaitTimeout = waitTimeout;
@@ -47,13 +50,19 @@ void UartClient::run()
     serial.setBaudRate(1250000);
 
     while(!quit) {
-        if(currentPortNameChanged) {
+        if(currentPortNameChanged || softResetRequired) {
+            qDebug("Resetting Serial Port");
             serial.close();
+            this->isOpen = false;
             serial.setPortName(currentPortName);
 
             if(!serial.open(QIODevice::ReadWrite)) {
                 emit error(tr("Can't open %1, error code %2").arg(portName).arg(serial.error()).toUtf8());
                 return;
+            }
+            else
+            {
+                this->isOpen = true;
             }
         }
         // write request
@@ -95,6 +104,20 @@ void UartClient::run()
         _dataToSend = dataToSend;
         mutex.unlock();
     }
+}
+
+QString UartClient::getPortName()
+{
+    return this->portName;
+}
+
+bool UartClient::portIsOpen()
+{
+    return this->isOpen;
+}
+
+void UartClient::softReset(){
+   this->softResetRequired = true;
 }
 
 
