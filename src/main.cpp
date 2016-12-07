@@ -17,6 +17,7 @@
 
 //WFL Agent includes
 #include "core/agent.h"
+#include "core/utils/runGuard.h"
 #include "wflDevice/wflDevice.h"
 #include "wflDevice/wflHttpDevice.h"
 
@@ -28,6 +29,11 @@ QString searchConfigFile();
 
 int main(int argc, char *argv[])
 {
+    //Prevent multiple instances of this agent
+    RunGuard guard( "WaveFroms_Live_Agent_1.x.x" );
+       if ( !guard.tryToRun() )
+           return 0;
+
     QApplication app(argc, argv);
 
     //Instantiate the agent and mainWindow

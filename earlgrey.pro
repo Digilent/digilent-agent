@@ -29,7 +29,8 @@ SOURCES += \
     src/core/agent.cpp \
     src/wflDevice/wflDevice.cpp \
     src/wflDevice/wflHttpDevice.cpp \
-    src/wflDevice/wflUartDevice.cpp
+    src/wflDevice/wflUartDevice.cpp \
+    src/core/utils/runGuard.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
@@ -43,7 +44,8 @@ HEADERS  += \
     src/core/agent.h \
     src/wflDevice/wflDevice.h \
     src/wflDevice/wflhttpdevice.h \
-    src/wflDevice/wflUartDevice.h
+    src/wflDevice/wflUartDevice.h \
+    src/core/utils/runGuard.h
 
 FORMS    += \
     mainWindow.ui
