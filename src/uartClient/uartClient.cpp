@@ -52,9 +52,11 @@ void UartClient::run()
     while(!quit) {
         if(currentPortNameChanged || softResetRequired) {
             qDebug("Resetting Serial Port");
+            this->softResetRequired = false;
             serial.close();
             this->isOpen = false;
             serial.setPortName(currentPortName);
+
 
             if(!serial.open(QIODevice::ReadWrite)) {
                 emit error(tr("Can't open %1, error code %2").arg(portName).arg(serial.error()).toUtf8());
