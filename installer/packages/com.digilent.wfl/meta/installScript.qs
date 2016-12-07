@@ -39,3 +39,4 @@ Component.prototype.createOperations = function () {
         component.addOperation("CreateShortcut", exePath, "@UserStartMenuProgramsPath@/Startup/WaveForms-Live-Agent.lnk", "workingDirectory=@TargetDir@", "iconPath=%SystemRoot%/system32/SHELL32.dll", "iconId=2");
     }
 }
+
