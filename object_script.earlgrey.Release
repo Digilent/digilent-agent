@@ -23,6 +23,7 @@ INPUT(
 ./release\wflDevice.o
 ./release\wflHttpDevice.o
 ./release\wflUartDevice.o
+./release\runGuard.o
 ./release\qrc_mainWindow.o
 ./release\moc_httplistener.o
 ./release\moc_httpconnectionhandler.o

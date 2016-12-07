@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>WaveForms Live Agent</Name>
-    <Version>0.1.0</Version>
+    <Version>0.1.2</Version>
     <Title>WaveForms Live Agent</Title>
     <Publisher>Digilent</Publisher>
     <TargetDir>@ApplicationsDir@/Digilent/Waveforms Live Agent</TargetDir>
     <AllowSpaceInPath>true</AllowSpaceInPath>
     <RemoveTargetDir>true</RemoveTargetDir>
     <WizardStyle>Modern</WizardStyle>
+    <RunProgram>@ApplicationsDir@/Digilent/Waveforms Live Agent/earlgrey.exe</RunProgram>
+    <ControlScript>installScript.qs</ControlScript>
 </Installer>

@@ -16,4 +16,4 @@ windeployqt.exe earlgrey.exe
 
 echo "Building Installer...\n"
 cd ../../..
-binarycreator.exe -c config/config.xml -p packages waveforms-live-agent-0.1.1.exe
+binarycreator.exe -c config/config.xml -p packages waveforms-live-agent-0.1.2.exe

@@ -13,7 +13,7 @@ Agent::Agent(QObject *parent) : QObject(parent)
     this->httpCapable = true;
     this->majorVersion = 0;
     this->minorVersion = 1;
-    this->patchVersion = 0;
+    this->patchVersion = 2;
 
     //Initialize devices array with null pointers
     this->activeDevice = 0;
