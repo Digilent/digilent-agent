@@ -45,7 +45,7 @@ HEADERS  += \
     src/wflDevice/wflDevice.h \
     src/wflDevice/wflUartDevice.h \
     src/core/utils/runGuard.h \
-    src/wflDevice/wflhttpDevice.h
+    src/wflDevice/wflHttpDevice.h
 
 FORMS    += \
     mainWindow.ui
