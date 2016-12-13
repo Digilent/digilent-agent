@@ -1,4 +1,5 @@
 *.exe
+earlgrey.pro.user.*
 installer/packages/com.digilent.wfl/data/*
 debug/
 release/
