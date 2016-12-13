@@ -11,7 +11,7 @@
 #include <QEvent>
 
 #include "wflDevice/wflDevice.h"
-#include "wflDevice/wflhttpdevice.h"
+#include "wflDevice/wflhttpDevice.h"
 
 
 MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)

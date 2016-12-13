@@ -43,9 +43,9 @@ HEADERS  += \
     src/httpServer/debugController.h \
     src/core/agent.h \
     src/wflDevice/wflDevice.h \
-    src/wflDevice/wflhttpdevice.h \
     src/wflDevice/wflUartDevice.h \
-    src/core/utils/runGuard.h
+    src/core/utils/runGuard.h \
+    src/wflDevice/wflhttpDevice.h
 
 FORMS    += \
     mainWindow.ui

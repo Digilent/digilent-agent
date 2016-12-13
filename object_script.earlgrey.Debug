@@ -40,6 +40,6 @@ INPUT(
 ./debug\moc_debugController.o
 ./debug\moc_agent.o
 ./debug\moc_wflDevice.o
-./debug\moc_wflhttpdevice.o
 ./debug\moc_wflUartDevice.o
+./debug\moc_wflhttpDevice.o
 );
