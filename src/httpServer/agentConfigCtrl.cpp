@@ -74,7 +74,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
             if(!success) {
                 qDebug("Set Active Device Failed");
                 //setActiveDevice() failed, return error code
-                res.insert("statusCode", 2147483648);
+                res.insert("statusCode", qint64(2147483648));
             } else {
                 qDebug("Set Active Device Success");
             }

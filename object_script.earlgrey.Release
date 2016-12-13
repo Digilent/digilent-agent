@@ -41,5 +41,5 @@ INPUT(
 ./release\moc_agent.o
 ./release\moc_wflDevice.o
 ./release\moc_wflUartDevice.o
-./release\moc_wflhttpDevice.o
+./release\moc_wflHttpDevice.o
 );

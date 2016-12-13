@@ -55,7 +55,7 @@ void MainWindow::createWindowActions()
     connect(quitAction, &QAction::triggered, qApp, &QCoreApplication::quit);
 
     launchWflAction = new QAction(tr("Launch WaveForms Live"), this);
-    connect(launchWflAction, &QAction::triggered, this, &launchWfl);
+    connect(launchWflAction, &QAction::triggered, this, &MainWindow::launchWfl);
 }
 
 void MainWindow::createTrayIcon()
