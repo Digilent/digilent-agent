@@ -14,6 +14,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = earlgrey
 TEMPLATE = app
+CONFIG += qt
 
 
 SOURCES += \
