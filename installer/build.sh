@@ -1,6 +1,11 @@
 #!/bin/bash
 os=$1
 
+if [ -z "$1" ]; then
+    echo "Error: Please specifiy the traget platform"
+    exit 1
+fi
+
 if [ $os = "win" ]; then
     printf "Preparing to build for Windows...\n"
 fi
