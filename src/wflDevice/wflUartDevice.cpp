@@ -37,7 +37,7 @@ QByteArray WflUartDevice::writeRead(QByteArray cmd){
         loop.exec();
           qDebug("UART writeRead() Loop Done");
     }
-    qDebug("::::UART Response:::: " + this->reply);
+    qDebug("::::UART Response:::: \n%s", this->reply.data());
 
     return reply;
 }

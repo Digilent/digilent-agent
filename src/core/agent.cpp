@@ -109,7 +109,7 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                     //Target device is already active and still exists.  Try to put it in JSON mode to confirm the agent has the device open and not some other app
                     this->activeDevice->softReset();
                     QByteArray res = this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
-                    qDebug("Agent::setActiveDeviceByName() - Target Already Active - " + res);
+                    qDebug("Agent::setActiveDeviceByName() - Target Already Active - %s", res.data());
                     QJsonDocument resDoc = QJsonDocument::fromJson(res);
                     if(!resDoc.isNull()){
                         QJsonObject resObj = resDoc.object();
@@ -177,3 +177,4 @@ void Agent::releaseActiveDevice(){
         emit activeDeviceChanged("");
     }
 }
+

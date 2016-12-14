@@ -39,5 +39,6 @@ CMakeLists.txt.user*
 #Earlgrey
 *.exe
 installer/packages/com.digilent.wfl/data/*
+installer/build/*
 debug/
 release/

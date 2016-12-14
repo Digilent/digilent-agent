@@ -18,7 +18,7 @@ WflHttpDevice::WflHttpDevice() {
 
 void WflHttpDevice::execCommand(QByteArray cmd) {
     qDebug() << "OsHttpDevice::execCommand() - " << name;
-    qDebug(cmd);
+    qDebug("%s", cmd.data());
 
     //Build HTTP POST request
     QNetworkRequest request = QNetworkRequest(url);
@@ -57,4 +57,5 @@ void WflHttpDevice::onWriteReadResponse(QByteArray reply){
 void WflHttpDevice::softReset(){
     qDebug("WflHttpDevice::softReset() NOT IMPLEMENTED !!!!!!!!!");
 }
+
 

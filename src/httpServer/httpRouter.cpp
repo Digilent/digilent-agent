@@ -44,8 +44,7 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
             connect(agent->activeDevice, SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray)));
 
             waitingForResponse = true;
-            qDebug("::::Request:::: ");
-            qDebug(request.getBody());
+            qDebug("::::Request:::: \n %s", request.getBody().data());
             agent->activeDevice->execCommand(request.getBody());
 
             //Wait for signal that device call has returned
@@ -54,8 +53,7 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
                 loop.exec();
                 qDebug("HttpRouter Loop Done");
             }
-            qDebug("::::Response:::: ");
-            qDebug(reply);
+            qDebug("::::Response:::: \n %s", reply.data());
 
             //Add headers and return device call response to original requester
             response.setHeader("Access-Control-Allow-Origin", "*");
@@ -87,10 +85,10 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
 }
 
 void HttpRouter::onComplete(QByteArray reply){
-    qDebug("HttpRouter::onComplete():");
-    qDebug(reply);
+    qDebug("HttpRouter::onComplete(): %s", reply.data());
     waitingForResponse = false;
     this->reply = reply;
     //qDebug() << this->reply;
     emit deviceComplete();
 }
+

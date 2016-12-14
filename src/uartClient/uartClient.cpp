@@ -83,7 +83,7 @@ void UartClient::run()
                 }
 
                 int size = bytesRead.size();
-                qDebug("UART Data Read: " + bytesRead);
+                qDebug("UART Data Read: \n %s", bytesRead.data());
 
                 QByteArray dataRead(bytesRead);
                 emit this->response(dataRead);
@@ -121,5 +121,6 @@ bool UartClient::portIsOpen()
 void UartClient::softReset(){
    this->softResetRequired = true;
 }
+
 
 
