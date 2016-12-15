@@ -13,6 +13,10 @@ include(src/httpServer/core/httpserver.pri)
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = earlgrey
+target.path = /usr/bin
+INSTALLS += target
+
+
 TEMPLATE = app
 CONFIG += qt
 

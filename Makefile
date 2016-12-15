@@ -241,7 +241,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		src/wflDevice/wflUartDevice.cpp \
 		src/core/utils/runGuard.cpp
 QMAKE_TARGET  = earlgrey
-DESTDIR       = #avoid trailing-slash linebreak
+DESTDIR       = /usr/bin
 TARGET        = earlgrey
 
 

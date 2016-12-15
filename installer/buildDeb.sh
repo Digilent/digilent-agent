@@ -1,7 +1,15 @@
 #!/bin/bash
+DEBEMAIL="software@digilent.com"
+DEBFULLNAME="Sam Kristoff"
+
 VERSION=$1
-BUILD_DIR="build"
-TARGET_DIR="$BUILD_DIR/waveforms-live-agent-$VERSION"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+BUILD_DIR=$DIR/build
+#TARGET_NAME="waveforms-live-agent"
+TARGET_NAME="earlgrey"
+TARGET_DIR="$BUILD_DIR/$TARGET_NAME-$VERSION"
+
+echo $BUILD_DIR
 
 #Warn user if no version number was passed
 if [ -z "$1" ]; then
@@ -32,9 +40,15 @@ qmake -o Makefile earlgrey.pro
 
 #Preparing .deb package
 printf "Preparing .deb package\n"
-dh_make -s -c gpl -e software@digilent.com --createorig
+
+#cp -R ../../debian .
+#tar -czvf $BUILD_DIR"/"$TARGET_NAME"_"$VERSION.orig.tar.gz ../$TARGET_NAME-$VERSION
+dh_make -s --createorig -c gpl3
+cp ../../debian/* ./debian/
+rm ./debian/*.ex
+rm ./debian/*.EX
 
 #Building .deb package
 printf "Building .deb package\n"
-dpkg-buildpackage
+dpkg-buildpackage -uc -us
 
