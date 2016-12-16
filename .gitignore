@@ -42,3 +42,4 @@ installer/packages/com.digilent.wfl/data/*
 installer/build/*
 debug/
 release/
+Makefile

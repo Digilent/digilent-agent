@@ -26,6 +26,7 @@
 
 //Forward declarations
 QString searchConfigFile();
+QString createNewConfigFile();
 
 int main(int argc, char *argv[])
 {
@@ -62,13 +63,13 @@ int main(int argc, char *argv[])
         listenerSettings->setValue("maxMultiPartSize", 10000000);
         listenerSettings->endGroup();
 
+
         listenerSettings->beginGroup("files");
 #ifdef Q_OS_LINUX
         listenerSettings->setValue("path", "/usr/share/waveforms-live-agent/www");
 #elif defined(W_OS_WIN32)
     listenerSettings->setValue("path", "./www");
 #endif
-
         listenerSettings->setValue("encoding", "UTF-8");
         listenerSettings->setValue("maxAge", 90000);
         listenerSettings->setValue("cacheTime", 60000);
@@ -100,26 +101,30 @@ QString searchConfigFile() {
     QString appName = QCoreApplication::applicationName();
 
 #ifdef Q_OS_LINUX
-    qDebug("Linux");
-    file.setFileName("~/.config/waveforms-live-agent.ini");
+    file.setFileName(QDir::homePath() + "/.config/waveforms-live-agent.ini");
 #elif defined(W_OS_WIN32)
 
 #endif
-    file.setFileName(binDir+"/waveforms-live-agent.ini");
     if (!file.exists()) {
-        file.setFileName(binDir+"/../waveforms-live-agent.ini");
+        file.setFileName(binDir+"/waveforms-live-agent.ini");
         if (!file.exists()) {
-            file.setFileName(binDir+"/../"+appName+"/waveforms-live-agent.ini");
+            file.setFileName(binDir+"/../waveforms-live-agent.ini");
             if (!file.exists()) {
-                file.setFileName(binDir+"/../../"+appName+"/waveforms-live-agent.ini");
+                file.setFileName(binDir+"/../"+appName+"/waveforms-live-agent.ini");
                 if (!file.exists()) {
-                    file.setFileName(binDir+"/../../../"+appName+"/waveforms-live-agent.ini");
+                    file.setFileName(binDir+"/../../"+appName+"/waveforms-live-agent.ini");
                     if (!file.exists()) {
-                        file.setFileName(binDir+"/../../../../"+appName+"/waveforms-live-agent.ini");
+                        file.setFileName(binDir+"/../../../"+appName+"/waveforms-live-agent.ini");
                         if (!file.exists()) {
-                            file.setFileName(binDir+"/../../../../../"+appName+"/waveforms-live-agent.ini");
+                            file.setFileName(binDir+"/../../../../"+appName+"/waveforms-live-agent.ini");
                             if (!file.exists()) {
-                                file.setFileName(QDir::rootPath()+"waveforms-live-agent.ini");
+                                file.setFileName(binDir+"/../../../../../"+appName+"/waveforms-live-agent.ini");
+                                if (!file.exists()) {
+                                    file.setFileName(QDir::rootPath()+"waveforms-live-agent.ini");
+                                    if (!file.exists()) {
+                                        file.setFileName(createNewConfigFile());
+                                    }
+                                }
                             }
                         }
                     }
@@ -135,6 +140,24 @@ QString searchConfigFile() {
     else {
         return QString();
     }
+}
+
+QString createNewConfigFile(){
+#ifdef Q_OS_LINUX
+    QString path = QDir::homePath() + "/.config/waveforms-live-agent.ini";
+    QFile file(path);
+    if (file.open(QIODevice::ReadWrite))
+    {
+        QTextStream stream( &file );
+        stream << "[listener]\n;host=0.0.0.0\nport=56089\nminThreads=4\nmaxThreads=100\ncleanupInterval=60000\nreadTimeout=60000\nmaxRequestSize=16000\nmaxMultiPartSize=10000000\n\n[files]\npath=./www\nencoding=UTF-8\nmaxAge=90000\ncacheTime=60000\ncacheSize=1000000\nmaxCachedFileSize=65536\n\n";
+        file.close();
+        return path;
+    }
+    return QString();
+
+#elif defined(W_OS_WIN32)
+
+#endif
 }
 
 #else

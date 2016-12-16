@@ -14,7 +14,12 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = earlgrey
 target.path = /usr/bin
+
+config.path = /etc/skel
+config.files = waveforms-live-agent.ini
+
 INSTALLS += target
+INSTALLS += config
 
 
 TEMPLATE = app
@@ -59,7 +64,7 @@ RESOURCES += \
     mainWindow.qrc
 
 DISTFILES += \
-    waveforms-live-agent.ini
+    waveforms-live-agent_bak.ini
 
 OTHER_FILES +=
 
