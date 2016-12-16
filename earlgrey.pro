@@ -58,9 +58,10 @@ FORMS    += \
 RESOURCES += \
     mainWindow.qrc
 
-DISTFILES +=
+DISTFILES += \
+    waveforms-live-agent.ini
 
-OTHER_FILES += config.ini
+OTHER_FILES +=
 
 #QMAKE_CXXFLAGS += -static-libgcc -static-libstdc++
 #QMAKE_LFLAGS += -static -lpthread -static-libgcc -static-libstdc++

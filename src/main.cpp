@@ -43,12 +43,14 @@ int main(int argc, char *argv[])
     // Load the http configuration file
 
     QString configFileName = searchConfigFile();
-    QSettings* listenerSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
+    QSettings* listenerSettings;
 
-        /*
+
     if(configFileName != "") {
+         listenerSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
 
     } else  {
+        qDebug("No waveforms-live-agent.ini found, using defaults.");
         listenerSettings = new QSettings();
         listenerSettings->beginGroup("listener");
         listenerSettings->setValue("port", 56089);
@@ -61,7 +63,12 @@ int main(int argc, char *argv[])
         listenerSettings->endGroup();
 
         listenerSettings->beginGroup("files");
-        listenerSettings->setValue("path", "./www");
+#ifdef Q_OS_LINUX
+        listenerSettings->setValue("path", "/usr/share/waveforms-live-agent/www");
+#elif defined(W_OS_WIN32)
+    listenerSettings->setValue("path", "./www");
+#endif
+
         listenerSettings->setValue("encoding", "UTF-8");
         listenerSettings->setValue("maxAge", 90000);
         listenerSettings->setValue("cacheTime", 60000);
@@ -69,7 +76,7 @@ int main(int argc, char *argv[])
         listenerSettings->setValue("maxCachedFileSize", 65536);
         listenerSettings->endGroup();
     }
-    */
+
 
     // Static file controller
     QSettings* fileSettings=new QSettings(configFileName, QSettings::IniFormat, &app);
@@ -88,24 +95,31 @@ int main(int argc, char *argv[])
 
 //Search for the HTTP server config ini
 QString searchConfigFile() {
+    QFile file;
     QString binDir = QCoreApplication::applicationDirPath();
     QString appName = QCoreApplication::applicationName();
-    QFile file;
-    file.setFileName(binDir+"/config.ini");
+
+#ifdef Q_OS_LINUX
+    qDebug("Linux");
+    file.setFileName("~/.config/waveforms-live-agent.ini");
+#elif defined(W_OS_WIN32)
+
+#endif
+    file.setFileName(binDir+"/waveforms-live-agent.ini");
     if (!file.exists()) {
-        file.setFileName(binDir+"/../config.ini");
+        file.setFileName(binDir+"/../waveforms-live-agent.ini");
         if (!file.exists()) {
-            file.setFileName(binDir+"/../"+appName+"/config.ini");
+            file.setFileName(binDir+"/../"+appName+"/waveforms-live-agent.ini");
             if (!file.exists()) {
-                file.setFileName(binDir+"/../../"+appName+"/config.ini");
+                file.setFileName(binDir+"/../../"+appName+"/waveforms-live-agent.ini");
                 if (!file.exists()) {
-                    file.setFileName(binDir+"/../../../"+appName+"/config.ini");
+                    file.setFileName(binDir+"/../../../"+appName+"/waveforms-live-agent.ini");
                     if (!file.exists()) {
-                        file.setFileName(binDir+"/../../../../"+appName+"/config.ini");
+                        file.setFileName(binDir+"/../../../../"+appName+"/waveforms-live-agent.ini");
                         if (!file.exists()) {
-                            file.setFileName(binDir+"/../../../../../"+appName+"/config.ini");
+                            file.setFileName(binDir+"/../../../../../"+appName+"/waveforms-live-agent.ini");
                             if (!file.exists()) {
-                                file.setFileName(QDir::rootPath()+"config.ini");
+                                file.setFileName(QDir::rootPath()+"waveforms-live-agent.ini");
                             }
                         }
                     }
