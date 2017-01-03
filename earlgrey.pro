@@ -64,7 +64,7 @@ RESOURCES += \
     mainWindow.qrc
 
 DISTFILES += \
-    waveforms-live-agent_bak.ini
+    waveforms-live-agent.ini
 
 OTHER_FILES +=
 

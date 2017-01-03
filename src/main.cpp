@@ -144,15 +144,19 @@ QString searchConfigFile() {
 
 QString createNewConfigFile(){
 #ifdef Q_OS_LINUX
-    QString path = QDir::homePath() + "/.config/waveforms-live-agent.ini";
+    QString path = QString(QDir::homePath() + "/.config/waveforms-live-agent.ini");
+
     QFile file(path);
     if (file.open(QIODevice::ReadWrite))
     {
+        qDebug("Creating new config file: ";
+        qDebug() << path;
         QTextStream stream( &file );
         stream << "[listener]\n;host=0.0.0.0\nport=56089\nminThreads=4\nmaxThreads=100\ncleanupInterval=60000\nreadTimeout=60000\nmaxRequestSize=16000\nmaxMultiPartSize=10000000\n\n[files]\npath=./www\nencoding=UTF-8\nmaxAge=90000\ncacheTime=60000\ncacheSize=1000000\nmaxCachedFileSize=65536\n\n";
         file.close();
         return path;
     }
+    qDebug("Unable to create default config file: %s", path.data());
     return QString();
 
 #elif defined(W_OS_WIN32)
