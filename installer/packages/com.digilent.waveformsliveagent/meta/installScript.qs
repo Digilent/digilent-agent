@@ -31,12 +31,14 @@ Component.prototype.installationFinished = function () {
 
 //Auto start on system boot
 Component.prototype.createOperations = function () {
+    //Call default createOperations
     component.createOperations();
 
     ////Windows Install Actions
     if (systemInfo.productType === "windows") {
+        //Create Shortcut To Start At System Boot
         var exePath = installer.value("TargetDir") + "/earlgrey.exe";
-        component.addOperation("CreateShortcut", exePath, "@UserStartMenuProgramsPath@/Startup/WaveForms-Live-Agent.lnk", "workingDirectory=@TargetDir@", "iconPath=%SystemRoot%/system32/SHELL32.dll", "iconId=2");
+        component.addOperation("CreateShortcut", exePath, "@UserStartMenuProgramsPath@/Startup/WaveForms-Live-Agent.lnk", "workingDirectory=@TargetDir@", "iconPath=%SystemRoot%/system32/SHELL32.dll", "iconId=2");        
     }
 }
 

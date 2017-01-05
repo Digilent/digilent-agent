@@ -2,6 +2,7 @@
 #include <QDesktopServices>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QtNetwork>
 #include <QUrl>
 
 #include "agent.h"
@@ -88,7 +89,13 @@ int Agent::getPatchVersion() {
 }
 
 bool Agent::launchWfl() {
-    return QDesktopServices::openUrl(QUrl("http://openscope.s3-website-us-west-2.amazonaws.com/"));
+    //Todo - Launch Electron Version If It Exists
+
+    if(internetAvailable()) {
+        return QDesktopServices::openUrl(QUrl("http://waveformslive.com/"));
+    } else {
+       return QDesktopServices::openUrl(QUrl("http://127.0.0.1:56089/"));
+    }
 }
 
 //Set the active device by name.  A new device object is created unless the target device is already active and open.  This command also puts the device into JSON mode.
@@ -175,6 +182,21 @@ void Agent::releaseActiveDevice(){
         delete this->activeDevice;
         this->activeDevice = 0;
         emit activeDeviceChanged("");
+    }
+}
+
+//Returns true if internet access is available
+bool Agent::internetAvailable() {
+    QNetworkAccessManager nam;
+    QNetworkRequest req(QUrl("http://waveformslive.com"));
+    QNetworkReply *response = nam.get(req);
+    QEventLoop loop;
+    connect(response, SIGNAL(finished()), &loop, SLOT(quit()));
+    loop.exec();
+    if(response->bytesAvailable()) {
+        return true;
+    } else {
+        return false;
     }
 }
 

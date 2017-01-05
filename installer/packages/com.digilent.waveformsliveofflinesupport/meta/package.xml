@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>WaveForms Live Offline Support</DisplayName>
+    <Description>WaveForms Live Offline Support</Description>
+    <Version>0.1.5</Version>
+    <ReleaseDate>2017-01-05</ReleaseDate>
+    <Licenses>
+        <License name="MIT" file="license.txt" />
+    </Licenses>
+    <Default>true</Default>
+    <Script>installScript.qs</Script>
+</Package>

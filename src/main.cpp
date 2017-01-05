@@ -28,6 +28,15 @@
 QString searchConfigFile();
 QString createNewConfigFile();
 
+
+#ifdef Q_OS_LINUX
+    QString iniPath = QString(QDir::homePath() + "/.config/waveforms-live-agent.ini");
+    QString wwwRoot = "/usr/share/waveforms-live-agent/www";
+#elif defined(_WIN32)
+    QString iniPath = QString(QDir::homePath() + "/AppData/Local/Digilent/WaveForms Live Agent/waveforms-live-agent.ini");
+    QString wwwRoot = QString(QDir::homePath() + "/AppData/Local/Digilent/WaveForms Live Agent/www/");
+#endif
+
 int main(int argc, char *argv[])
 {
     //Prevent multiple instances of this agent
@@ -73,6 +82,7 @@ int main(int argc, char *argv[])
 //Search for the waveforms-live-agent config ini
 QString searchConfigFile() {
     QFile file;
+    file.setFileName(iniPath);
     QString binDir = QCoreApplication::applicationDirPath();
     QString appName = QCoreApplication::applicationName();
 
@@ -119,14 +129,6 @@ QString searchConfigFile() {
 }
 
 QString createNewConfigFile(){
-#ifdef Q_OS_LINUX
-    QString iniPath = QString(QDir::homePath() + "/.config/waveforms-live-agent.ini");
-    QString wwwRoot = "/usr/share/waveforms-live-agent/www";
-#elif defined(W_OS_WIN32)
-    QString path = "./waveforms-live-agent.ini");
-    QString wwwRoot = "./www";
-#endif
-
     //Create default config data
     QSettings* listenerSettings = new QSettings(iniPath, QSettings::IniFormat);
     listenerSettings->beginGroup("listener");

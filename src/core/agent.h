@@ -7,6 +7,7 @@
 #include <QVector>
 #include <QObject>
 
+
 //WFL Agent includes
 #include "../uartClient/uartInfo.h"
 #include "../wflDevice/wflDevice.h"
@@ -33,6 +34,7 @@ public:
     bool launchWfl();
     void releaseActiveDevice();
     bool setActiveDeviceByName(QString deviceName);
+    bool internetAvailable();
 
 signals:
     void activeDeviceChanged(QString activeDeviceName);

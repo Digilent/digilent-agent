@@ -38,7 +38,8 @@ CMakeLists.txt.user*
 
 #Earlgrey
 *.exe
-installer/packages/com.digilent.wfl/data/*
+installer/packages/com.digilent.waveformsliveagent/data/*
+installer/packages/com.digilent.waveformsliveofflinesupport/data/*
 installer/build/*
 debug/
 release/

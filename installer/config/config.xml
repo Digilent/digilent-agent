@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>WaveForms Live Agent</Name>
-    <Version>0.1.2</Version>
+    <Version>0.1.5</Version>
     <Title>WaveForms Live Agent</Title>
     <Publisher>Digilent</Publisher>
     <TargetDir>@ApplicationsDir@/Digilent/Waveforms Live Agent</TargetDir>
