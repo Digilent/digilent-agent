@@ -49,33 +49,9 @@ int main(int argc, char *argv[])
 
     if(configFileName != "") {
          listenerSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
-
     } else  {
-        qDebug("No waveforms-live-agent.ini found, using defaults.");
-        listenerSettings = new QSettings();
-        listenerSettings->beginGroup("listener");
-        listenerSettings->setValue("port", 56089);
-        listenerSettings->setValue("minThreads", 4);
-        listenerSettings->setValue("maxThreads", 100);
-        listenerSettings->setValue("cleanupInterval", 60000);
-        listenerSettings->setValue("readTimeout", 60000);
-        listenerSettings->setValue("maxRequestSize", 16000);
-        listenerSettings->setValue("maxMultiPartSize", 10000000);
-        listenerSettings->endGroup();
 
 
-        listenerSettings->beginGroup("files");
-#ifdef Q_OS_LINUX
-        listenerSettings->setValue("path", "/usr/share/waveforms-live-agent/www");
-#elif defined(W_OS_WIN32)
-    listenerSettings->setValue("path", "./www");
-#endif
-        listenerSettings->setValue("encoding", "UTF-8");
-        listenerSettings->setValue("maxAge", 90000);
-        listenerSettings->setValue("cacheTime", 60000);
-        listenerSettings->setValue("cacheSize", 1000000);
-        listenerSettings->setValue("maxCachedFileSize", 65536);
-        listenerSettings->endGroup();
     }
 
 
@@ -84,8 +60,7 @@ int main(int argc, char *argv[])
     fileSettings->beginGroup("files");
     HttpRouter::staticFileController = new StaticFileController(fileSettings,&app);
 
-    //Create and start the HTTP Server
-    listenerSettings->beginGroup("listener");
+    //Create and start the HTTP Server  
     //new HttpListener(listenerSettings, new HttpRouter(&app, &mainWindow.activeDevice), &app);
     new HttpListener(listenerSettings, new HttpRouter(agent, &app), &app);
 
@@ -94,7 +69,7 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 
-//Search for the HTTP server config ini
+//Search for the waveforms-live-agent config ini
 QString searchConfigFile() {
     QFile file;
     QString binDir = QCoreApplication::applicationDirPath();
@@ -144,27 +119,64 @@ QString searchConfigFile() {
 
 QString createNewConfigFile(){
 #ifdef Q_OS_LINUX
-    QString path = QString(QDir::homePath() + "/.config/waveforms-live-agent.ini");
+    QString iniPath = QString(QDir::homePath() + "/.config/waveforms-live-agent.ini");
+    QString wwwRoot = "/usr/share/waveforms-live-agent/www";
+#elif defined(W_OS_WIN32)
+    QString path = "./waveforms-live-agent.ini");
+    QString wwwRoot = "./www";
+#endif
 
-    QFile file(path);
+    //Create default config data
+    QSettings* listenerSettings = new QSettings(iniPath, QSettings::IniFormat);
+    listenerSettings->beginGroup("listener");
+    listenerSettings->setValue("port", 56089);
+    listenerSettings->setValue("minThreads", 4);
+    listenerSettings->setValue("maxThreads", 100);
+    listenerSettings->setValue("cleanupInterval", 60000);
+    listenerSettings->setValue("readTimeout", 60000);
+    listenerSettings->setValue("maxRequestSize", 16000);
+    listenerSettings->setValue("maxMultiPartSize", 10000000);
+    listenerSettings->endGroup();
+
+    listenerSettings->beginGroup("files");
+    listenerSettings->setValue("path", wwwRoot);
+    listenerSettings->setValue("encoding", "UTF-8");
+    listenerSettings->setValue("maxAge", 90000);
+    listenerSettings->setValue("cacheTime", 60000);
+    listenerSettings->setValue("cacheSize", 1000000);
+    listenerSettings->setValue("maxCachedFileSize", 65536);
+    listenerSettings->endGroup();
+
+    listenerSettings->sync();
+
+    return iniPath;
+
+
+    /*
+
+    //Save new config file
+    QFile file(iniPath);
     if (file.open(QIODevice::ReadWrite))
     {
-        qDebug("Creating new config file: ";
-        qDebug() << path;
+        qDebug("Creating new config file: ");
+        qDebug() << iniPath;
         QTextStream stream( &file );
-        stream << "[listener]\n;host=0.0.0.0\nport=56089\nminThreads=4\nmaxThreads=100\ncleanupInterval=60000\nreadTimeout=60000\nmaxRequestSize=16000\nmaxMultiPartSize=10000000\n\n[files]\npath=./www\nencoding=UTF-8\nmaxAge=90000\ncacheTime=60000\ncacheSize=1000000\nmaxCachedFileSize=65536\n\n";
+        stream << "[listener]\n;host=0.0.0.0\nport=56089\nminThreads=4\nmaxThreads=100\ncleanupInterval=60000\nreadTimeout=60000\nmaxRequestSize=16000\nmaxMultiPartSize=10000000\n\n[files]\n";
+
+        stream << "path=";
+        stream << wwwRoot;
+        stream << "\n";
+
+        stream << "encoding=UTF-8\nmaxAge=90000\ncacheTime=60000\ncacheSize=1000000\nmaxCachedFileSize=65536\n\n";
         file.close();
-        return path;
+
     }
-    qDebug("Unable to create default config file: %s", path.data());
+    qDebug("Unable to create default config file: %s", iniPath.data());
     return QString();
-
-#elif defined(W_OS_WIN32)
-
-#endif
+    */
 }
-
 #else
+
 
 #include <QLabel>
 #include <QDebug>
