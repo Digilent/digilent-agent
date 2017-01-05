@@ -15,16 +15,14 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = earlgrey
 target.path = /usr/bin
 
-#config.path = /etc/skel
-#config.files = waveforms-live-agent.ini
+wwwRoot.path = /usr/share/waveforms-live-agent/www
+wwwRoot.files = www/*
 
 INSTALLS += target
-#INSTALLS += config
-
+INSTALLS += wwwRoot
 
 TEMPLATE = app
 CONFIG += qt
-
 
 SOURCES += \
     src/httpServer/httpRouter.cpp \
