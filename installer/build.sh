@@ -24,7 +24,7 @@ cp ../release/* packages/com.digilent.waveformsliveagent/data/
 if [ $TARGET = "win" ]; then
     printf "Pulling Component Dependencies...\n"
     cd packages/com.digilent.waveformsliveagent/data
-    windeployqt earlgrey.exe
+    windeployqt waveforms-live-agent.exe
     #Copy additional dependencies
         #missing depends for win32
         #"C:\Qt\5.7\mingw53_32\bin\libstdc++-6.dll"

@@ -1,4 +1,5 @@
 function Component() {
+
 }
 
 Component.prototype.createOperationsForArchive = function(archive)

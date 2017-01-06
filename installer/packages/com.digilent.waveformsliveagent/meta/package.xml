@@ -2,8 +2,8 @@
 <Package>
     <DisplayName>WaveForms Live Agent</DisplayName>
     <Description>WaveForms Live Agent</Description>
-    <Version>0.1.2</Version>
-    <ReleaseDate>2016-11-30</ReleaseDate>
+    <Version>0.1.5</Version>
+    <ReleaseDate>2017-01-06</ReleaseDate>
     <Licenses>
         <License name="MIT" file="license.txt" />
     </Licenses>

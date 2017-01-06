@@ -4,10 +4,11 @@
     <Version>0.1.5</Version>
     <Title>WaveForms Live Agent</Title>
     <Publisher>Digilent</Publisher>
+    <StartMenuDir>Digilent</StartMenuDir>
     <TargetDir>@ApplicationsDir@/Digilent/Waveforms Live Agent</TargetDir>
     <AllowSpaceInPath>true</AllowSpaceInPath>
     <RemoveTargetDir>true</RemoveTargetDir>
     <WizardStyle>Modern</WizardStyle>
-    <RunProgram>@ApplicationsDir@/Digilent/Waveforms Live Agent/earlgrey.exe</RunProgram>
+    <RunProgram>@ApplicationsDir@/Digilent/Waveforms Live Agent/waveforms-live-agent.exe</RunProgram>
     <ControlScript>installScript.qs</ControlScript>
 </Installer>

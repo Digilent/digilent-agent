@@ -3,10 +3,7 @@
     <DisplayName>WaveForms Live Offline Support</DisplayName>
     <Description>WaveForms Live Offline Support</Description>
     <Version>0.1.5</Version>
-    <ReleaseDate>2017-01-05</ReleaseDate>
-    <Licenses>
-        <License name="MIT" file="license.txt" />
-    </Licenses>
+    <ReleaseDate>2017-01-06</ReleaseDate>    
     <Default>true</Default>
     <Script>installScript.qs</Script>
 </Package>
