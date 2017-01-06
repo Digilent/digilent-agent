@@ -5,7 +5,7 @@ DEBEMAIL="software@digilent.com"
 DEBFULLNAME="Sam Kristoff"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-BUILD_DIR=$DIR/build
+BUILD_DIR=$DIR/working
 #TARGET_NAME="waveforms-live-agent"
 TARGET_NAME="waveforms-live-agent"
 TARGET_DIR="$BUILD_DIR/$TARGET_NAME-$VERSION"
