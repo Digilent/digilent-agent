@@ -1,8 +1,9 @@
 #!/bin/bash
+VERSION=$1
+
 DEBEMAIL="software@digilent.com"
 DEBFULLNAME="Sam Kristoff"
 
-VERSION=$1
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BUILD_DIR=$DIR/build
 #TARGET_NAME="waveforms-live-agent"
