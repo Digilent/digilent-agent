@@ -19,4 +19,4 @@ cp depends/* packages/com.digilent.waveformsliveagent/data/
 
 
 printf "Building Installer...\n"
-binarycreator -c config/config.xml -p packages "waveformsliveagent-$VERSION.exe"
+binarycreator -c config/winConfig.xml -p packages "waveformsliveagent-$VERSION.exe"

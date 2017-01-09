@@ -1,12 +1,20 @@
-//Disable SSL
-//#define QT_NO_SSL
+
 
 //QT core includes
+#include <QtGlobal>
 #include <QApplication>
 #include <QSettings>
 #include <QFile>
 #include <QDir>
 #include <QString>
+
+//Disable SSL on OSx
+#ifdef __APPLE__
+    #include "TargetConditionals.h"
+    #if TARGET_OS_MAC
+        #define QT_NO_SSL
+    #endif
+#endif
 
 //HTTP core includes
 #include "httplistener.h"
@@ -30,11 +38,14 @@ QString createNewConfigFile();
 
 
 #ifdef Q_OS_LINUX
-    QString iniPath = QString(QDir::homePath() + "/.config/waveforms-live-agent.ini");
-    QString wwwRoot = "/usr/share/waveforms-live-agent/www";
+    QString iniPath = QString(QDir::homePath() + "/.config/digilent/waveforms-live-agent.ini");
+    QString wwwRoot = "/usr/share/digilent/waveforms-live-agent/www";
 #elif defined(_WIN32)
     QString iniPath = QString(QDir::homePath() + "/AppData/Local/Digilent/WaveForms Live Agent/waveforms-live-agent.ini");
     QString wwwRoot = QString(QDir::homePath() + "/AppData/Local/Digilent/WaveForms Live Agent/www/");
+#elif TARGET_OS_MAC
+    QString iniPath = QString(QDir::homePath() + "/.config/digilent/waveforms-live-agent.ini");
+    QString wwwRoot = "/Users/Shared/digilent/waveforms-live-agent/www";
 #endif
 
 int main(int argc, char *argv[])
@@ -86,7 +97,7 @@ QString searchConfigFile() {
     QString binDir = QCoreApplication::applicationDirPath();
     QString appName = QCoreApplication::applicationName();
 
-#ifdef Q_OS_LINUX
+#ifdef Q_OS_LINUX_LINUX
     file.setFileName(QDir::homePath() + "/.config/waveforms-live-agent.ini");
 #elif defined(W_OS_WIN32)
 

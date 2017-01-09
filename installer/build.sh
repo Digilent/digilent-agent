@@ -10,10 +10,14 @@ fi
 if [ $TARGET = "win" ]; then
     printf "Preparing to build for Windows...\n"
     ./winBuildScript.sh $VERSION
-fi
-if [ $TARGET = "deb" ]; then
+elif [ $TARGET = "osx" ]; then
+    printf "Preparing to build for OSX...\n"
+    ./osxBuildScript.sh $VERSION
+elif [ $TARGET = "deb" ]; then
     printf "Preparing to build for Linux...\n"
     ./debBuildScript.sh $VERSION
+else
+    printf "Unknown target platform $TARGET"
 fi
 
 

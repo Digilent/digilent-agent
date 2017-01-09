@@ -7,29 +7,9 @@ function Component() {
     if (programFiles != "") {
         installer.setValue("TargetDir", programFiles + "/Digilent/WaveForms Live Agent");
     }
-    installer.finishButtonClicked.connect(this, Component.prototype.installationFinished);
-
-
 }
 
-Component.prototype.installationFinished = function () {
-    /*
-    try {
-        //Windows Post Install Actions
-        if (systemInfo.productType === "windows") {
-            if (installer.isInstaller() && installer.status == QInstaller.Success) {
-                //Launch agent now
-                QDesktopServices.openUrl("file:///" + installer.value("TargetDir") + "/waveforms-live-agent.exe");
-            }
-        }
-    } catch (e) {
-        console.log(e);
-    }
-    */
-}
-
-
-//Auto start on system boot
+//Platform Specific Custom Actions
 Component.prototype.createOperations = function () {
     //Call default createOperations
     component.createOperations();
@@ -43,4 +23,14 @@ Component.prototype.createOperations = function () {
         //Create start menu shortcut
         component.addOperation("CreateShortcut", "@TargetDir@/waveforms-live-agent.exe", "@StartMenuDir@/WaveForms Live Agent.lnk");
     }
+
+
+    //Create Applications link on OSX
+    //if (systemInfo.productType === "macos") {
+    var appPath = installer.value("TargetDir") + "/waveforms-live-agent.app/";
+        component.addOperation("Execute", "sudo ln -s /Library/Digilent/WaveFormsLiveAgent/waveforms-live-agent.app /Applications/");
+    //}
+
+
+
 }
