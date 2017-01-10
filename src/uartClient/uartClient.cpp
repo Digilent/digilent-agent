@@ -1,5 +1,10 @@
 #include <QtSerialPort/QSerialPort>
 #include <QTime>
+#include <QDebug>
+#include <QSerialPortInfo>
+
+//Mac Only
+#include <sys/ioctl.h>
 
 #include "uartClient.h"
 
@@ -21,6 +26,7 @@ UartClient::~UartClient() {
 
 void UartClient::writeRead(const QString &portName, int waitTimeout, const QByteArray &dataToSend) {
     QMutexLocker locker(&mutex);
+    //this->portName = "/dev/" + portName;
     this->portName = portName;
     this->waitTimeout = waitTimeout;
     this->dataToSend = dataToSend;
@@ -47,23 +53,29 @@ void UartClient::run()
     QByteArray _dataToSend = dataToSend;
     mutex.unlock();
     QSerialPort serial;
-    serial.setBaudRate(1250000);
+    //Open with standard serial baud rate, then increase to actual baud rate after opening to work around Mac issue
+    serial.setBaudRate(9600);
 
     while(!quit) {
         if(currentPortNameChanged || softResetRequired) {
             qDebug("Resetting Serial Port");
             this->softResetRequired = false;
+            //Return to standard baud rate to work around Mac issue
+            serial.setBaudRate(9600);
             serial.close();
             this->isOpen = false;
             serial.setPortName(currentPortName);
-
+            qDebug() << "Opening: " << currentPortName;
 
             if(!serial.open(QIODevice::ReadWrite)) {
+                qDebug(tr("Can't open %1, error code %2").arg(portName).arg(serial.error()).toUtf8());
                 emit error(tr("Can't open %1, error code %2").arg(portName).arg(serial.error()).toUtf8());
                 return;
             }
             else
-            {
+            {                
+                //Port opened succesfully at standard baud rate, increase to actual baud rate (done this way to work around Mac issue)
+                serial.setBaudRate(1250000);
                 this->isOpen = true;
             }
         }

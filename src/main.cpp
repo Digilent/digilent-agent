@@ -1,5 +1,3 @@
-
-
 //QT core includes
 #include <QtGlobal>
 #include <QApplication>
