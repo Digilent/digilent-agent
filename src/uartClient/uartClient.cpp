@@ -68,7 +68,7 @@ void UartClient::run()
             qDebug() << "Opening: " << currentPortName;
 
             if(!serial.open(QIODevice::ReadWrite)) {
-                qDebug(tr("Can't open %1, error code %2").arg(portName).arg(serial.error()).toUtf8());
+                qDebug() << "Can't Open Serial Port" << currentPortName;
                 emit error(tr("Can't open %1, error code %2").arg(portName).arg(serial.error()).toUtf8());
                 return;
             }
