@@ -30,14 +30,11 @@ SOURCES += \
     src/httpServer/debugController.cpp \
     src/mainWindow.cpp \
     src/httpClient/httpClient.cpp \    
-    src/uartClient/uartClient.cpp \
-    src/uartClient/uartInfo.cpp \
     src/core/comboBoxEventFilter.cpp \
     src/httpServer/agentConfigCtrl.cpp \
     src/core/agent.cpp \
     src/wflDevice/wflDevice.cpp \
     src/wflDevice/wflHttpDevice.cpp \
-    src/wflDevice/wflUartDevice.cpp \
     src/core/utils/runGuard.cpp \
     lib/digilent/qtSerial/serial.cpp \
     src/wflDevice/wflSerialDevice.cpp
@@ -46,14 +43,11 @@ HEADERS  += \
     src/httpServer/httpRouter.h \
     src/mainWindow.h \
     src/httpClient/httpClient.h \   
-    src/uartClient/uartClient.h \
-    src/uartClient/uartInfo.h \
     src/core/comboBoxEventFilter.h \
     src/httpServer/agentConfigCtrl.h \
     src/httpServer/debugController.h \
     src/core/agent.h \
     src/wflDevice/wflDevice.h \
-    src/wflDevice/wflUartDevice.h \
     src/core/utils/runGuard.h \
     src/wflDevice/wflHttpDevice.h \
     lib/digilent/qtSerial/serial.h \

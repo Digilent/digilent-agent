@@ -125,18 +125,6 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                         releaseActiveDevice();
                         return false;
                     }
-
-                    //TODO check response to make sure we can still communicate with the device
-
-                    //TODO Check if the uart is busy, if so don't try to re-open it (it's either open by the agent and does not need to be re-opened or it's open by something else and cannot be opened by the agent)
-                    /*
-                    releaseActiveDevice();
-                    this->activeDevice = new WflUartDevice(deviceName);
-                    this->activeDevice->name = deviceName;
-                    emit activeDeviceChanged(QString(deviceName));
-                    this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
-                    return true;
-                    */
                 }
             }
                 //Target device is already active but no longer available
@@ -153,7 +141,6 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
         if(devices[i] == deviceName)
         {
             //Create device object and enable JSON mode
-            //this->activeDevice = new WflUartDevice(deviceName);
             this->activeDevice = new WflSerialDevice(deviceName);
             this->activeDevice->name = deviceName;
             emit activeDeviceChanged(QString(deviceName));

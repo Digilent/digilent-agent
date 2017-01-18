@@ -10,7 +10,7 @@
 //WFL Agent includes
 #include "lib/digilent/qtSerial/serial.h"
 #include "../wflDevice/wflDevice.h"
-#include "../wflDevice/wflUartDevice.h"
+//#include "../wflDevice/wflUartDevice.h"
 #include "../wflDevice/wflSerialDevice.h"
 
 //class Agent
