@@ -24,6 +24,7 @@ INPUT(
 ./release\wflHttpDevice.o
 ./release\wflUartDevice.o
 ./release\runGuard.o
+./release\serial.o
 ./release\qrc_mainWindow.o
 ./release\moc_httplistener.o
 ./release\moc_httpconnectionhandler.o

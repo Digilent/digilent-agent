@@ -1,0 +1,3 @@
+[submodule "lib/digilent/qtSerial"]
+	path = lib/digilent/qtSerial
+	url = https://github.com/Digilent/qtSerial.git

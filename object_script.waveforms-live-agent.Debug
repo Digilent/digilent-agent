@@ -24,6 +24,7 @@ INPUT(
 ./debug\wflHttpDevice.o
 ./debug\wflUartDevice.o
 ./debug\runGuard.o
+./debug\serial.o
 ./debug\qrc_mainWindow.o
 ./debug\moc_httplistener.o
 ./debug\moc_httpconnectionhandler.o

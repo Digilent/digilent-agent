@@ -18,15 +18,6 @@ Agent::Agent(QObject *parent) : QObject(parent)
 
     //Initialize devices array with null pointers
     this->activeDevice = 0;
-    /*
-    this->deviceCount = 0;
-    for(int i=0; i < MAX_DEVICE_COUNT; i++)
-    {
-        devices[i] = 0;
-    }
-    */
-    //Uart
-    this->uartInfo = new UartInfo();
 }
 
 Agent::~Agent(){
@@ -41,28 +32,27 @@ Agent::~Agent(){
 //Return all UART devices on the system that are not busy plus the active device even if it is busy
 QVector<QString> Agent::enumerateDevices() {
     //---------- UART ----------
-    QVector<QString> devices = QVector<QString>();
-
-    this->uartInfo->refreshPortInfo();
+    QVector<QString> devices = QVector<QString>();    
+    QList<QSerialPortInfo> serialPortInfo = Serial::getSerialPortInfo();
 
     //Loop over all devices on the system
-    for(int i=0; i<uartInfo->ports.count(); i++)
+    for(int i=0; i<serialPortInfo.length(); i++)
     {
-        if(uartInfo->ports[i].isBusy())
+        if(serialPortInfo[i].isBusy())
         {
             //Only add a busy device if it is the active device
             if(this->activeDevice != 0)
             {
-                if(uartInfo->ports[i].portName() == this->activeDevice->name)
+                if(serialPortInfo[i].portName() == this->activeDevice->name)
                 {
-                    devices.append(uartInfo->ports[i].portName());
+                    devices.append(serialPortInfo[i].portName());
                 }
             }
         }
         else
         {
             //Device is available, add it
-            devices.append(uartInfo->ports[i].portName());
+            devices.append(serialPortInfo[i].portName());
         }
     }
 

@@ -7,9 +7,9 @@
 #include <QVector>
 #include <QObject>
 
-
 //WFL Agent includes
-#include "../uartClient/uartInfo.h"
+//#include "../uartClient/uartInfo.h"
+#include "lib/digilent/qtSerial/serial.h"
 #include "../wflDevice/wflDevice.h"
 #include "../wflDevice/wflUartDevice.h"
 
@@ -23,7 +23,6 @@ public:
     virtual ~Agent();
 
     WflDevice* activeDevice;
-    UartInfo* uartInfo;
 
     QVector<QString> enumerateDevices();
     //void flushDevices();
