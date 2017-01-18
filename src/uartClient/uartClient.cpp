@@ -2,10 +2,6 @@
 #include <QTime>
 #include <QDebug>
 #include <QSerialPortInfo>
-
-//Mac Only
-#include <sys/ioctl.h>
-
 #include "uartClient.h"
 
 QT_USE_NAMESPACE

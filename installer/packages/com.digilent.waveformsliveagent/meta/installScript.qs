@@ -27,8 +27,8 @@ Component.prototype.createOperations = function () {
 
     //Create Applications link on OSX
     //if (systemInfo.productType === "macos") {
-    var appPath = installer.value("TargetDir") + "/waveforms-live-agent.app/";
-        component.addOperation("Execute", "sudo ln -s /Library/Digilent/WaveFormsLiveAgent/waveforms-live-agent.app /Applications/");
+    //var appPath = installer.value("TargetDir") + "/waveforms-live-agent.app/";
+    //   component.addOperation("Execute", "sudo ln -s /Library/Digilent/WaveFormsLiveAgent/waveforms-live-agent.app /Applications/");
     //}
 
 
