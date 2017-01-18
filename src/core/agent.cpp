@@ -7,7 +7,6 @@
 
 #include "agent.h"
 
-
 //Agent::Agent()
 Agent::Agent(QObject *parent) : QObject(parent)
 {
@@ -32,7 +31,7 @@ Agent::~Agent(){
 //Return all UART devices on the system that are not busy plus the active device even if it is busy
 QVector<QString> Agent::enumerateDevices() {
     //---------- UART ----------
-    QVector<QString> devices = QVector<QString>();    
+    QVector<QString> devices = QVector<QString>();
     QList<QSerialPortInfo> serialPortInfo = Serial::getSerialPortInfo();
 
     //Loop over all devices on the system
@@ -154,7 +153,8 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
         if(devices[i] == deviceName)
         {
             //Create device object and enable JSON mode
-            this->activeDevice = new WflUartDevice(deviceName);
+            //this->activeDevice = new WflUartDevice(deviceName);
+            this->activeDevice = new WflSerialDevice(deviceName);
             this->activeDevice->name = deviceName;
             emit activeDeviceChanged(QString(deviceName));
             this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");

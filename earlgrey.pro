@@ -39,7 +39,8 @@ SOURCES += \
     src/wflDevice/wflHttpDevice.cpp \
     src/wflDevice/wflUartDevice.cpp \
     src/core/utils/runGuard.cpp \
-    lib/digilent/qtSerial/serial.cpp
+    lib/digilent/qtSerial/serial.cpp \
+    src/wflDevice/wflSerialDevice.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
@@ -55,7 +56,8 @@ HEADERS  += \
     src/wflDevice/wflUartDevice.h \
     src/core/utils/runGuard.h \
     src/wflDevice/wflHttpDevice.h \
-    lib/digilent/qtSerial/serial.h
+    lib/digilent/qtSerial/serial.h \
+    src/wflDevice/wflSerialDevice.h
 
 FORMS    += \
     mainWindow.ui

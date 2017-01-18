@@ -25,6 +25,7 @@ INPUT(
 ./release\wflUartDevice.o
 ./release\runGuard.o
 ./release\serial.o
+./release\wflSerialDevice.o
 ./release\qrc_mainWindow.o
 ./release\moc_httplistener.o
 ./release\moc_httpconnectionhandler.o
@@ -43,4 +44,5 @@ INPUT(
 ./release\moc_wflDevice.o
 ./release\moc_wflUartDevice.o
 ./release\moc_wflHttpDevice.o
+./release\moc_wflSerialDevice.o
 );

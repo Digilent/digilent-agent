@@ -25,6 +25,7 @@ INPUT(
 ./debug\wflUartDevice.o
 ./debug\runGuard.o
 ./debug\serial.o
+./debug\wflSerialDevice.o
 ./debug\qrc_mainWindow.o
 ./debug\moc_httplistener.o
 ./debug\moc_httpconnectionhandler.o
@@ -43,4 +44,5 @@ INPUT(
 ./debug\moc_wflDevice.o
 ./debug\moc_wflUartDevice.o
 ./debug\moc_wflHttpDevice.o
+./debug\moc_wflSerialDevice.o
 );
