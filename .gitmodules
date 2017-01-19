@@ -1,3 +1,6 @@
 [submodule "lib/digilent/qtSerial"]
 	path = lib/digilent/qtSerial
 	url = https://github.com/Digilent/qtSerial.git
+[submodule "lib/digilent/pgm"]
+	path = lib/digilent/pgm
+	url = https://github.com/Digilent/pgm.git

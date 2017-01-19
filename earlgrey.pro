@@ -37,7 +37,9 @@ SOURCES += \
     src/wflDevice/wflHttpDevice.cpp \
     src/core/utils/runGuard.cpp \
     lib/digilent/qtSerial/serial.cpp \
-    src/wflDevice/wflSerialDevice.cpp
+    src/wflDevice/wflSerialDevice.cpp \
+    lib/digilent/pgm/digilentPgm.cpp \
+    lib/digilent/pgm/pgmBlock.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
@@ -51,7 +53,9 @@ HEADERS  += \
     src/core/utils/runGuard.h \
     src/wflDevice/wflHttpDevice.h \
     lib/digilent/qtSerial/serial.h \
-    src/wflDevice/wflSerialDevice.h
+    src/wflDevice/wflSerialDevice.h \
+    lib/digilent/pgm/digilentPgm.h \
+    lib/digilent/pgm/pgmBlock.h
 
 FORMS    += \
     mainWindow.ui
@@ -63,7 +67,9 @@ DISTFILES += \
 #    waveforms-live-agent.ini
     lib/digilent/qtSerial/.gitignore \
     lib/digilent/qtSerial/LICENSE \
-    lib/digilent/qtSerial/README.md
+    lib/digilent/qtSerial/README.md \
+    lib/digilent/pgm/.gitignore \
+    lib/digilent/pgm/LICENSE
 
 OTHER_FILES +=
 

@@ -23,6 +23,8 @@ INPUT(
 ./release\runGuard.o
 ./release\serial.o
 ./release\wflSerialDevice.o
+./release\digilentPgm.o
+./release\pgmBlock.o
 ./release\qrc_mainWindow.o
 ./release\moc_httplistener.o
 ./release\moc_httpconnectionhandler.o

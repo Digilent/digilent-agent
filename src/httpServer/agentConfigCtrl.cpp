@@ -80,6 +80,15 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
             }
             break;
         }
+        case e_updateFirmware:
+        {
+            qDebug() << "Updating Firmware";
+            QString hexPath = cmdObj.value("hexPath").toString();
+            if(!this->agent->updateActiveDeviceFirmware(hexPath)){
+                res.insert("statusCode", qint64(123456789));
+            }
+            break;
+        }
         case e_unknownCommand:
         default:
             res.insert("command", command);
@@ -99,6 +108,9 @@ AgentConfigCtrl::CmdCode AgentConfigCtrl::parseCmd(QString cmdString){
     }
     if(cmdString == "setActiveDevice"){
         return e_setActiveDevice;
+    }
+    if(cmdString == "updateFirmware") {
+        return e_updateFirmware;
     }
     return e_unknownCommand;
 }

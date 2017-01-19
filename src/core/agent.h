@@ -9,8 +9,8 @@
 
 //WFL Agent includes
 #include "lib/digilent/qtSerial/serial.h"
+#include "lib/digilent/pgm/digilentPgm.h"
 #include "../wflDevice/wflDevice.h"
-//#include "../wflDevice/wflUartDevice.h"
 #include "../wflDevice/wflSerialDevice.h"
 
 //class Agent
@@ -33,7 +33,8 @@ public:
     bool launchWfl();
     void releaseActiveDevice();
     bool setActiveDeviceByName(QString deviceName);
-    bool internetAvailable();
+    bool internetAvailable();    
+    bool updateActiveDeviceFirmware(QString hexFilePath);
 
 signals:
     void activeDeviceChanged(QString activeDeviceName);

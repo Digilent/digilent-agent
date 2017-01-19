@@ -19,6 +19,7 @@ private:
         e_enumerateDevices,
         e_getInfo,
         e_setActiveDevice,
+        e_updateFirmware,
         e_unknownCommand,
     };
 

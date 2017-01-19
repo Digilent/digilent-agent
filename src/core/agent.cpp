@@ -177,3 +177,33 @@ bool Agent::internetAvailable() {
     }
 }
 
+//Use Digilent PGM to update the active device firmware with the specified firmware hex file.
+bool Agent::updateActiveDeviceFirmware(QString hexPath) {
+    if(this->activeDevice->deviceType == "UART") {
+        DigilentPgm pgm;
+        QString portName = this->activeDevice->name;
+
+        //Release the device so we can update it's firmware
+        this->releaseActiveDevice();
+
+        //Use Digilent PGM to update the firmware
+        if(pgm.programByPort(hexPath, portName)) {
+            //Programming successful, make device active again
+            qDebug() << "Firmware updated successfully";
+            if(this->setActiveDeviceByName(portName)) {
+                return true;
+            } else {
+                qDebug() << "Failed to set" << portName << "as the active device after updating firmware";
+                return false;
+            }
+        } else {
+            qDebug() << "Failed to update firmware";
+            return false;
+        }
+    } else {
+        qDebug() << "Unable to program non-uart devices at this time";
+        return false;
+    }
+}
+
+
