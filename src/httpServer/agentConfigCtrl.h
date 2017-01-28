@@ -19,7 +19,8 @@ private:
         e_enumerateDevices,
         e_getInfo,
         e_setActiveDevice,
-        e_updateFirmware,
+        e_uploadFirmware,
+        e_enterJsonMode,
         e_unknownCommand,
     };
 

@@ -1,8 +1,13 @@
 #include "agentConfigCtrl.h"
+#include "../../lib/digilent/qtHttp/httpClient.h"
+
+#include <QEventLoop>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QDebug>
+#include <QDir>
+#include <QUrl>
 
 AgentConfigCtrl::AgentConfigCtrl(Agent* agent, QObject* parent) : HttpRequestHandler(parent) {
     this->agent = agent;
@@ -18,8 +23,34 @@ void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {
     response.setHeader("Content-Type", "application/json");
     response.setStatus(200, "OK");
 
-    QJsonDocument reqDoc = QJsonDocument::fromJson(request.getBody());
-    if(!reqDoc.isNull()){
+    QByteArray body = request.getBody();
+    QJsonDocument reqDoc;
+
+    if(body[0] != '{') {
+        bool ok = false;
+        unsigned int jsonLength = body.mid(0, body.indexOf("\r")).toUInt(&ok);
+        if(!ok) {
+            response.write("Invalid OSJB", true);
+            return;
+        }
+
+        QByteArray cmdJson = body.mid((body.indexOf("\n") + 1), jsonLength - 2);
+        QByteArray cmdBinary = body.mid(body.indexOf("\n") + 1 + jsonLength);
+
+        //Write binary to file
+        QFile file(QDir::tempPath() + QString("/wflFirmware.hex"));
+
+        file.open(QIODevice::WriteOnly);
+        file.write(cmdBinary);
+        file.close();
+
+        reqDoc = QJsonDocument::fromJson(cmdJson);
+    } else {
+        //JSON COMMAND
+        reqDoc = QJsonDocument::fromJson(request.getBody());
+    }
+
+    if(!reqDoc.isNull()) {
         QJsonObject reqObj = reqDoc.object();
         QJsonArray agentCmds = reqObj.value("agent").toArray();
         QJsonArray cmdRespObjs;
@@ -35,6 +66,7 @@ void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {
         response.write(QJsonDocument(jsonResponse).toJson());
         return;
     }
+    //Default Response
     response.write("Invalid Request", true);
 }
 
@@ -80,12 +112,46 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
             }
             break;
         }
-        case e_updateFirmware:
+        case e_uploadFirmware:
         {
             qDebug() << "Updating Firmware";
-            QString hexPath = cmdObj.value("hexPath").toString();
-            if(!this->agent->updateActiveDeviceFirmware(hexPath)){
+            bool enterBootloader = cmdObj.value("enterBootloader").toBool();
+            QString firmwareUrl = cmdObj.value("firmwareUrl").toString();
+
+            //Download firmware if necessary
+            if(firmwareUrl != ""){
+                HttpClient httpClient;
+                QByteArray body = httpClient.get(QUrl(firmwareUrl));
+                qDebug() << "Get Complete";
+                qDebug() << "Get Complete";
+                //TODO
+            }
+
+            if(!this->agent->updateActiveDeviceFirmware(QDir::tempPath() + QString("/wflFirmware.hex"), enterBootloader)){
                 res.insert("statusCode", qint64(123456789));
+            }
+            break;
+        }
+        case e_enterJsonMode:
+        {
+            QByteArray devResp = this->agent->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
+            QJsonDocument resDoc = QJsonDocument::fromJson(devResp);
+            if(!resDoc.isNull()) {
+                QJsonObject resObj = resDoc.object();
+                QString mode = resObj.value("mode").toString();
+                if(mode == "JSON")
+                {
+                    res.insert("statusCode", qint64(0));
+                }
+                else
+                {
+                    //No response from the device, something else must have it open
+                    //releaseActiveDevice(); - WFL will release the device if it should be released due to not entering JSON mode
+                    res.insert("statusCode", qint64(666));
+                }
+            } else {
+                qDebug() << "e_enterJsonMode - No response from deveice";
+                res.insert("statusCode", qint64(666));
             }
             break;
         }
@@ -109,8 +175,11 @@ AgentConfigCtrl::CmdCode AgentConfigCtrl::parseCmd(QString cmdString){
     if(cmdString == "setActiveDevice"){
         return e_setActiveDevice;
     }
-    if(cmdString == "updateFirmware") {
-        return e_updateFirmware;
+    if(cmdString == "uploadFirmware") {
+        return e_uploadFirmware;
+    }
+    if(cmdString == "enterJsonMode") {
+        return e_enterJsonMode;
     }
     return e_unknownCommand;
 }

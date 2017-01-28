@@ -13,7 +13,8 @@ public:
     //Functions    
     virtual void execCommand(QByteArray cmd);
     virtual QByteArray writeRead(QByteArray cmd) = 0;
-    virtual void softReset() = 0;
+    virtual bool softReset() = 0;
+    virtual bool isOpen() = 0;
 
     //Variables
     QString name;

@@ -12,7 +12,6 @@
 #include <QLabel>
 
 //WFL Agent Core
-#include "httpClient/httpClient.h"
 #include "core/agent.h"
 #include "core/comboBoxEventFilter.h"
 

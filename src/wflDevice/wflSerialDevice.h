@@ -13,7 +13,8 @@ public:
     WflSerialDevice(QString address);
     virtual void execCommand(QByteArray cmd);
     virtual QByteArray writeRead(QByteArray cmd);
-    virtual void softReset();
+    virtual bool softReset();
+    virtual bool isOpen();
 
 signals:
 

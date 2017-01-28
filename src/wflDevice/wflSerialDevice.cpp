@@ -6,8 +6,12 @@ WflSerialDevice::WflSerialDevice(QString address)
     name = "Serial Device";
     deviceType = "UART";
 
-    //Initialize serial object and open port.
-    this->serial.open(address, 1250000);
+    //Initialize serial object, open the port and upgrade to the target baud rate (Work around Mac Issue)
+    if(this->serial.open(address, 9600)) {
+        if(!this->serial.setBaudRate(1250000)) {
+            qDebug() << "Failed to updgrade serial baud rate when creating wflDevice for " << address;
+        }
+    }
 }
 
 void WflSerialDevice::execCommand(QByteArray cmd) {
@@ -21,9 +25,14 @@ QByteArray WflSerialDevice::writeRead(QByteArray cmd) {
 }
 
 //Close and re-open the serial port;
-void WflSerialDevice::softReset() {
+bool WflSerialDevice::softReset() {
     QString name = this->serial.getName();
     int baudRate = this->serial.getBaudRate();
     this->serial.close();
-    this->serial.open(name, baudRate);
+    return this->serial.open(name, baudRate);
+}
+
+//Return true if the device serial port is open, false otherwise.
+bool WflSerialDevice::isOpen() {
+   return this->serial.isOpen();
 }

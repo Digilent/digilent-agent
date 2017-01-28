@@ -29,33 +29,31 @@ SOURCES += \
     src/main.cpp \
     src/httpServer/debugController.cpp \
     src/mainWindow.cpp \
-    src/httpClient/httpClient.cpp \    
     src/core/comboBoxEventFilter.cpp \
     src/httpServer/agentConfigCtrl.cpp \
     src/core/agent.cpp \
     src/wflDevice/wflDevice.cpp \
-    src/wflDevice/wflHttpDevice.cpp \
     src/core/utils/runGuard.cpp \
     lib/digilent/qtSerial/serial.cpp \
     src/wflDevice/wflSerialDevice.cpp \
     lib/digilent/pgm/digilentPgm.cpp \
-    lib/digilent/pgm/pgmBlock.cpp
+    lib/digilent/pgm/pgmBlock.cpp \
+    lib/digilent/qtHttp/httpClient.cpp
 
 HEADERS  += \    
     src/httpServer/httpRouter.h \
     src/mainWindow.h \
-    src/httpClient/httpClient.h \   
     src/core/comboBoxEventFilter.h \
     src/httpServer/agentConfigCtrl.h \
     src/httpServer/debugController.h \
     src/core/agent.h \
     src/wflDevice/wflDevice.h \
     src/core/utils/runGuard.h \
-    src/wflDevice/wflHttpDevice.h \
     lib/digilent/qtSerial/serial.h \
     src/wflDevice/wflSerialDevice.h \
     lib/digilent/pgm/digilentPgm.h \
-    lib/digilent/pgm/pgmBlock.h
+    lib/digilent/pgm/pgmBlock.h \
+    lib/digilent/qtHttp/httpClient.h
 
 FORMS    += \
     mainWindow.ui

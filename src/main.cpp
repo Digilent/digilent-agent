@@ -25,7 +25,6 @@
 #include "core/agent.h"
 #include "core/utils/runGuard.h"
 #include "wflDevice/wflDevice.h"
-#include "wflDevice/wflHttpDevice.h"
 
 #ifndef QT_NO_SYSTEMTRAYICON
 #include "mainWindow.h"
@@ -146,8 +145,8 @@ QString createNewConfigFile(){
     listenerSettings->setValue("maxThreads", 100);
     listenerSettings->setValue("cleanupInterval", 60000);
     listenerSettings->setValue("readTimeout", 60000);
-    listenerSettings->setValue("maxRequestSize", 16000);
-    listenerSettings->setValue("maxMultiPartSize", 10000000);
+    listenerSettings->setValue("maxRequestSize", 16000000);
+    listenerSettings->setValue("maxMultiPartSize", 16000000);
     listenerSettings->endGroup();
 
     listenerSettings->beginGroup("files");

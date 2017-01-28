@@ -3,9 +3,13 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QtNetwork>
+#include <QTime>
 #include <QUrl>
 
 #include "agent.h"
+
+//TODO REMOVE DEBUG
+#include "../../lib/digilent/qtHttp/httpClient.h"
 
 //Agent::Agent()
 Agent::Agent(QObject *parent) : QObject(parent)
@@ -17,6 +21,13 @@ Agent::Agent(QObject *parent) : QObject(parent)
 
     //Initialize devices array with null pointers
     this->activeDevice = 0;
+
+
+    //TODO REMOVE DEBUG
+    HttpClient httpClient;
+    QByteArray body = httpClient.get(QUrl("https://s3-us-west-2.amazonaws.com/digilent-test/0.1.0.hex"));
+    qDebug() << body;
+    qDebug() << "Done";
 }
 
 Agent::~Agent(){
@@ -102,24 +113,10 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
             {
                 if(deviceName == devices[i])
                 {
-                    //Target device is already active and still exists.  Try to put it in JSON mode to confirm the agent has the device open and not some other app
-                    this->activeDevice->softReset();
-                    QByteArray res = this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
-                    qDebug("Agent::setActiveDeviceByName() - Target Already Active - %s", res.data());
-                    QJsonDocument resDoc = QJsonDocument::fromJson(res);
-                    if(!resDoc.isNull()){
-                        QJsonObject resObj = resDoc.object();
-                        QString mode = resObj.value("mode").toString();
-                        if(mode == "JSON")
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            //No response from the device, something else must have it open
-                            releaseActiveDevice();
-                            return false;
-                        }
+                    //Target device is already active and still exists.  SoftReset it to make sure the agent is the app that has it open (not some other app)
+                    if(this->activeDevice->softReset())
+                    {
+                        return true;
                     } else {
                         //No response from the device, something else must have it open
                         releaseActiveDevice();
@@ -142,8 +139,12 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
         {
             //Create device object and enable JSON mode
             this->activeDevice = new WflSerialDevice(deviceName);
+            if(!this->activeDevice->isOpen()){
+                //Failed to open serial port
+                return false;
+            }
             this->activeDevice->name = deviceName;
-            emit activeDeviceChanged(QString(deviceName));
+            emit activeDeviceChanged(QString(deviceName));            
             this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
             return true;
         }
@@ -178,10 +179,31 @@ bool Agent::internetAvailable() {
 }
 
 //Use Digilent PGM to update the active device firmware with the specified firmware hex file.
-bool Agent::updateActiveDeviceFirmware(QString hexPath) {
-    if(this->activeDevice->deviceType == "UART") {
+bool Agent::updateActiveDeviceFirmware(QString hexPath, bool enterBootloader) {
+    if(this->activeDevice != NULL && this->activeDevice->deviceType == "UART") {
         DigilentPgm pgm;
         QString portName = this->activeDevice->name;
+
+        //Send enter device bootloader command if necissary
+        if(enterBootloader) {
+            QByteArray devResp = this->activeDevice->writeRead("{\"device\":[{\"command\":\"enterBootloader\"}]})");
+            QJsonDocument resDoc = QJsonDocument::fromJson(devResp);
+
+            QJsonObject resObj = resDoc.object();
+            QJsonArray deviceCmds = resObj.value("device").toArray();
+
+            QJsonObject enterBootloaderObj = deviceCmds[0].toObject();
+            int waitTime = enterBootloaderObj.value("wait").toInt();
+
+            //Wait for device to enter bootloader
+            QTime stopWatch;
+            stopWatch.start();
+            QTime startTime = QTime::currentTime();
+            QTime doneTime = startTime.addMSecs(waitTime);
+            while (QTime::currentTime() < doneTime) {
+                QCoreApplication::processEvents(QEventLoop::AllEvents, 1);
+            }
+        }
 
         //Release the device so we can update it's firmware
         this->releaseActiveDevice();

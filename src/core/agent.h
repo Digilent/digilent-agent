@@ -34,7 +34,7 @@ public:
     void releaseActiveDevice();
     bool setActiveDeviceByName(QString deviceName);
     bool internetAvailable();    
-    bool updateActiveDeviceFirmware(QString hexFilePath);
+    bool updateActiveDeviceFirmware(QString hexFilePath, bool enterBootloader);
 
 signals:
     void activeDeviceChanged(QString activeDeviceName);
