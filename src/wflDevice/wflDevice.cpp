@@ -1,5 +1,7 @@
 #include "wflDevice.h"
 
+#include <QDebug>
+
 WflDevice::WflDevice(QObject *parent) : QObject(parent)
 {
     qDebug("WflDevice Constructor");
@@ -8,5 +10,5 @@ WflDevice::WflDevice(QObject *parent) : QObject(parent)
 }
 
 void WflDevice::execCommand(QByteArray cmd){
-    qDebug("OsDevice::execCommand()");
+    qDebug() << "OsDevice::execCommand()" << cmd;
 }
