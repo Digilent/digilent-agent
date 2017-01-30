@@ -120,11 +120,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
 
             //Download firmware if necessary
             if(firmwareUrl != ""){
-                HttpClient httpClient;
-                QByteArray body = httpClient.get(QUrl(firmwareUrl));
-                qDebug() << "Get Complete";
-                qDebug() << "Get Complete";
-                //TODO
+               //TODO - Download firmware from URL
             }
 
             if(!this->agent->updateActiveDeviceFirmware(QDir::tempPath() + QString("/wflFirmware.hex"), enterBootloader)){
