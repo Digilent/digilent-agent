@@ -8,9 +8,6 @@
 
 #include "agent.h"
 
-//TODO REMOVE DEBUG
-#include "../../lib/digilent/qtHttp/httpClient.h"
-
 //Agent::Agent()
 Agent::Agent(QObject *parent) : QObject(parent)
 {
@@ -21,13 +18,6 @@ Agent::Agent(QObject *parent) : QObject(parent)
 
     //Initialize devices array with null pointers
     this->activeDevice = 0;
-
-
-    //TODO REMOVE DEBUG
-    HttpClient httpClient;
-    QByteArray body = httpClient.get(QUrl("https://s3-us-west-2.amazonaws.com/digilent-test/0.1.0.hex"));
-    qDebug() << body;
-    qDebug() << "Done";
 }
 
 Agent::~Agent(){
