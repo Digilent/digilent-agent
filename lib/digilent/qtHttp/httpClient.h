@@ -13,7 +13,7 @@ public:
     //static QByteArray getBody(QUrl url);
 
 signals:
-    requestComplete();
+    void requestComplete();
 
 public slots:
     void onRequestFinished(QNetworkReply *reply);
