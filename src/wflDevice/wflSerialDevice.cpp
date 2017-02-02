@@ -16,12 +16,12 @@ WflSerialDevice::WflSerialDevice(QString address)
 
 void WflSerialDevice::execCommand(QByteArray cmd) {
     qDebug() << "WflSerialDevice::execCommand()";
-    QByteArray resp = this->serial.writeRead(cmd, 1000, 50);
+    QByteArray resp = this->serial.fastWriteRead(cmd, 2000, 50);
     emit execCommandComplete(resp);
 }
 
 QByteArray WflSerialDevice::writeRead(QByteArray cmd) {
-    return this->serial.writeRead(cmd, 1000, 50);
+    return this->serial.fastWriteRead(cmd, 2000, 50);
 }
 
 //Close and re-open the serial port;

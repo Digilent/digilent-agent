@@ -8,6 +8,8 @@
 
 #include "agent.h"
 
+
+
 //Agent::Agent()
 Agent::Agent(QObject *parent) : QObject(parent)
 {
@@ -15,6 +17,9 @@ Agent::Agent(QObject *parent) : QObject(parent)
     this->majorVersion = 0;
     this->minorVersion = 1;
     this->patchVersion = 8;
+
+    this->firmwareUploadStatus = "idle";
+
 
     //Initialize devices array with null pointers
     this->activeDevice = 0;
@@ -170,8 +175,10 @@ bool Agent::internetAvailable() {
 
 //Use Digilent PGM to update the active device firmware with the specified firmware hex file.
 bool Agent::updateActiveDeviceFirmware(QString hexPath, bool enterBootloader) {
+    firmwareUploadStatus = "uploading";
     if(this->activeDevice != NULL && this->activeDevice->deviceType == "UART") {
-        DigilentPgm pgm;
+
+        this->pgm = new DigilentPgm();
         QString portName = this->activeDevice->name;
 
         //Send enter device bootloader command if necissary
@@ -199,23 +206,35 @@ bool Agent::updateActiveDeviceFirmware(QString hexPath, bool enterBootloader) {
         this->releaseActiveDevice();
 
         //Use Digilent PGM to update the firmware
-        if(pgm.programByPort(hexPath, portName)) {
+        if(this->pgm->programByPort(hexPath, portName)) {
             //Programming successful, make device active again
             qDebug() << "Firmware updated successfully";
             if(this->setActiveDeviceByName(portName)) {
+                firmwareUploadStatus = "idle";
                 return true;
             } else {
                 qDebug() << "Failed to set" << portName << "as the active device after updating firmware";
+                firmwareUploadStatus = "error";
                 return false;
             }
         } else {
             qDebug() << "Failed to update firmware";
+            firmwareUploadStatus = "error";
             return false;
         }
     } else {
         qDebug() << "Unable to program non-uart devices at this time";
+        firmwareUploadStatus = "error";
         return false;
     }
+}
+
+QString Agent::getFirmwareUploadStatus() {    
+    return this->firmwareUploadStatus;
+}
+
+int Agent::getFirmwareUploadProgress() {
+    return this->pgm->progress;
 }
 
 

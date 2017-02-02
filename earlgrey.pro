@@ -7,6 +7,7 @@
 QT += core gui
 QT += network
 QT += serialport
+QT += concurrent
 
 include(src/httpServer/core/httpserver.pri)
 

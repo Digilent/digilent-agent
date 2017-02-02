@@ -30,11 +30,14 @@ public:
     int getMajorVersion();
     int getMinorVersion();
     int getPatchVersion();
+    QString getFirmwareUploadStatus();
+    int getFirmwareUploadProgress();
     bool launchWfl();
     void releaseActiveDevice();
     bool setActiveDeviceByName(QString deviceName);
     bool internetAvailable();    
-    bool updateActiveDeviceFirmware(QString hexFilePath, bool enterBootloader);
+    bool updateActiveDeviceFirmware(QString hexFilePath, bool enterBootloader);    
+
 
 signals:
     void activeDeviceChanged(QString activeDeviceName);
@@ -45,7 +48,10 @@ private:
     bool httpCapable;
     int majorVersion;
     int minorVersion;
-    int patchVersion;
+    int patchVersion;    
+
+    QString firmwareUploadStatus;
+    DigilentPgm *pgm;
 
 };
 

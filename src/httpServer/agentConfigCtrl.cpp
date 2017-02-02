@@ -106,25 +106,9 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
             if(!success) {
                 qDebug("Set Active Device Failed");
                 //setActiveDevice() failed, return error code
-                res.insert("statusCode", qint64(2147483648));
+                res.insert("statusCode", qint64(666));
             } else {
                 qDebug("Set Active Device Success");
-            }
-            break;
-        }
-        case e_uploadFirmware:
-        {
-            qDebug() << "Updating Firmware";
-            bool enterBootloader = cmdObj.value("enterBootloader").toBool();
-            QString firmwareUrl = cmdObj.value("firmwareUrl").toString();
-
-            //Download firmware if necessary
-            if(firmwareUrl != ""){
-               //TODO - Download firmware from URL
-            }
-
-            if(!this->agent->updateActiveDeviceFirmware(QDir::tempPath() + QString("/wflFirmware.hex"), enterBootloader)){
-                res.insert("statusCode", qint64(123456789));
             }
             break;
         }
@@ -151,12 +135,38 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
             }
             break;
         }
-        case e_unknownCommand:
-        default:
+        case e_uploadFirmware:
+        {
+            qDebug() << "Updating Firmware";
+            bool enterBootloader = cmdObj.value("enterBootloader").toBool();
+            QString firmwareUrl = cmdObj.value("firmwareUrl").toString();
+
+            //Download firmware if necessary
+            if(firmwareUrl != ""){
+               //TODO - Download firmware from URL
+            }
+
+            if(!this->agent->updateActiveDeviceFirmware(QDir::tempPath() + QString("/wflFirmware.hex"), enterBootloader)){
+                res.insert("statusCode", qint64(666));
+            } else {
+                res.insert("statusCode", qint64(0));
+            }
+            break;
+        }        
+        case e_updateFirmwareGetStatus:
+        {
             res.insert("command", command);
-            res.insert("status", "Unknown Command");
-        break;
-    }
+            res.insert("statusCode", qint64(0));
+            res.insert("status", this->agent->getFirmwareUploadStatus());
+            res.insert("progress", this->agent->getFirmwareUploadProgress());
+            break;
+        }
+        case e_unknownCommand:
+            default:
+                res.insert("command", command);
+                res.insert("status", "Unknown Command");
+            break;
+        }
 
     return res;
 }
@@ -173,6 +183,9 @@ AgentConfigCtrl::CmdCode AgentConfigCtrl::parseCmd(QString cmdString){
     }
     if(cmdString == "uploadFirmware") {
         return e_uploadFirmware;
+    }
+    if(cmdString == "updateFirmwareGetStatus") {
+        return e_updateFirmwareGetStatus;
     }
     if(cmdString == "enterJsonMode") {
         return e_enterJsonMode;

@@ -39,5 +39,6 @@ INPUT(
 ./debug\moc_agent.o
 ./debug\moc_wflDevice.o
 ./debug\moc_wflSerialDevice.o
+./debug\moc_digilentPgm.o
 ./debug\moc_httpClient.o
 );

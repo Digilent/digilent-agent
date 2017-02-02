@@ -20,6 +20,7 @@ private:
         e_getInfo,
         e_setActiveDevice,
         e_uploadFirmware,
+        e_updateFirmwareGetStatus,
         e_enterJsonMode,
         e_unknownCommand,
     };
