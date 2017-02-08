@@ -14,7 +14,7 @@
 
 MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    setWindowTitle(tr("OpenScope Utility"));
+    setWindowTitle(tr("Digilent Agent"));
 
     this->agent = agent;
 

@@ -9,14 +9,13 @@
 #include "agent.h"
 
 
-
 //Agent::Agent()
 Agent::Agent(QObject *parent) : QObject(parent)
 {
     this->httpCapable = true;
     this->majorVersion = 0;
-    this->minorVersion = 1;
-    this->patchVersion = 8;
+    this->minorVersion = 2;
+    this->patchVersion = 0;
 
     this->firmwareUploadStatus = "idle";
 
@@ -210,7 +209,7 @@ bool Agent::updateActiveDeviceFirmware(QString hexPath, bool enterBootloader) {
             //Programming successful, make device active again
             qDebug() << "Firmware updated successfully";
             if(this->setActiveDeviceByName(portName)) {
-                firmwareUploadStatus = "idle";
+                firmwareUploadStatus = "idle";                
                 return true;
             } else {
                 qDebug() << "Failed to set" << portName << "as the active device after updating firmware";

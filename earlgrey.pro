@@ -13,10 +13,10 @@ include(src/httpServer/core/httpserver.pri)
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = waveforms-live-agent
+TARGET = digilent-agent
 target.path = /usr/bin
 
-wwwRoot.path = /usr/share/waveforms-live-agent/www
+wwwRoot.path = /usr/share/digilent-agent/www
 wwwRoot.files = www/*
 
 INSTALLS += target
@@ -62,8 +62,10 @@ FORMS    += \
 RESOURCES += \
     mainWindow.qrc
 
+RC_FILE = digilent-agent.rc
+
 DISTFILES += \
-#    waveforms-live-agent.ini
+#    digilent-agent.ini
     lib/digilent/qtSerial/.gitignore \
     lib/digilent/qtSerial/LICENSE \
     lib/digilent/qtSerial/README.md \
@@ -71,6 +73,7 @@ DISTFILES += \
     lib/digilent/pgm/LICENSE
 
 OTHER_FILES +=
+
 
 #QMAKE_CXXFLAGS += -static-libgcc -static-libstdc++
 #QMAKE_LFLAGS += -static -lpthread -static-libgcc -static-libstdc++

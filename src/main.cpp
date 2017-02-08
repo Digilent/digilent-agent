@@ -35,22 +35,23 @@ QString createNewConfigFile();
 
 
 #ifdef Q_OS_LINUX
-    QString iniPath = QString(QDir::homePath() + "/.config/digilent/waveforms-live-agent.ini");
-    QString wwwRoot = "/usr/share/digilent/waveforms-live-agent/www";
+    QString iniPath = QString(QDir::homePath() + "/.config/digilent/digilent-agent.ini");
+    QString wwwRoot = "/usr/share/digilent/digilent-agent/www";
 #elif defined(_WIN32)
-    QString iniPath = QString(QDir::homePath() + "/AppData/Local/Digilent/WaveForms Live Agent/waveforms-live-agent.ini");
-    QString wwwRoot = QString(QDir::homePath() + "/AppData/Local/Digilent/WaveForms Live Agent/www/");
+    QString iniPath = QString(QDir::homePath() + "/AppData/Local/Digilent/Digilent Agent/digilent-agent.ini");
+    QString wwwRoot = QString(QDir::homePath() + "/AppData/Local/Digilent/Digilent Agent/www/");
 #elif TARGET_OS_MAC
-    QString iniPath = QString(QDir::homePath() + "/.config/digilent/waveforms-live-agent.ini");
-    QString wwwRoot = "/Users/Shared/digilent/waveforms-live-agent/www";
+    QString iniPath = QString(QDir::homePath() + "/.config/digilent/digilent-agent.ini");
+    QString wwwRoot = "/Users/Shared/digilent/digilent-agent/www";
 #endif
 
 int main(int argc, char *argv[])
 {
     //Prevent multiple instances of this agent
-    RunGuard guard( "WaveFroms_Live_Agent_1.x.x" );
-       if ( !guard.tryToRun() )
+    RunGuard guard( "Digilent_Agent_1.x.x" );
+       if ( !guard.tryToRun() ) {
            return 0;
+       }
 
     QApplication app(argc, argv);
 
@@ -68,7 +69,7 @@ int main(int argc, char *argv[])
          listenerSettings = new QSettings(configFileName, QSettings::IniFormat, &app);
          listenerSettings->sync();
     } else  {
-        qDebug("Failed to load waveforms-live-agent.ini");
+        qDebug("Failed to load digilent-agent.ini");
         return -1;
     }
 
@@ -87,7 +88,7 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 
-//Search for the waveforms-live-agent config ini
+//Search for the digilent-agent config ini
 QString searchConfigFile() {
     QFile file;
     file.setFileName(iniPath);
@@ -95,26 +96,26 @@ QString searchConfigFile() {
     QString appName = QCoreApplication::applicationName();
 
 #ifdef Q_OS_LINUX_LINUX
-    file.setFileName(QDir::homePath() + "/.config/waveforms-live-agent.ini");
+    file.setFileName(QDir::homePath() + "/.config/digilent-agent.ini");
 #elif defined(W_OS_WIN32)
 
 #endif
     if (!file.exists()) {
-        file.setFileName(binDir+"/waveforms-live-agent.ini");
+        file.setFileName(binDir+"/digilent-agent.ini");
         if (!file.exists()) {
-            file.setFileName(binDir+"/../waveforms-live-agent.ini");
+            file.setFileName(binDir+"/../digilent-agent.ini");
             if (!file.exists()) {
-                file.setFileName(binDir+"/../"+appName+"/waveforms-live-agent.ini");
+                file.setFileName(binDir+"/../"+appName+"/digilent-agent.ini");
                 if (!file.exists()) {
-                    file.setFileName(binDir+"/../../"+appName+"/waveforms-live-agent.ini");
+                    file.setFileName(binDir+"/../../"+appName+"/digilent-agent.ini");
                     if (!file.exists()) {
-                        file.setFileName(binDir+"/../../../"+appName+"/waveforms-live-agent.ini");
+                        file.setFileName(binDir+"/../../../"+appName+"/digilent-agent.ini");
                         if (!file.exists()) {
-                            file.setFileName(binDir+"/../../../../"+appName+"/waveforms-live-agent.ini");
+                            file.setFileName(binDir+"/../../../../"+appName+"/digilent-agent.ini");
                             if (!file.exists()) {
-                                file.setFileName(binDir+"/../../../../../"+appName+"/waveforms-live-agent.ini");
+                                file.setFileName(binDir+"/../../../../../"+appName+"/digilent-agent.ini");
                                 if (!file.exists()) {
-                                    file.setFileName(QDir::rootPath()+"waveforms-live-agent.ini");
+                                    file.setFileName(QDir::rootPath()+"digilent-agent.ini");
                                     if (!file.exists()) {
                                         file.setFileName(createNewConfigFile());
                                     }
