@@ -64,7 +64,7 @@ void MainWindow::createTrayIcon()
     //Active Device    
     this->activeDeviceSubMenu = trayIconMenu->addMenu("Active Device:  -");
     this->activeDeviceSubMenuRelease = activeDeviceSubMenu->addAction("Release");
-    connect(activeDeviceSubMenuRelease, &QAction::triggered, agent, &Agent::releaseActiveDevice);
+    connect(activeDeviceSubMenuRelease, SIGNAL(triggered()), this, SLOT(releaseActiveDevice()));
     activeDeviceSubMenu->setEnabled(false);
 
     trayIconMenu->addSeparator();
@@ -91,6 +91,10 @@ void MainWindow::onActiveDeviceNameChange(QString activeDeviceName) {
         activeDeviceSubMenu->setTitle("Active Device: " + activeDeviceName);
         activeDeviceSubMenu->setEnabled(true);
     }
+}
+
+void MainWindow::releaseActiveDevice() {
+    this->agent->releaseActiveDevice();
 }
 
 #endif //QT_NO_SYSTEMTRAYICON

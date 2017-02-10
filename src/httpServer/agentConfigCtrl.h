@@ -19,15 +19,19 @@ private:
         e_enumerateDevices,
         e_getInfo,
         e_setActiveDevice,
+        e_saveToTempFile,
         e_uploadFirmware,
         e_updateFirmwareGetStatus,
+        e_updateWaveFormsLiveBrowser,
         e_enterJsonMode,
+        e_releaseActiveDevice,
         e_unknownCommand,
+
     };
 
     Agent *agent;
 
-    QJsonObject processCommand(QJsonObject cmdObj);
+    QJsonObject processCommand(QJsonObject cmdObj, QByteArray data = QByteArray());
     CmdCode parseCmd(QString cmdString);
 };
 

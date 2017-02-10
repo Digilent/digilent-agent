@@ -38,6 +38,7 @@ protected:
 
 private slots:   
     void onActiveDeviceNameChange(QString activeDeviceName);
+    void releaseActiveDevice();
     //void refreshDeviceList();
     //void onConnectReleased();
 

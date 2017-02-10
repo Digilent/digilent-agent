@@ -14,6 +14,10 @@ WflSerialDevice::WflSerialDevice(QString address)
     }
 }
 
+WflSerialDevice::~WflSerialDevice(){
+    qDebug() << "~WflSerialDevice()";
+}
+
 void WflSerialDevice::execCommand(QByteArray cmd) {
     qDebug() << "WflSerialDevice::execCommand()";
     QByteArray resp = this->serial.fastWriteRead(cmd, 2000, 50);

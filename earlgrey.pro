@@ -74,6 +74,12 @@ DISTFILES += \
 
 OTHER_FILES +=
 
+#Libs
+INCLUDEPATH += lib/zlib-1.2.8
+LIBS += -Llib/zlib-1.2.8 -lz
+INCLUDEPATH += lib/quazip-0.7/quazip
+LIBS += -Llib/quazip-0.7/quazip/release -lquazip
+
 
 #QMAKE_CXXFLAGS += -static-libgcc -static-libstdc++
 #QMAKE_LFLAGS += -static -lpthread -static-libgcc -static-libstdc++

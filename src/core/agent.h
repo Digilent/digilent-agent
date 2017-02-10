@@ -37,6 +37,7 @@ public:
     bool setActiveDeviceByName(QString deviceName);
     bool internetAvailable();    
     bool updateActiveDeviceFirmware(QString hexFilePath, bool enterBootloader);    
+    QString waveFormsLiveBrowserPath;
 
 
 signals:

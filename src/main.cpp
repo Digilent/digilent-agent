@@ -56,11 +56,10 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     //Instantiate the agent and mainWindow
-    Agent* agent = new Agent();
+    Agent* agent = new Agent();    
     MainWindow mainWindow(agent);
 
     // Load the http configuration file
-
     QString configFileName = searchConfigFile();
     QSettings* listenerSettings;
 
@@ -72,6 +71,9 @@ int main(int argc, char *argv[])
         qDebug("Failed to load digilent-agent.ini");
         return -1;
     }
+
+    //Pass ini values to agent
+    agent->waveFormsLiveBrowserPath = listenerSettings->value("waveforms-live/wwwRoot").toString();
 
     // Static file controller
     QSettings* fileSettings=new QSettings(configFileName, QSettings::IniFormat, &app);
@@ -150,14 +152,16 @@ QString createNewConfigFile(){
     listenerSettings->setValue("maxMultiPartSize", 16000000);
     listenerSettings->endGroup();
 
-    listenerSettings->beginGroup("files");
-    listenerSettings->setValue("path", wwwRoot);
+    listenerSettings->beginGroup("files");    
     listenerSettings->setValue("encoding", "UTF-8");
     listenerSettings->setValue("maxAge", 90000);
     listenerSettings->setValue("cacheTime", 60000);
     listenerSettings->setValue("cacheSize", 1000000);
     listenerSettings->setValue("maxCachedFileSize", 65536);
     listenerSettings->endGroup();
+
+    listenerSettings->beginGroup("waveforms-live");
+    listenerSettings->setValue("wwwRoot", wwwRoot);
 
     listenerSettings->sync();
 

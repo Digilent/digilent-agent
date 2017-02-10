@@ -11,6 +11,7 @@ class WflSerialDevice : public WflDevice{
 
 public:
     WflSerialDevice(QString address);
+    virtual ~WflSerialDevice();
     virtual void execCommand(QByteArray cmd);
     virtual QByteArray writeRead(QByteArray cmd);
     virtual bool softReset();

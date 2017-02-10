@@ -9,6 +9,7 @@ class WflDevice : public QObject
 
 public:
     explicit WflDevice(QObject *parent = 0);
+    virtual ~WflDevice();
 
     //Functions    
     virtual void execCommand(QByteArray cmd);

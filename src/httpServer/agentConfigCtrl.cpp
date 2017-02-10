@@ -9,6 +9,8 @@
 #include <QDir>
 #include <QUrl>
 
+#include <JlCompress.h>
+
 AgentConfigCtrl::AgentConfigCtrl(Agent* agent, QObject* parent) : HttpRequestHandler(parent) {
     this->agent = agent;
 }
@@ -25,26 +27,31 @@ void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {
 
     QByteArray body = request.getBody();
     QJsonDocument reqDoc;
+    QByteArray cmdBinary = QByteArray();
 
     if(body[0] != '{') {
+
+        //Process chunk1 (JSON)
+        QByteArray chunk = body;
         bool ok = false;
-        unsigned int jsonLength = body.mid(0, body.indexOf("\r")).toUInt(&ok);
+        unsigned int chunk1Length = chunk.mid(0, chunk.indexOf("\r")).toUInt(&ok, 16);
         if(!ok) {
-            response.write("Invalid OSJB", true);
+            response.write("Invalid Chunk Formatting", true);
             return;
         }
-
-        QByteArray cmdJson = body.mid((body.indexOf("\n") + 1), jsonLength - 2);
-        QByteArray cmdBinary = body.mid(body.indexOf("\n") + 1 + jsonLength);
-
-        //Write binary to file
-        QFile file(QDir::tempPath() + QString("/wflFirmware.hex"));
-
-        file.open(QIODevice::WriteOnly);
-        file.write(cmdBinary);
-        file.close();
-
+        QByteArray cmdJson = chunk.mid((chunk.indexOf("\n") + 1), chunk1Length);
         reqDoc = QJsonDocument::fromJson(cmdJson);
+
+        //Process Chunk
+        chunk = body.mid(body.indexOf("\n") + 3 + chunk1Length);
+        unsigned int chunk2Length = chunk.mid(0, chunk.indexOf("\r")).toUInt(&ok, 16);
+        if(!ok) {
+            response.write("Invalid Chunk Formatting", true);
+            return;
+        }
+        cmdBinary.append(chunk.mid((chunk.indexOf("\n") + 1), chunk2Length));
+
+        qDebug() << "Breakpoint";
     } else {
         //JSON COMMAND
         reqDoc = QJsonDocument::fromJson(request.getBody());
@@ -58,7 +65,17 @@ void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {
         //Iterate over commands
         for(int i=0; i<agentCmds.size(); i++){
             QJsonObject cmdObj = agentCmds[i].toObject();
-            cmdRespObjs.insert(i, processCommand(cmdObj));
+            QJsonObject resp = processCommand(cmdObj, cmdBinary);
+            cmdRespObjs.insert(i, resp);
+
+            //Check if an error occured, if so don't continue processing commands
+            double status = resp.value("statusCode").toDouble();
+            if(status > 2147483647) {
+                QJsonObject jsonResponse = QJsonObject();
+                jsonResponse.insert("agent", cmdRespObjs);
+                response.write(QJsonDocument(jsonResponse).toJson());
+                return;
+            }
         }
 
         QJsonObject jsonResponse = QJsonObject();
@@ -70,7 +87,7 @@ void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {
     response.write("Invalid Request", true);
 }
 
-QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
+QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data){
     QJsonObject res = QJsonObject();
     QString command = cmdObj.value("command").toString();
     res.insert("command", command);
@@ -97,6 +114,23 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
             version.insert("minor", agent->getMinorVersion());
             version.insert("patch", agent->getPatchVersion());
             res.insert("version", version);
+            break;
+        }
+        case e_saveToTempFile:
+        {
+            //Prase file name
+            QString fileName = cmdObj.value("fileName").toString();
+            if(fileName == "") {
+                res.insert("statusCode", qint64(0x80000666));
+                break;
+            }
+
+            //Write binary data to file
+            QFile file(QDir::tempPath() + "/" + fileName);
+
+            file.open(QIODevice::WriteOnly);
+            file.write(data);
+            file.close();
             break;
         }
         case e_setActiveDevice:
@@ -137,16 +171,16 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
         }
         case e_uploadFirmware:
         {
-            qDebug() << "Updating Firmware";
+            qDebug() << "Uploading Firmware";
             bool enterBootloader = cmdObj.value("enterBootloader").toBool();
-            QString firmwareUrl = cmdObj.value("firmwareUrl").toString();
+            QString firmwarePath = cmdObj.value("firmwarePath").toString();
 
             //Download firmware if necessary
-            if(firmwareUrl != ""){
+            if(firmwarePath != ""){
                //TODO - Download firmware from URL
             }
 
-            if(!this->agent->updateActiveDeviceFirmware(QDir::tempPath() + QString("/wflFirmware.hex"), enterBootloader)){
+            if(!this->agent->updateActiveDeviceFirmware(QDir::tempPath() + QString("/" + firmwarePath), enterBootloader)){
                 res.insert("statusCode", qint64(666));
             } else {
                 res.insert("statusCode", qint64(0));
@@ -161,6 +195,20 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
             res.insert("progress", this->agent->getFirmwareUploadProgress());
             break;
         }
+        case e_updateWaveFormsLiveBrowser:
+        {
+            //Prase file name
+            QString updateZipFileName = cmdObj.value("updateZipFileName").toString();
+            QString from = QDir::tempPath() + "/" + updateZipFileName;
+            QString to = this->agent->waveFormsLiveBrowserPath;
+            JlCompress::extractDir(QDir::tempPath() + "/" + updateZipFileName, this->agent->waveFormsLiveBrowserPath);
+            break;
+        }
+        case e_releaseActiveDevice:
+        {
+            this->agent->releaseActiveDevice();
+            break;
+        }
         case e_unknownCommand:
             default:
                 res.insert("command", command);
@@ -171,24 +219,33 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj){
     return res;
 }
 
-AgentConfigCtrl::CmdCode AgentConfigCtrl::parseCmd(QString cmdString){
-    if(cmdString == "getInfo"){
-        return e_getInfo;
+AgentConfigCtrl::CmdCode AgentConfigCtrl::parseCmd(QString cmdString){    
+    if(cmdString == "enterJsonMode") {
+        return e_enterJsonMode;
     }
     if(cmdString == "enumerateDevices"){
         return e_enumerateDevices;
     }
+    if(cmdString == "getInfo"){
+        return e_getInfo;
+    }
+    if(cmdString == "releaseActiveDevice") {
+        return e_releaseActiveDevice;
+    }
+    if(cmdString == "saveToTempFile"){
+        return e_saveToTempFile;
+    }
     if(cmdString == "setActiveDevice"){
         return e_setActiveDevice;
-    }
-    if(cmdString == "uploadFirmware") {
-        return e_uploadFirmware;
     }
     if(cmdString == "updateFirmwareGetStatus") {
         return e_updateFirmwareGetStatus;
     }
-    if(cmdString == "enterJsonMode") {
-        return e_enterJsonMode;
+    if(cmdString == "uploadFirmware") {
+        return e_uploadFirmware;
+    }
+    if(cmdString == "updateWaveFormsLiveBrowser") {
+        return e_updateWaveFormsLiveBrowser;
     }
     return e_unknownCommand;
 }
