@@ -32,16 +32,18 @@ public:
     int getPatchVersion();
     QString getFirmwareUploadStatus();
     int getFirmwareUploadProgress();
-    bool launchWfl();
-    void releaseActiveDevice();
+    bool launchWfl();   
     bool setActiveDeviceByName(QString deviceName);
     bool internetAvailable();    
     bool updateActiveDeviceFirmware(QString hexFilePath, bool enterBootloader);    
     QString waveFormsLiveBrowserPath;
 
-
 signals:
     void activeDeviceChanged(QString activeDeviceName);
+    void releaseActiveDeviceSignal();
+
+public slots:
+     void releaseActiveDevice();
 
 private:
     //Variables

@@ -36,6 +36,9 @@ public:
 protected:
     //void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
+signals:
+     void releaseActiveDeviceSignal();
+
 private slots:   
     void onActiveDeviceNameChange(QString activeDeviceName);
     void releaseActiveDevice();

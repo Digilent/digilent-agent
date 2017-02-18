@@ -140,7 +140,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
             if(!success) {
                 qDebug("Set Active Device Failed");
                 //setActiveDevice() failed, return error code
-                res.insert("statusCode", qint64(666));
+                res.insert("statusCode", qint64(0x80000666));
             } else {
                 qDebug("Set Active Device Success");
             }
@@ -161,11 +161,11 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
                 {
                     //No response from the device, something else must have it open
                     //releaseActiveDevice(); - WFL will release the device if it should be released due to not entering JSON mode
-                    res.insert("statusCode", qint64(666));
+                    res.insert("statusCode", qint64(0x80000666));
                 }
             } else {
                 qDebug() << "e_enterJsonMode - No response from deveice";
-                res.insert("statusCode", qint64(666));
+                res.insert("statusCode", qint64(0x80000666));
             }
             break;
         }
@@ -181,7 +181,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
             }
 
             if(!this->agent->updateActiveDeviceFirmware(QDir::tempPath() + QString("/" + firmwarePath), enterBootloader)){
-                res.insert("statusCode", qint64(666));
+                res.insert("statusCode", qint64(0x80000666));
             } else {
                 res.insert("statusCode", qint64(0));
             }

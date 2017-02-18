@@ -94,7 +94,9 @@ void MainWindow::onActiveDeviceNameChange(QString activeDeviceName) {
 }
 
 void MainWindow::releaseActiveDevice() {
-    this->agent->releaseActiveDevice();
+    emit releaseActiveDeviceSignal();
+    //this->agent->releaseActiveDevice();
+    //Signal to relase agent
 }
 
 #endif //QT_NO_SYSTEMTRAYICON

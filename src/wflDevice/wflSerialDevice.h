@@ -20,6 +20,7 @@ public:
 signals:
 
 public slots:
+    virtual void release();
 
 private:
     Serial serial;

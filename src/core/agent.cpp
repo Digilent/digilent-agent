@@ -15,10 +15,9 @@ Agent::Agent(QObject *parent) : QObject(parent)
     this->httpCapable = true;
     this->majorVersion = 0;
     this->minorVersion = 2;
-    this->patchVersion = 0;
+    this->patchVersion = 3;
 
     this->firmwareUploadStatus = "idle";
-
 
     //Initialize devices array with null pointers
     this->activeDevice = 0;
@@ -118,9 +117,9 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                     }
                 }
             }
-                //Target device is already active but no longer available
-                releaseActiveDevice();
-                return false;
+            //Target device is already active but no longer available
+            releaseActiveDevice();
+            return false;
         } else {
             //The current active device is not the target active device, free it
             releaseActiveDevice();
@@ -140,6 +139,9 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
             this->activeDevice->name = deviceName;
             emit activeDeviceChanged(QString(deviceName));            
             this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
+
+            //Connect release signal to device
+            connect(this, SIGNAL(releaseActiveDeviceSignal()), activeDevice, SLOT(release()));
             return true;
         }
     }
@@ -148,11 +150,15 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
     return false;
 }
 
+//Call to emit signal to free the active device.
 void Agent::releaseActiveDevice(){
     qDebug("Agent::releaseActiveDevice()");
     if(this->activeDevice != 0) {
-        delete this->activeDevice;
+        //emit release signal
+        emit releaseActiveDeviceSignal();
         this->activeDevice = 0;
+
+        //Emit signal to update GUI menu text
         emit activeDeviceChanged("");
     }
 }

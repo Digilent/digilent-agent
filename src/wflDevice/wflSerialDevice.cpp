@@ -16,6 +16,7 @@ WflSerialDevice::WflSerialDevice(QString address)
 
 WflSerialDevice::~WflSerialDevice(){
     qDebug() << "~WflSerialDevice()";
+    serial.close();
 }
 
 void WflSerialDevice::execCommand(QByteArray cmd) {
@@ -39,4 +40,9 @@ bool WflSerialDevice::softReset() {
 //Return true if the device serial port is open, false otherwise.
 bool WflSerialDevice::isOpen() {
    return this->serial.isOpen();
+}
+
+void WflSerialDevice::release(){
+    qDebug() << "Releasing Serial Device";
+    delete this;
 }

@@ -59,6 +59,12 @@ int main(int argc, char *argv[])
     Agent* agent = new Agent();    
     MainWindow mainWindow(agent);
 
+
+
+    QObject::connect(&mainWindow, SIGNAL(releaseActiveDeviceSignal()), agent, SLOT(releaseActiveDevice()));
+            //, SIGNAL(finished()), &loop, SLOT(quit()));
+
+
     // Load the http configuration file
     QString configFileName = searchConfigFile();
     QSettings* listenerSettings;

@@ -30,10 +30,22 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         DebugController(this).service(request, response);
     }
     else if (path=="/" && method == "POST") {
+
+        //Add headers and return device call response to original requester
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Connection", "close");
+        response.setHeader("Content-Type", "application/json");
+        response.setStatus(200, "OK");
+
         if(agent->activeDevice == 0)
         {
             qDebug("No Active Device Selected!!!");
-            response.write("No Active Device Selected!!!", true);
+            QJsonObject res = QJsonObject();
+            res.insert("statusCode", qint64(0x80000666));
+            res.insert("statusText", "No active device.");
+
+            response.write(QJsonDocument(res).toJson(), true);
             //TODO Send Back Command Response
         }
         else
@@ -54,18 +66,9 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
                 qDebug("HttpRouter Loop Done");
             }
             qDebug("::::Response:::: \n %s", reply.data());
-
-            //Add headers and return device call response to original requester
-            response.setHeader("Access-Control-Allow-Origin", "*");
-            response.setHeader("Cache-Control", "no-cache");
-            response.setHeader("Connection", "close");
-            response.setHeader("Content-Type", "application/json");
-            response.setStatus(200, "OK");
-
             response.write(reply, true);
 
             //Disconnect signals to prevent multiple responses on subsequent calls
-
            if(disconnect(agent->activeDevice, SIGNAL(execCommandComplete(QByteArray)), this, SLOT(onComplete(QByteArray))))
            {
               qDebug("Succesfully disconnected execCommandComplete signal");

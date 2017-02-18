@@ -26,6 +26,7 @@ signals:
     void writeReadComplete();
 
 public slots:
+   virtual void release() = 0;
 
 private:
 
