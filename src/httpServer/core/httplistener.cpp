@@ -11,6 +11,8 @@
 HttpListener::HttpListener(QSettings* settings, HttpRequestHandler* requestHandler, QObject *parent)
     : QTcpServer(parent)
 {
+    qDebug() << "HttpListener::HttpListener()" << "thread: " << QThread::currentThread();
+
     Q_ASSERT(settings!=0);
     Q_ASSERT(requestHandler!=0);
     pool=NULL;

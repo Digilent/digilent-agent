@@ -5,8 +5,10 @@
 StaticFileController* HttpRouter::staticFileController = 0;
 
 HttpRouter::HttpRouter(Agent* agent, QObject* parent) : HttpRequestHandler(parent) {
+    qDebug() << "HttpRouter::HttpRouter()" << "Thread" << QThread::currentThread();
+
     this->agent = agent;
-    agentConfigCtrl = new AgentConfigCtrl(this->agent, this);
+    agentConfigCtrl = new AgentConfigCtrl(this->agent);
 }
 
 void HttpRouter::service(HttpRequest& request, HttpResponse& response) {

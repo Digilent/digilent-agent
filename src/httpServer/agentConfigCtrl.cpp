@@ -7,15 +7,20 @@
 #include <QJsonArray>
 #include <QDebug>
 #include <QDir>
+#include <QThread>
 #include <QUrl>
 
 #include <JlCompress.h>
 
 AgentConfigCtrl::AgentConfigCtrl(Agent* agent, QObject* parent) : HttpRequestHandler(parent) {
+    qDebug() << "AgentConfigCtrl::AgentConfigCtrl()" << "thread: " << QThread::currentThread();
     this->agent = agent;
 }
 
 void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {
+
+    //Move service to agent thread to execute commands
+    qDebug() << "AgentConfigCtrl::Service()" << "thread: " << QThread::currentThread();
 
     //Add headers and return device call response to original requester
     qDebug("---------------setting headers");
@@ -50,8 +55,6 @@ void AgentConfigCtrl::service(HttpRequest &request, HttpResponse &response) {
             return;
         }
         cmdBinary.append(chunk.mid((chunk.indexOf("\n") + 1), chunk2Length));
-
-        qDebug() << "Breakpoint";
     } else {
         //JSON COMMAND
         reqDoc = QJsonDocument::fromJson(request.getBody());
@@ -148,7 +151,10 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
         }
         case e_enterJsonMode:
         {
-            QByteArray devResp = this->agent->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
+            QByteArray devResp;
+            devResp = this->agent->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
+            qDebug() << "~~~~ENTER JSON MODE~~~~~~" << devResp;
+
             QJsonDocument resDoc = QJsonDocument::fromJson(devResp);
             if(!resDoc.isNull()) {
                 QJsonObject resObj = resDoc.object();
@@ -161,6 +167,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
                 {
                     //No response from the device, something else must have it open
                     //releaseActiveDevice(); - WFL will release the device if it should be released due to not entering JSON mode
+                    qDebug() << "Bad Response To Enter JSON Mode Command";
                     res.insert("statusCode", qint64(0x80000666));
                 }
             } else {
@@ -186,7 +193,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
                 res.insert("statusCode", qint64(0));
             }
             break;
-        }        
+        }
         case e_updateFirmwareGetStatus:
         {
             res.insert("command", command);

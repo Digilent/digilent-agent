@@ -2,6 +2,7 @@
 #define WFLDEVICE_H
 
 #include <QObject>
+#include <QThread>
 
 class WflDevice : public QObject
 {
@@ -12,10 +13,9 @@ public:
     virtual ~WflDevice();
 
     //Functions    
-    virtual void execCommand(QByteArray cmd);
     virtual QByteArray writeRead(QByteArray cmd) = 0;
-    virtual bool softReset() = 0;
-    virtual bool isOpen() = 0;
+    virtual void execCommand(QByteArray cmd) = 0;
+    virtual bool isOpen() = 0;    
 
     //Variables
     QString name;
@@ -24,9 +24,13 @@ public:
 signals:    
     void execCommandComplete(QByteArray response);
     void writeReadComplete();
+    void fastWriteReadComplete();
+    void softResetComplete();
+    void releaseComplete();
 
 public slots:
-   virtual void release() = 0;
+    virtual void release() = 0;
+    virtual bool softReset() = 0;
 
 private:
 

@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QtNetwork>
 #include <QTime>
+#include <QThread>
 #include <QUrl>
 
 #include "agent.h"
@@ -12,10 +13,12 @@
 //Agent::Agent()
 Agent::Agent(QObject *parent) : QObject(parent)
 {
+    qDebug() << "Agent::Agent()" << "thread: " << QThread::currentThread();
+
     this->httpCapable = true;
     this->majorVersion = 0;
-    this->minorVersion = 2;
-    this->patchVersion = 3;
+    this->minorVersion = 3;
+    this->patchVersion = 1;
 
     this->firmwareUploadStatus = "idle";
 
@@ -93,6 +96,7 @@ bool Agent::launchWfl() {
 
 //Set the active device by name.  A new device object is created unless the target device is already active and open.  This command also puts the device into JSON mode.
 bool Agent::setActiveDeviceByName(QString deviceName) {
+    qDebug() << "Agent::setActiveDeviceByName()" << "thread: " << QThread::currentThread();
 
     QVector<QString> devices = enumerateDevices();
 
@@ -106,9 +110,11 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
             {
                 if(deviceName == devices[i])
                 {
-                    //Target device is already active and still exists.  SoftReset it to make sure the agent is the app that has it open (not some other app)
-                    if(this->activeDevice->softReset())
+                    // -- TODO OLD REMOVE - Target device is already active and still exists.  SoftReset it to make sure the agent is the app that has it open (not some other app)
+                    // -- NEW - Check active device name against target device name to avoid having to soft reset the device.
+                    if(this->activeDevice->name == deviceName)
                     {
+
                         return true;
                     } else {
                         //No response from the device, something else must have it open
@@ -132,16 +138,19 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
         {
             //Create device object and enable JSON mode
             this->activeDevice = new WflSerialDevice(deviceName);
+            this->activeDevice->moveToThread(this->getThread());
+           // this->activeDevice = new WflSerialDevice(deviceName);
             if(!this->activeDevice->isOpen()){
                 //Failed to open serial port
                 return false;
             }
             this->activeDevice->name = deviceName;
-            emit activeDeviceChanged(QString(deviceName));            
-            this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
+            emit activeDeviceChanged(QString(deviceName));
+            qDebug() << "~~~~ENTER JSON MODE~~~~~~" << this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
 
             //Connect release signal to device
-            connect(this, SIGNAL(releaseActiveDeviceSignal()), activeDevice, SLOT(release()));
+            connect(this, SIGNAL(startReleaseDevice()), activeDevice, SLOT(release()));
+            connect(this, SIGNAL(softResetActiveDeviceSignal()), activeDevice, SLOT(softReset()));
             return true;
         }
     }
@@ -152,15 +161,34 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
 
 //Call to emit signal to free the active device.
 void Agent::releaseActiveDevice(){
-    qDebug("Agent::releaseActiveDevice()");
-    if(this->activeDevice != 0) {
-        //emit release signal
-        emit releaseActiveDeviceSignal();
-        this->activeDevice = 0;
+    qDebug() << "Agent::releaseActiveDevice" << "thread: " << QThread::currentThread();
 
-        //Emit signal to update GUI menu text
-        emit activeDeviceChanged("");
+    //Directly call activeDevice->release() if trigger source is in same thread as agent to avoid deadlock
+    if(QThread::currentThread() == this->getThread()) {
+        activeDevice->release();
+    } else  {
+
+        //Release trigger signal came from different thread, signal release and loop to wait for response
+        QEventLoop loop;
+
+        //Connect signal to detect when device has been released
+        connect(this->activeDevice, SIGNAL(releaseComplete()), &loop, SLOT(quit()));
+
+        if(this->activeDevice != 0) {
+            //emit release signal
+            emit startReleaseDevice();
+
+            //Loop unit device has been released
+            loop.exec();
+            qDebug() << "Agent::releaseActiveDevice() - Post Loop";
+        }
+        disconnect(this->activeDevice, SIGNAL(releaseComplete()), &loop, SLOT(quit()));
     }
+
+    this->activeDevice = 0;
+
+    //Emit signal to update GUI menu text
+    emit activeDeviceChanged("");
 }
 
 //Returns true if internet access is available
@@ -170,6 +198,7 @@ bool Agent::internetAvailable() {
     QNetworkReply *response = nam.get(req);
     QEventLoop loop;
     connect(response, SIGNAL(finished()), &loop, SLOT(quit()));
+
     loop.exec();
     if(response->bytesAvailable()) {
         return true;
@@ -212,7 +241,9 @@ bool Agent::updateActiveDeviceFirmware(QString hexPath, bool enterBootloader) {
 
         //Use Digilent PGM to update the firmware
         if(this->pgm->programByPort(hexPath, portName)) {
-            //Programming successful, make device active again
+            //Programming successful, free PGM and make device active again
+            this->pgm->releaseDevice();
+            delete this->pgm;
             qDebug() << "Firmware updated successfully";
             if(this->setActiveDeviceByName(portName)) {
                 firmwareUploadStatus = "idle";                
@@ -222,8 +253,9 @@ bool Agent::updateActiveDeviceFirmware(QString hexPath, bool enterBootloader) {
                 firmwareUploadStatus = "error";
                 return false;
             }
-        } else {
+        } else {            
             qDebug() << "Failed to update firmware";
+            delete this->pgm;
             firmwareUploadStatus = "error";
             return false;
         }
@@ -241,5 +273,15 @@ QString Agent::getFirmwareUploadStatus() {
 int Agent::getFirmwareUploadProgress() {
     return this->pgm->progress;
 }
+
+QThread* Agent::getThread() {
+    return this->thread();
+}
+
+/*
+WflDevice* Agent::createNewWflSerialDevice(QString address) {
+    return new WflSerialDevice(deviceName);
+}
+*/
 
 

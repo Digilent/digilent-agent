@@ -38,6 +38,7 @@ INPUT(
 ./release\moc_debugController.o
 ./release\moc_agent.o
 ./release\moc_wflDevice.o
+./release\moc_serial.o
 ./release\moc_wflSerialDevice.o
 ./release\moc_httpClient.o
 );

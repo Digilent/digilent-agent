@@ -14,6 +14,8 @@
 
 MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
+    qDebug() << "MainWindow::MainWindow()" << "thread: " << QThread::currentThread();
+
     setWindowTitle(tr("Digilent Agent"));
 
     this->agent = agent;

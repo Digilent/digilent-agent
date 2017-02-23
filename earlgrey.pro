@@ -25,6 +25,9 @@ INSTALLS += wwwRoot
 TEMPLATE = app
 CONFIG += qt
 
+#CONFIG+=console
+
+
 SOURCES += \
     src/httpServer/httpRouter.cpp \
     src/main.cpp \

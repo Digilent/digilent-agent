@@ -9,6 +9,8 @@
 HttpConnectionHandler::HttpConnectionHandler(QSettings* settings, HttpRequestHandler* requestHandler, QSslConfiguration* sslConfiguration)
     : QThread()
 {
+    qDebug() << "HttpConnectionHandler::HttpConnectionHandler()" << "thread: " << QThread::currentThread();
+
     Q_ASSERT(settings!=0);
     Q_ASSERT(requestHandler!=0);
     this->settings=settings;
@@ -65,6 +67,7 @@ void HttpConnectionHandler::createSocket()
 void HttpConnectionHandler::run()
 {
     qDebug("HttpConnectionHandler (%p): thread started", this);
+    qDebug() << "Handler Thread :- " << QThread::currentThread();
     try
     {
         exec();
