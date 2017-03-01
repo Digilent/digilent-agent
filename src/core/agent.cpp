@@ -18,7 +18,7 @@ Agent::Agent(QObject *parent) : QObject(parent)
     this->httpCapable = true;
     this->majorVersion = 0;
     this->minorVersion = 3;
-    this->patchVersion = 2;
+    this->patchVersion = 3;
 
     this->firmwareUploadStatus = "idle";
 
@@ -207,12 +207,13 @@ bool Agent::internetAvailable() {
     }
 }
 
-//Use Digilent PGM to update the active device firmware with the specified firmware hex file.
+//Use Digilent PGM to update the active device firmware with the specified firmware hex file.  This function blocks until the firmware upload is complete and ruturns true if the firmware upload was successful and false otherwise.
 bool Agent::updateActiveDeviceFirmware(QString hexPath, bool enterBootloader) {
     firmwareUploadStatus = "uploading";
     if(this->activeDevice != NULL && this->activeDevice->deviceType == "UART") {
 
         this->pgm = new DigilentPgm();
+
         QString portName = this->activeDevice->name;
 
         //Send enter device bootloader command if necissary
@@ -246,22 +247,26 @@ bool Agent::updateActiveDeviceFirmware(QString hexPath, bool enterBootloader) {
             delete this->pgm;
             qDebug() << "Firmware updated successfully";
             if(this->setActiveDeviceByName(portName)) {
-                firmwareUploadStatus = "idle";                
+                firmwareUploadStatus = "idle";
+                emit updateActiveDeviceFirmwareComplete(true);
                 return true;
             } else {
                 qDebug() << "Failed to set" << portName << "as the active device after updating firmware";
                 firmwareUploadStatus = "error";
+                emit updateActiveDeviceFirmwareComplete(false);
                 return false;
             }
         } else {            
             qDebug() << "Failed to update firmware";
             delete this->pgm;
             firmwareUploadStatus = "error";
+            emit updateActiveDeviceFirmwareComplete(false);
             return false;
         }
     } else {
         qDebug() << "Unable to program non-uart devices at this time";
         firmwareUploadStatus = "error";
+        emit updateActiveDeviceFirmwareComplete(false);
         return false;
     }
 }

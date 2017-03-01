@@ -1,6 +1,7 @@
 #include "agentConfigCtrl.h"
 #include "../../lib/digilent/qtHttp/httpClient.h"
 
+#include <QtConcurrent>
 #include <QEventLoop>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -187,11 +188,9 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
                //TODO - Download firmware from URL
             }
 
-            if(!this->agent->updateActiveDeviceFirmware(QDir::tempPath() + QString("/" + firmwarePath), enterBootloader)){
-                res.insert("statusCode", qint64(0x80000666));
-            } else {
-                res.insert("statusCode", qint64(0));
-            }
+            //Using Concurrent
+            QFuture<bool> future = QtConcurrent::run(this->agent, this->agent->updateActiveDeviceFirmware, QDir::tempPath() + QString("/" + firmwarePath), enterBootloader);
+            res.insert("statusCode", qint64(0));
             break;
         }
         case e_updateFirmwareGetStatus:

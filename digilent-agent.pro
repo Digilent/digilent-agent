@@ -44,7 +44,7 @@ SOURCES += \
     lib/digilent/pgm/pgmBlock.cpp \
     lib/digilent/qtHttp/httpClient.cpp
 
-HEADERS  += \    
+HEADERS  += \
     src/httpServer/httpRouter.h \
     src/mainWindow.h \
     src/core/comboBoxEventFilter.h \
@@ -78,10 +78,10 @@ DISTFILES += \
 OTHER_FILES +=
 
 #Libs
-INCLUDEPATH += lib/zlib-1.2.8
-LIBS += -Llib/zlib-1.2.8 -lz
-INCLUDEPATH += lib/quazip-0.7/quazip
-LIBS += -Llib/quazip-0.7/quazip/release -lquazip
+INCLUDEPATH += $$PWD/lib/zlib-1.2.8
+LIBS += -L$$PWD/lib/zlib-1.2.8 -lz
+INCLUDEPATH += $$PWD/lib/quazip-0.7/quazip
+LIBS += -L$$PWD/lib/quazip-0.7/quazip/release -lquazip
 
 
 #QMAKE_CXXFLAGS += -static-libgcc -static-libstdc++

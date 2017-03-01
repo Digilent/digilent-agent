@@ -14,6 +14,9 @@ public:
     AgentConfigCtrl(Agent* agent, QObject* parent=0);
     void service(HttpRequest& request, HttpResponse& response);
 
+signals:
+    void startUpdateActiveDeviceFirmware(QString hexPath, bool enterBootloader);
+
 private:
     enum CmdCode {
         e_enumerateDevices,
@@ -26,7 +29,6 @@ private:
         e_enterJsonMode,
         e_releaseActiveDevice,
         e_unknownCommand,
-
     };
 
     Agent *agent;

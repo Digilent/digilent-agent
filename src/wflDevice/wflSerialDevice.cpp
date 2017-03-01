@@ -99,7 +99,7 @@ void WflSerialDevice::release(){
 
 //Slot triggered when the Serial::fastWriteReadResponse signal is emitted
 void WflSerialDevice::onFastWriteReadResponse(QByteArray response) {
-    qDebug() << "WflSerialDevice::onFastWriteReadResponse()  Complete - " << this->data;
+    qDebug() << "WflSerialDevice::onFastWriteReadResponse()  Complete - " << response;
 
     //Save response data and emit signal to exit blocking loop
     this->data = response;

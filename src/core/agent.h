@@ -34,20 +34,23 @@ public:
     int getFirmwareUploadProgress();
     bool launchWfl();   
     bool internetAvailable();    
-    bool updateActiveDeviceFirmware(QString hexFilePath, bool enterBootloader);    
     QString waveFormsLiveBrowserPath;
     QThread* getThread();
+
 
 signals:
     void activeDeviceChanged(QString activeDeviceName);    
     void startReleaseDevice();
     void softResetActiveDeviceSignal();
     void releaseComplete();
+    void startUpdateActiveDeviceFirmware(QString hexFilePath, bool enterBootloader);
+    void updateActiveDeviceFirmwareComplete(bool success);
 
 public slots:
      //WflDevice *createNewWflSerialDevice(QString address);
      void releaseActiveDevice();
      bool setActiveDeviceByName(QString deviceName);
+     bool updateActiveDeviceFirmware(QString hexFilePath, bool enterBootloader);
 
 
 private:
