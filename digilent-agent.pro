@@ -138,7 +138,7 @@ OTHER_FILES +=
 #Libs
 #INCLUDEPATH += $$PWD/lib/zlib-1.2.8
 #LIBS += -L$$PWD/lib/zlib-1.2.8 -lz
-win32:INCLUDEPATH += $$PWD/lib/quazip-0.7/quazip
+INCLUDEPATH += $$PWD/lib/quazip-0.7/quazip
 win32:LIBS += -L$$PWD/lib/quazip-0.7/quazip/release -lquazip
 
 
