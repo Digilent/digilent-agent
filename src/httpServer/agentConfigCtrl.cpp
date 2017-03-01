@@ -189,7 +189,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
             }
 
             //Using Concurrent
-            QFuture<bool> future = QtConcurrent::run(this->agent, this->agent->updateActiveDeviceFirmware, QDir::tempPath() + QString("/" + firmwarePath), enterBootloader);
+            QFuture<bool> future = QtConcurrent::run(this->agent, &Agent::updateActiveDeviceFirmware, QDir::tempPath() + QString("/" + firmwarePath), enterBootloader);
             res.insert("statusCode", qint64(0));
             break;
         }

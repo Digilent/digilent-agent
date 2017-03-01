@@ -1,4 +1,4 @@
-Source: waveforms-live-agent
+Source: digilent-agent
 Section: x11
 Priority: optional
 Maintainer: Sam Kristoff <software@digilent.com>
@@ -8,8 +8,8 @@ Homepage: https://www.digilentinc.com
 #Vcs-Git: git://anonscm.debian.org/collab-maint/earlgrey.git
 #Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/earlgrey.git
 
-Package: waveforms-live-agent
+Package: digilent-agent
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: WaveForms Live Agent
- The WaveForms Live Agent is a service that runs on the host computer and facilitates  communication between the WaveForms Live application and the target hardware.
+Description: Digilent Agent
+ The Digilent Agent is a service that runs in the system tray on Windows, Mac and Linux and enables browser based applications to communicate with Digilent hardware.
