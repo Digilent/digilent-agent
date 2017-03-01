@@ -6,8 +6,8 @@ DEBFULLNAME="Sam Kristoff"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BUILD_DIR=$DIR/working
-#TARGET_NAME="waveforms-live-agent"
-TARGET_NAME="waveforms-live-agent"
+#TARGET_NAME="digilent-agent"
+TARGET_NAME="digilent-agent"
 TARGET_DIR="$BUILD_DIR/$TARGET_NAME-$VERSION"
 
 echo $BUILD_DIR
