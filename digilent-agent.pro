@@ -42,6 +42,8 @@ SOURCES += \
     lib/digilent/pgm/digilentPgm.cpp \
     lib/digilent/pgm/pgmBlock.cpp \
     lib/digilent/qtHttp/httpClient.cpp \
+
+unix:SOURCES += \
     lib/zlib-1.2.11/adler32.c \
     lib/zlib-1.2.11/compress.c \
     lib/zlib-1.2.11/crc32.c \
@@ -85,6 +87,8 @@ HEADERS  += \
     lib/digilent/pgm/digilentPgm.h \
     lib/digilent/pgm/pgmBlock.h \
     lib/digilent/qtHttp/httpClient.h \
+
+unix:HEADERS += \
     lib/zlib-1.2.11/crc32.h \
     lib/zlib-1.2.11/deflate.h \
     lib/zlib-1.2.11/gzguts.h \
@@ -132,10 +136,10 @@ DISTFILES += \
 OTHER_FILES +=
 
 #Libs
-INCLUDEPATH += $$PWD/lib/zlib-1.2.8
+#INCLUDEPATH += $$PWD/lib/zlib-1.2.8
 #LIBS += -L$$PWD/lib/zlib-1.2.8 -lz
-INCLUDEPATH += $$PWD/lib/quazip-0.7/quazip
-#LIBS += -L$$PWD/lib/quazip-0.7/quazip/release -lquazip
+win32:INCLUDEPATH += $$PWD/lib/quazip-0.7/quazip
+win32:LIBS += -L$$PWD/lib/quazip-0.7/quazip/release -lquazip
 
 
 #QMAKE_CXXFLAGS += -static-libgcc -static-libstdc++
