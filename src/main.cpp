@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
     // Static file controller
     QSettings* fileSettings=new QSettings(configFileName, QSettings::IniFormat, &app);
     fileSettings->beginGroup("files");
+    fileSettings->setValue("path", agent->waveFormsLiveBrowserPath);
     HttpRouter::staticFileController = new StaticFileController(fileSettings, &app);
 
     //Create and start the HTTP Server  
@@ -149,7 +150,7 @@ QString createNewConfigFile(){
     //Create default config data
     QSettings* listenerSettings = new QSettings(iniPath, QSettings::IniFormat);
     listenerSettings->beginGroup("listener");
-    listenerSettings->setValue("port", 56089);
+    listenerSettings->setValue("port", 42135);
     listenerSettings->setValue("minThreads", 4);
     listenerSettings->setValue("maxThreads", 100);
     listenerSettings->setValue("cleanupInterval", 60000);

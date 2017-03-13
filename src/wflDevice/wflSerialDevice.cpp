@@ -42,7 +42,7 @@ QByteArray WflSerialDevice::writeRead(QByteArray cmd) {
     connect(this->serial, SIGNAL(fastWriteReadResponse(QByteArray)), this, SLOT(onFastWriteReadResponse(QByteArray)));      //Connect the signal that the fastWriteRead emits with the reponse
 
     //Start the fastWriteRead in thread that owns the serial object
-    emit startFastWriteRead(cmd, 2000, 50);
+    emit startFastWriteRead(cmd, 2000, 100);
 
     //Loop until writeRead is complete and writeReadComplete() signal is emited
     loop.exec();

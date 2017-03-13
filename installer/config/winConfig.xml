@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>Digilent Agent</Name>
-    <Version>0.3.4</Version>
+    <Version>0.3.5</Version>
     <Title>Digilent Agent</Title>
     <Publisher>Digilent</Publisher>
     <StartMenuDir>Digilent</StartMenuDir>

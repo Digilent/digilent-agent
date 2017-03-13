@@ -44,8 +44,12 @@ void HttpRouter::service(HttpRequest& request, HttpResponse& response) {
         {
             qDebug("No Active Device Selected!!!");
             QJsonObject res = QJsonObject();
-            res.insert("statusCode", qint64(0x80000666));
-            res.insert("statusText", "No active device.");
+            QJsonArray agentArray = QJsonArray();
+            QJsonObject statusObj = QJsonObject();
+            statusObj.insert("statusCode", qint64(0x80000666));
+            statusObj.insert("statusText", "No active device");
+            agentArray.append(statusObj);
+            res.insert("agent", agentArray);
 
             response.write(QJsonDocument(res).toJson(), true);
             //TODO Send Back Command Response
