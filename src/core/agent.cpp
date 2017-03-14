@@ -90,7 +90,7 @@ bool Agent::launchWfl() {
     if(internetAvailable()) {
         return QDesktopServices::openUrl(QUrl("http://waveformslive.com/"));
     } else {
-       return QDesktopServices::openUrl(QUrl("http://127.0.0.1:56089/"));
+       return QDesktopServices::openUrl(QUrl("http://127.0.0.1:42135/"));
     }
 }
 

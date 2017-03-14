@@ -19,4 +19,4 @@ cp depends/* packages/com.digilent.agent/data/
 
 
 printf "Building Installer...\n"
-binarycreator -c config/winConfig.xml -p packages "digilentagent-$VERSION.exe"
+binarycreator -c config/winConfig.xml -p packages "digilent-agent-$VERSION.exe"
