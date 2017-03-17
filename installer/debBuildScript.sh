@@ -37,7 +37,7 @@ cd $TARGET_DIR
 
 #Generate Makefile
 printf "Generating Makefile\n"
-qmake -o Makefile earlgrey.pro
+qmake -o Makefile digilent-agent.pro
 
 #Preparing .deb package
 printf "Preparing .deb package\n"
