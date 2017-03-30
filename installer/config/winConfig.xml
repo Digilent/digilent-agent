@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>Digilent Agent</Name>
+    <Version>0.3.6</Version>
+    <Title>Digilent Agent</Title>
+    <Publisher>Digilent</Publisher>
+    <StartMenuDir>Digilent</StartMenuDir>
+    <TargetDir>@ApplicationsDir@/Digilent/Agent</TargetDir>
+    <AllowSpaceInPath>true</AllowSpaceInPath>
+    <RemoveTargetDir>true</RemoveTargetDir>
+    <WizardStyle>Modern</WizardStyle>
+    <RunProgram>@ApplicationsDir@/Digilent/Agent/digilent-agent.exe</RunProgram>
+    <ControlScript>installScript.qs</ControlScript>
+</Installer>

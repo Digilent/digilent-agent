@@ -1,0 +1,15 @@
+Source: digilent-agent
+Section: x11
+Priority: optional
+Maintainer: Sam Kristoff <software@digilent.com>
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.6
+Homepage: https://www.digilentinc.com
+#Vcs-Git: git://anonscm.debian.org/collab-maint/earlgrey.git
+#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/earlgrey.git
+
+Package: digilent-agent
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Digilent Agent
+ The Digilent Agent is a service that runs in the system tray on Windows, Mac and Linux and enables browser based applications to communicate with Digilent hardware.

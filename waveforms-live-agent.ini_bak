@@ -1,0 +1,17 @@
+[listener]
+;host=0.0.0.0
+port=56089
+minThreads=4
+maxThreads=100
+cleanupInterval=60000
+readTimeout=60000
+maxRequestSize=16000
+maxMultiPartSize=10000000
+
+[files]
+path=./www
+encoding=UTF-8
+maxAge=90000
+cacheTime=60000
+cacheSize=1000000
+maxCachedFileSize=65536

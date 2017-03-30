@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>Digilent Agent</DisplayName>
+    <Description>Digilent Agent</Description>
+    <Version>0.3.6</Version>
+    <ReleaseDate>2017-03-10</ReleaseDate>
+    <Licenses>
+        <License name="GPL3" file="license.txt" />
+    </Licenses>
+    <Default>true</Default>
+    <Script>installScript.qs</Script>
+</Package>
