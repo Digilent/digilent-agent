@@ -1,12 +1,12 @@
-# WaveForms Live Agent
-The WaveForms Live Agent facilitates hardware configuration and communication for the WaveForms Live software.
+# Digilent Agent
+The Digilent Agent is a service that runs in the system tray on Windows, Mac and Linux and enables browser based applications 
+to communicate with Digilent hardware.
 
 #### Download Pre-built Installers
 [Windows, Mac, and Linux downloads.](https://reference.digilentinc.com/reference/software/waveforms-live/waveforms-live-agent)
 
-#### Build From Source
-  - Install [QT Creator](https://www.qt.io/download/) 5.7 or newer.
-  - Install [QT Installer Framework](http://download.qt.io/official_releases/qt-installer-framework/) 2.03 or newer.
-  - Clone the WaveForms Live Agent repository.
-  - Launch the QT project 'earlgrey.pro'.
-  - Press Ctrl+R to build or F5 to build in debug mode.
+#### Documentation
+- [Reference Manual](https://reference.digilentinc.com/reference/software/digilent-agent/reference-manual)
+- [Building The Digilent Agent From 
+Source](https://reference.digilentinc.com/reference/software/digilent-agent/build-from-source)
+
