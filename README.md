@@ -1,2 +1,0 @@
-# earlgrey
-OpenScope Utility
