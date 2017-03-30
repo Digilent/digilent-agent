@@ -30,6 +30,9 @@ DEFINES += QUAZIP_BUILD
 # than qmake or using QuaZIP sources directly in your project.
 CONFIG(staticlib): DEFINES += QUAZIP_STATIC
 
+INCLUDEPATH += $$PWD/../../zlib-1.2.11
+LIBS += -L$$PWD/../../zlib-1.2.11 -lz
+
 # Input
 include(quazip.pri)
 
