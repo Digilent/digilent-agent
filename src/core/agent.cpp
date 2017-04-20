@@ -114,7 +114,21 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                     // -- NEW - Check active device name against target device name to avoid having to soft reset the device.
                     if(this->activeDevice->name == deviceName)
                     {
+                        releaseActiveDevice();
+                        this->activeDevice = new WflSerialDevice(deviceName);
+                        this->activeDevice->moveToThread(this->getThread());
+                       // this->activeDevice = new WflSerialDevice(deviceName);
+                        if(!this->activeDevice->isOpen()){
+                            //Failed to open serial port
+                            return false;
+                        }
+                        this->activeDevice->name = deviceName;
+                        emit activeDeviceChanged(QString(deviceName));
+                        qDebug() << "~~~~ENTER JSON MODE~~~~~~" << this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
 
+                        //Connect release signal to device
+                        connect(this, SIGNAL(startReleaseDevice()), activeDevice, SLOT(release()));
+                        connect(this, SIGNAL(softResetActiveDeviceSignal()), activeDevice, SLOT(softReset()));
                         return true;
                     } else {
                         //No response from the device, something else must have it open

@@ -96,7 +96,10 @@ void MainWindow::onActiveDeviceNameChange(QString activeDeviceName) {
 }
 
 void MainWindow::releaseActiveDevice() {
-    emit releaseActiveDeviceSignal();
+    if(this->agent->activeDevice != 0)
+    {
+        emit releaseActiveDeviceSignal();
+    }
     //this->agent->releaseActiveDevice();
     //Signal to relase agent
 }
