@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
            return 0;
        }
 
-    QApplication app(argc, argv);
+    QApplication app(argc, argv);    
 
     //Instantiate the agent and mainWindow
     Agent* agent = new Agent(&app);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
     <Name>Digilent Agent</Name>
-    <Version>0.3.6</Version>
+    <Version>0.3.33</Version>
     <Title>Digilent Agent</Title>
     <Publisher>Digilent</Publisher>
     <StartMenuDir>Digilent</StartMenuDir>
@@ -11,4 +11,11 @@
     <WizardStyle>Modern</WizardStyle>
     <RunProgram>@ApplicationsDir@/Digilent/Agent/digilent-agent.exe</RunProgram>
     <ControlScript>installScript.qs</ControlScript>
+    <RemoteRepositories>
+        <Repository>
+            <Url>http://digilent-qt-repo.s3-website-us-west-2.amazonaws.com/digilent-agent</Url>
+            <Enabled>1</Enabled>            
+            <DisplayName>Digilent Agent Repository</DisplayName>
+        </Repository>
+    </RemoteRepositories>
 </Installer>

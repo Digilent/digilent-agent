@@ -46,6 +46,12 @@ void MainWindow::createWindowActions()
     versionAction = new QAction(QString("Agent Version: ") + QString(this->agent->getVersion()), this);
     versionAction->setEnabled(false);
 
+#ifdef _WIN32
+    checkForUpdatesAction = new QAction(QString("Check For Updates"), this);
+    checkForUpdatesAction->setEnabled(true);
+    connect(checkForUpdatesAction, &QAction::triggered, this, &MainWindow::runUpdater);
+#endif
+
     //Active Device
     //activeDeviceNameAction = new QAction(QString("Active Device:  -"), this);
     //activeDeviceNameAction->setEnabled(false);
@@ -71,6 +77,7 @@ void MainWindow::createTrayIcon()
 
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(versionAction);
+    trayIconMenu->addAction(checkForUpdatesAction);
     trayIconMenu->addAction(quitAction);
 
     trayIcon = new QSystemTrayIcon(this);
@@ -102,6 +109,48 @@ void MainWindow::releaseActiveDevice() {
     }
     //this->agent->releaseActiveDevice();
     //Signal to relase agent
+}
+
+bool MainWindow::checkForUpdates(){
+    //QString maintenanceToolPath = qApp->applicationDirPath() + "/maintenancetool";
+    QString maintenanceToolPath = "C:/Program Files (x86)/Digilent/Agent/maintenancetool.exe";
+
+    this->runUpdater();
+
+    QProcess checkForUpdates;
+    //checkForUpdates.start("maintenancetool --checkupdates");
+    //checkForUpdates.start("C:/Users/samkr/Documents/My Received Files/test.bat");
+
+
+
+    //Wait for update check to complete
+    checkForUpdates.waitForFinished();
+
+    if(checkForUpdates.error() != QProcess::UnknownError)
+    {
+        qDebug() << "Update check failed" << checkForUpdates.error();
+        return false;
+    }
+
+    QByteArray updateData = checkForUpdates.readAllStandardOutput();
+
+    if(updateData.isEmpty())
+    {
+        qDebug() << "No updates";
+        return false;
+    }
+
+    //Update is available
+    return true;
+}
+
+void MainWindow::runUpdater() {
+
+    QStringList args("--updater");
+    QProcess::startDetached(QCoreApplication::applicationDirPath() + "/maintenancetool.exe", args);
+
+    // Close the agent so update can run
+    qApp->closeAllWindows();
 }
 
 #endif //QT_NO_SYSTEMTRAYICON

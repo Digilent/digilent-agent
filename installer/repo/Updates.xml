@@ -1,0 +1,32 @@
+<Updates>
+ <ApplicationName>{AnyApplication}</ApplicationName>
+ <ApplicationVersion>1.0.0</ApplicationVersion>
+ <Checksum>true</Checksum>
+ <PackageUpdate>
+  <Name>com.digilent.agent</Name>
+  <DisplayName>Digilent Agent</DisplayName>
+  <Description>Digilent Agent</Description>
+  <Version>0.3.33</Version>
+  <ReleaseDate>2017-04-25</ReleaseDate>
+  <Default>true</Default>
+  <Script>installScript.qs</Script>
+  <UpdateFile CompressedSize="13450873" UncompressedSize="51558969" OS="Any"/>
+  <DownloadableArchives>bearer.7z,iconengines.7z,imageformats.7z,platforms.7z,translations.7z,content.7z</DownloadableArchives>
+  <Licenses>
+   <License file="license.txt" name="GPL3"/>
+  </Licenses>
+  <SHA1>2254fc84cd17a1a2d380cfef28e69bacea8dd54b</SHA1>
+ </PackageUpdate>
+ <PackageUpdate>
+  <Name>com.digilent.waveformsliveofflinesupport</Name>
+  <DisplayName>WaveForms Live Offline Support</DisplayName>
+  <Description>WaveForms Live Offline Support</Description>
+  <Version>0.11.0</Version>
+  <ReleaseDate>2017-03-13</ReleaseDate>
+  <Default>true</Default>
+  <Script>installScript.qs</Script>
+  <UpdateFile CompressedSize="1600338" UncompressedSize="6457326" OS="Any"/>
+  <DownloadableArchives>assets.7z,build.7z,cordova-js-src.7z,plugins.7z,content.7z</DownloadableArchives>
+  <SHA1>7e100b4015339d1d090159ecee2fab5ce39b3353</SHA1>
+ </PackageUpdate>
+</Updates>

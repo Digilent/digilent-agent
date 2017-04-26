@@ -55,6 +55,7 @@ private:
     QMenu* activeDeviceSubMenu;
 
     QAction *launchWflAction;
+    QAction *checkForUpdatesAction;
 
     QAction *activeDeviceNameAction;
     QAction *activeDeviceSubMenuRelease;
@@ -70,6 +71,8 @@ private:
     void createWindowActions();
     void createTrayIcon();
     void launchWfl();
+    bool checkForUpdates();
+    void runUpdater();
 };
 
 #endif // QT_NO_SYSTEMTRAYICON
