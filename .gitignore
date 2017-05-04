@@ -42,6 +42,7 @@ installer/packages/com.digilent.waveformsliveagent/data/*
 installer/packages/com.digilent.waveformsliveofflinesupport/data/*
 installer/build/*
 installer/working/*
+installer/repo/*
 debug/
 release/
 Makefile

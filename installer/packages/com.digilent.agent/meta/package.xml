@@ -2,8 +2,8 @@
 <Package>
     <DisplayName>Digilent Agent</DisplayName>
     <Description>Digilent Agent</Description>
-    <Version>0.3.33</Version>
-    <ReleaseDate>2017-04-25</ReleaseDate>
+    <Version>0.3.34</Version>
+    <ReleaseDate>2017-05-03</ReleaseDate>
     <Licenses>
         <License name="GPL3" file="license.txt" />
     </Licenses>
