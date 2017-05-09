@@ -16,9 +16,9 @@ Agent::Agent(QObject *parent) : QObject(parent)
     qDebug() << "Agent::Agent()" << "thread: " << QThread::currentThread();
 
     this->httpCapable = true;
-    this->majorVersion = 0;
-    this->minorVersion = 3;
-    this->patchVersion = 34;
+    this->majorVersion = 1;
+    this->minorVersion = 0;
+    this->patchVersion = 0;
 
     this->firmwareUploadStatus = "idle";
 
