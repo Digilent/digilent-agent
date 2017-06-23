@@ -55,11 +55,11 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);    
 
-    //Instantiate the agent and mainWindow
+    //Instantiate the agent and mainWindow   
     Agent* agent = new Agent(&app);
+    
     MainWindow mainWindow(agent);
-
-
+    
 
     QObject::connect(&mainWindow, SIGNAL(releaseActiveDeviceSignal()), agent, SLOT(releaseActiveDevice()));
             //, SIGNAL(finished()), &loop, SLOT(quit()));
@@ -80,18 +80,18 @@ int main(int argc, char *argv[])
 
     //Pass ini values to agent
     agent->waveFormsLiveBrowserPath = listenerSettings->value("waveforms-live/wwwRoot").toString();
-
+    
     // Static file controller
     QSettings* fileSettings=new QSettings(configFileName, QSettings::IniFormat, &app);
     fileSettings->beginGroup("files");
     fileSettings->setValue("path", agent->waveFormsLiveBrowserPath);
     HttpRouter::staticFileController = new StaticFileController(fileSettings, &app);
-
+    
     //Create and start the HTTP Server  
     //new HttpListener(listenerSettings, new HttpRouter(&app, &mainWindow.activeDevice), &app);
     listenerSettings->beginGroup("listener");
     new HttpListener(listenerSettings, new HttpRouter(agent, &app), &app);
-
+ 
     mainWindow.hide();
 
     return app.exec();

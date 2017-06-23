@@ -23,17 +23,20 @@ MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(n
     //Get UI element refs
     ui->setupUi(this);    
     //hostnameIp = ui->hostnameIp;
-
+    
     createWindowActions();
     createTrayIcon();
-
+     
     //Set Tray Icon
     QIcon icon = QIcon(":/images/icon.png");
     trayIcon->setIcon(icon);
     setWindowIcon(icon);
+    
 
     //Show system tray icon
     trayIcon->show();
+        
+
 }
 
 MainWindow::~MainWindow()
@@ -62,6 +65,7 @@ void MainWindow::createWindowActions()
 
     launchWflAction = new QAction(tr("Launch WaveForms Live"), this);
     connect(launchWflAction, &QAction::triggered, this, &MainWindow::launchWfl);
+    
 }
 
 void MainWindow::createTrayIcon()
@@ -74,14 +78,19 @@ void MainWindow::createTrayIcon()
     this->activeDeviceSubMenuRelease = activeDeviceSubMenu->addAction("Release");
     connect(activeDeviceSubMenuRelease, SIGNAL(triggered()), this, SLOT(releaseActiveDevice()));
     activeDeviceSubMenu->setEnabled(false);
-
     trayIconMenu->addSeparator();
+    
     trayIconMenu->addAction(versionAction);
-    trayIconMenu->addAction(checkForUpdatesAction);
-    trayIconMenu->addAction(quitAction);
+    
+    #ifdef _WIN32
+        //Add check for updates button on Windows only since it depends on the maintainence tool
+        trayIconMenu->addAction(checkForUpdatesAction);
+    #endif
 
+    trayIconMenu->addAction(quitAction);
     trayIcon = new QSystemTrayIcon(this);
-    trayIcon->setContextMenu(trayIconMenu);
+    trayIcon->setContextMenu(trayIconMenu);    
+    
 }
 
 void MainWindow::launchWfl(){
