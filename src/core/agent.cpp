@@ -18,7 +18,7 @@ Agent::Agent(QObject *parent) : QObject(parent)
     this->httpCapable = true;
     this->majorVersion = 1;
     this->minorVersion = 0;
-    this->patchVersion = 0;
+    this->patchVersion = 1;
 
     this->firmwareUploadStatus = "idle";
 

@@ -11,8 +11,6 @@
 #include <QThread>
 #include <QUrl>
 
-#include <JlCompress.h>
-
 AgentConfigCtrl::AgentConfigCtrl(Agent* agent, QObject* parent) : HttpRequestHandler(parent) {
     qDebug() << "AgentConfigCtrl::AgentConfigCtrl()" << "thread: " << QThread::currentThread();
     this->agent = agent;
@@ -200,16 +198,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
             res.insert("status", this->agent->getFirmwareUploadStatus());
             res.insert("progress", this->agent->getFirmwareUploadProgress());
             break;
-        }
-        case e_updateWaveFormsLiveBrowser:
-        {
-            //Prase file name
-            QString updateZipFileName = cmdObj.value("updateZipFileName").toString();
-            QString from = QDir::tempPath() + "/" + updateZipFileName;
-            QString to = this->agent->waveFormsLiveBrowserPath;
-            JlCompress::extractDir(QDir::tempPath() + "/" + updateZipFileName, this->agent->waveFormsLiveBrowserPath);
-            break;
-        }
+        }        
         case e_releaseActiveDevice:
         {
             this->agent->releaseActiveDevice();
@@ -249,9 +238,6 @@ AgentConfigCtrl::CmdCode AgentConfigCtrl::parseCmd(QString cmdString){
     }
     if(cmdString == "uploadFirmware") {
         return e_uploadFirmware;
-    }
-    if(cmdString == "updateWaveFormsLiveBrowser") {
-        return e_updateWaveFormsLiveBrowser;
-    }
+    }   
     return e_unknownCommand;
 }
