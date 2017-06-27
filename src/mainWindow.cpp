@@ -31,6 +31,11 @@ MainWindow::MainWindow(Agent* agent, QWidget *parent): QMainWindow(parent), ui(n
     QIcon icon = QIcon(":/images/icon.png");
     trayIcon->setIcon(icon);
     setWindowIcon(icon);
+
+    //Set dock icon if on mac
+    #if defined(TARGET_OS_MAC)
+        QApplication::setWindowIcon(QIcon(":/images/icon.png"));
+    #endif
     
 
     //Show system tray icon
