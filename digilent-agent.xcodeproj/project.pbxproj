@@ -1,0 +1,894 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		9FDFEB10C22B3D35D9897964 /* Qt Preprocess */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "digilent-agent" */;
+			buildPhases = (
+				5E618435888B9D49F8540165 /* Qt Qmake */,
+				7EF0942E79C014DCEC8976BC /* Qt Preprocessors */,
+			);
+			dependencies = (
+			);
+			name = "Qt Preprocess";
+			productName = "Qt Preprocess";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		0857EF4C72586BB65983DA37 /* moc_agentConfigCtrl.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = C17BBE3AA8DB67793E94E9F0 /* moc_agentConfigCtrl.cpp */; settings = {ATTRIBUTES = (); }; };
+		0F3B3B69CB06622620E6FB77 /* moc_comboBoxEventFilter.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = B9F765EDF8E7AAE799AA2345 /* moc_comboBoxEventFilter.cpp */; settings = {ATTRIBUTES = (); }; };
+		15269E8CC98B6991CDEDAD65 /* QtConcurrent.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 9DE6580F67EF618F998E33F2 /* QtConcurrent.framework */; };
+		1911C402432A4D6C849AE32C /* httpresponse.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 82D641101E4C3F061B92BB39 /* httpresponse.cpp */; settings = {ATTRIBUTES = (); }; };
+		197F6595D85C5D31610B5811 /* moc_httpconnectionhandler.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 989C05ABF903C70E02677504 /* moc_httpconnectionhandler.cpp */; settings = {ATTRIBUTES = (); }; };
+		1D12E93B72B1DF2AAA55BF37 /* moc_httpRouter.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = C5667553635A8A24F1AA8379 /* moc_httpRouter.cpp */; settings = {ATTRIBUTES = (); }; };
+		1EC283D8C0C5CF108B9A86E0 /* staticfilecontroller.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 298408812EED5BAFCBE6E6DF /* staticfilecontroller.cpp */; settings = {ATTRIBUTES = (); }; };
+		26F5E5508117527E51E752AC /* mainWindow.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 674C1085B5728D243BA28B94 /* mainWindow.cpp */; settings = {ATTRIBUTES = (); }; };
+		2C1E6B9FCC44B2F6D543A77A /* wflDevice.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 7B21FAB092B0380868A98487 /* wflDevice.cpp */; settings = {ATTRIBUTES = (); }; };
+		34814A7E772AA0CC5686FD2F /* httplistener.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 2824DB778FC12BB785C2AA1D /* httplistener.cpp */; settings = {ATTRIBUTES = (); }; };
+		3A0A651F01F513A94875697D /* QtGui.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 04CFD37C57592B0DBAFF43D0 /* QtGui.framework */; };
+		413381AA6A3025022C14CEB6 /* httpClient.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 9E75CBAA69273AC5283C579E /* httpClient.cpp */; settings = {ATTRIBUTES = (); }; };
+		417506F188E96AD16168048E /* moc_httplistener.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = F3B9957B88CD7516294F78A4 /* moc_httplistener.cpp */; settings = {ATTRIBUTES = (); }; };
+		44A86DE97F72A3E12F0680B0 /* moc_mainWindow.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 49E3F54FB0F999EDAFE9CB04 /* moc_mainWindow.cpp */; settings = {ATTRIBUTES = (); }; };
+		51BAF77D5BB40277EC3128B2 /* QtCore.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = BB21CF17DC20AF6A262E3328 /* QtCore.framework */; };
+		51E7DF884A6EC2C93B69FB15 /* moc_wflDevice.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 51ACC528B24A5AC690B6C868 /* moc_wflDevice.cpp */; settings = {ATTRIBUTES = (); }; };
+		56366849F6CFCF3974C1AD78 /* moc_debugController.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 422EEEC64422362DED6BC9EE /* moc_debugController.cpp */; settings = {ATTRIBUTES = (); }; };
+		5A6A637DF98F8897BE3AC30D /* QtNetwork.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4FDEC8D0EFEAB4A7F9BCC815 /* QtNetwork.framework */; };
+		601C4252075A1EC4626B8BC5 /* httpsession.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 4C38DFADF9A0D31281C69C48 /* httpsession.cpp */; settings = {ATTRIBUTES = (); }; };
+		66F110BC2886F7BEFAF66C1E /* moc_agent.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = B115A681C91AEB810EA136D5 /* moc_agent.cpp */; settings = {ATTRIBUTES = (); }; };
+		6EA92C70282BE3C2BCB8CEA8 /* QtWidgets.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 94A99F5932E4835A100856DA /* QtWidgets.framework */; };
+		6EF7A7F88B755470C81EC8CF /* digilentPgm.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 044727A3049949557548444A /* digilentPgm.cpp */; settings = {ATTRIBUTES = (); }; };
+		763100D45FBDDAC98213F3CE /* httpconnectionhandlerpool.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 5A7D8AA0940FE962E1660E1A /* httpconnectionhandlerpool.cpp */; settings = {ATTRIBUTES = (); }; };
+		787DEAFBF23E7DCB58FA00E3 /* debugController.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = F6E67EA27CD67DFB64AB9E4A /* debugController.cpp */; settings = {ATTRIBUTES = (); }; };
+		7DDB5CF21F044308005F2859 /* icon.iconset in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = 7DDB5CF11F044308005F2859 /* icon.iconset */; };
+		7DF6871E1F043298005A655F /* icon.icns in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = 7DF6871D1F043298005A655F /* icon.icns */; };
+		8771A8C96E9C391044035D99 /* OpenGL.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = D4B32C2222F82AC56BADEB21 /* OpenGL.framework */; };
+		8984664B51C49AB5D2243BD0 /* moc_staticfilecontroller.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 69FD0CE5BF9C5A774C0CDBB3 /* moc_staticfilecontroller.cpp */; settings = {ATTRIBUTES = (); }; };
+		8D267F2E4776F0ECA2F49DC8 /* IOKit.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = A1A67BEAA744704B29168D39 /* IOKit.framework */; };
+		94B9DCDB25FC7ED60A6F3B5F /* httprequesthandler.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = DECE90E792DE47F8811933D8 /* httprequesthandler.cpp */; settings = {ATTRIBUTES = (); }; };
+		9B68AE797F7CA39AB59F111B /* wflSerialDevice.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 91918846480D6484514A5B3C /* wflSerialDevice.cpp */; settings = {ATTRIBUTES = (); }; };
+		9E6E0FE931B8AF8D895D73BB /* httpRouter.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = A45D5F8365AE837F36E70F37 /* httpRouter.cpp */; settings = {ATTRIBUTES = (); }; };
+		A2039440718F72BEEEF490D0 /* dummy.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 5031642BF7B0FFE475722899 /* dummy.cpp */; settings = {ATTRIBUTES = (); }; };
+		A20D8D78805CC2D42F9EA8E5 /* httprequest.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 612392A14B2B4BA0A072EF75 /* httprequest.cpp */; settings = {ATTRIBUTES = (); }; };
+		A23D902BD3E64D59A82F3AF5 /* QtSerialPort.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = EFC74256700C299EC1745341 /* QtSerialPort.framework */; };
+		A99B2AA0F9CBBDD12BA126A4 /* DiskArbitration.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 2B774D8E4178765CE52EAAF5 /* DiskArbitration.framework */; };
+		ABFACE234236EB94B5281FB3 /* moc_httprequesthandler.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 0E3CABDB4351BA2761155BF5 /* moc_httprequesthandler.cpp */; settings = {ATTRIBUTES = (); }; };
+		AF5FBDA285FE0154714AED36 /* serial.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 96BED6B306FEF6D5EF23E9D9 /* serial.cpp */; settings = {ATTRIBUTES = (); }; };
+		B0CA407AD5892824248F2EAB /* main.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = A44B9CDD3D87537AF856EA80 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		B287D65002FF546C1CFB88C4 /* moc_httpsessionstore.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = A708756C4CCE161BFCBC6208 /* moc_httpsessionstore.cpp */; settings = {ATTRIBUTES = (); }; };
+		BA383D40A882A7548C7D1AA6 /* moc_httpconnectionhandlerpool.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 4B970C3CDB28B426B50E43F0 /* moc_httpconnectionhandlerpool.cpp */; settings = {ATTRIBUTES = (); }; };
+		C39FBE1CE805ED7C27CEDE85 /* comboBoxEventFilter.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = C32E5B48E5BBF876043B010D /* comboBoxEventFilter.cpp */; settings = {ATTRIBUTES = (); }; };
+		C48B4E7724B4FA4BDA57F5A4 /* qrc_mainWindow.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 871CE2BB969EF89DFD76F5D2 /* qrc_mainWindow.cpp */; settings = {ATTRIBUTES = (); }; };
+		C5129B804AF8B4DF83882C54 /* httpconnectionhandler.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = B9BC93171A3A79B37E648A1C /* httpconnectionhandler.cpp */; settings = {ATTRIBUTES = (); }; };
+		C512FED2BFBE253CC7905497 /* runGuard.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = EC57546CAEDEBE6A1904A46F /* runGuard.cpp */; settings = {ATTRIBUTES = (); }; };
+		CCFBCCBAF5EA6D89B04A34D1 /* agentConfigCtrl.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 0BF418156E5A6220C5A5F8F9 /* agentConfigCtrl.cpp */; settings = {ATTRIBUTES = (); }; };
+		CE72C74AE6D9B582AE9788AF /* moc_serial.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 59B9ACAA9FCF5C0A8F8AA0B2 /* moc_serial.cpp */; settings = {ATTRIBUTES = (); }; };
+		CEE6158F43B4C408B907B268 /* httpsessionstore.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = ECC1861234E9FE0B8007870B /* httpsessionstore.cpp */; settings = {ATTRIBUTES = (); }; };
+		D8D580285D6671B32D1377F6 /* moc_wflSerialDevice.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = FC7E57541848E49B46DDC544 /* moc_wflSerialDevice.cpp */; settings = {ATTRIBUTES = (); }; };
+		E45E51A644D5FC9F942ECE55 /* AGL.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 8D9815BDB5BD9F90D2BC05C5 /* AGL.framework */; };
+		E58CC54E8EF9F0AF104484FD /* moc_httpClient.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 89A37B28C211F9226A99BB66 /* moc_httpClient.cpp */; settings = {ATTRIBUTES = (); }; };
+		EAF623F0B20FA141486F6E26 /* httpcookie.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = AE7211E97AC915AD0D88C5D0 /* httpcookie.cpp */; settings = {ATTRIBUTES = (); }; };
+		F0200406F49C71EE80ACFCAE /* agent.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 7FB32F9EA805E104B5AD19B1 /* agent.cpp */; settings = {ATTRIBUTES = (); }; };
+		F8D6D7CD6F1CD2E6BD0B07D3 /* pgmBlock.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = E3D8DF82C544BDA9D052F010 /* pgmBlock.cpp */; settings = {ATTRIBUTES = (); }; };
+		FA32AC68A3592F811DBE534D /* httpglobal.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 41CE8CA4D7A78B6D0328D1E9 /* httpglobal.cpp */; settings = {ATTRIBUTES = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7DF687151F042981005A655F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6DB9C3763D02B1415CD9D565 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FDFEB10C22B3D35D9897964;
+			remoteInfo = "Qt Preprocess";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		99542592E9780B9225F24AA8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		044727A3049949557548444A /* digilentPgm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = digilentPgm.cpp; path = "/Users/digilent/git/digilent/digilent-agent/lib/digilent/pgm/digilentPgm.cpp"; sourceTree = "<absolute>"; };
+		04CFD37C57592B0DBAFF43D0 /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = /usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework; sourceTree = "<absolute>"; };
+		05864C189BC69888A6CCA498 /* wflDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = wflDevice.h; path = "/Users/digilent/git/digilent/digilent-agent/src/wflDevice/wflDevice.h"; sourceTree = "<absolute>"; };
+		067B604D703F788355CC301D /* httprequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httprequest.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httprequest.h"; sourceTree = "<absolute>"; };
+		07F85E46DBA9F79C8FB8F16A /* httpsession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httpsession.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpsession.h"; sourceTree = "<absolute>"; };
+		0A51C8E09933FEE08052A6E8 /* digilent-agent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "digilent-agent.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B6E6EBF3B05DAFEBDF3744A /* httprequesthandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httprequesthandler.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httprequesthandler.h"; sourceTree = "<absolute>"; };
+		0BF418156E5A6220C5A5F8F9 /* agentConfigCtrl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = agentConfigCtrl.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/agentConfigCtrl.cpp"; sourceTree = "<absolute>"; };
+		0E3CABDB4351BA2761155BF5 /* moc_httprequesthandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_httprequesthandler.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_httprequesthandler.cpp"; sourceTree = "<absolute>"; };
+		164FB084E5BAC503E6DF6E45 /* httpconnectionhandlerpool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httpconnectionhandlerpool.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpconnectionhandlerpool.h"; sourceTree = "<absolute>"; };
+		1943C84AC619299F69F45178 /* httpglobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httpglobal.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpglobal.h"; sourceTree = "<absolute>"; };
+		1AEBFC8BAA855A320BA172B0 /* runGuard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = runGuard.h; path = "/Users/digilent/git/digilent/digilent-agent/src/core/utils/runGuard.h"; sourceTree = "<absolute>"; };
+		23CDAE1E2D83CB869E09BAEE /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = "/Users/digilent/git/digilent/digilent-agent/images/icon.icns"; sourceTree = "<absolute>"; };
+		2824DB778FC12BB785C2AA1D /* httplistener.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httplistener.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httplistener.cpp"; sourceTree = "<absolute>"; };
+		298408812EED5BAFCBE6E6DF /* staticfilecontroller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = staticfilecontroller.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/staticfilecontroller.cpp"; sourceTree = "<absolute>"; };
+		2B774D8E4178765CE52EAAF5 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = /System/Library/Frameworks/DiskArbitration.framework; sourceTree = "<absolute>"; };
+		39410DF89488140C45EAC4E2 /* staticfilecontroller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = staticfilecontroller.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/staticfilecontroller.h"; sourceTree = "<absolute>"; };
+		3995B3FBC0A8148AB7D09FCD /* serial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = serial.h; path = "/Users/digilent/git/digilent/digilent-agent/lib/digilent/qtSerial/serial.h"; sourceTree = "<absolute>"; };
+		3D56F85375BFF5A2CDF93BA0 /* httpresponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httpresponse.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpresponse.h"; sourceTree = "<absolute>"; };
+		3E16D4D750974301398B1EB7 /* httpClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httpClient.h; path = "/Users/digilent/git/digilent/digilent-agent/lib/digilent/qtHttp/httpClient.h"; sourceTree = "<absolute>"; };
+		41CE8CA4D7A78B6D0328D1E9 /* httpglobal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httpglobal.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpglobal.cpp"; sourceTree = "<absolute>"; };
+		422EEEC64422362DED6BC9EE /* moc_debugController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_debugController.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_debugController.cpp"; sourceTree = "<absolute>"; };
+		49E3F54FB0F999EDAFE9CB04 /* moc_mainWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_mainWindow.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_mainWindow.cpp"; sourceTree = "<absolute>"; };
+		4B970C3CDB28B426B50E43F0 /* moc_httpconnectionhandlerpool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_httpconnectionhandlerpool.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_httpconnectionhandlerpool.cpp"; sourceTree = "<absolute>"; };
+		4C38DFADF9A0D31281C69C48 /* httpsession.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httpsession.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpsession.cpp"; sourceTree = "<absolute>"; };
+		4EB0DC821B2FFDFDF34FF308 /* pgmBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pgmBlock.h; path = "/Users/digilent/git/digilent/digilent-agent/lib/digilent/pgm/pgmBlock.h"; sourceTree = "<absolute>"; };
+		4FDEC8D0EFEAB4A7F9BCC815 /* QtNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtNetwork.framework; path = /usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework; sourceTree = "<absolute>"; };
+		5031642BF7B0FFE475722899 /* dummy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = dummy.cpp; path = /usr/local/Cellar/qt/5.9.0_1/mkspecs/features/data/dummy.cpp; sourceTree = "<absolute>"; };
+		51ACC528B24A5AC690B6C868 /* moc_wflDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_wflDevice.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_wflDevice.cpp"; sourceTree = "<absolute>"; };
+		59B9ACAA9FCF5C0A8F8AA0B2 /* moc_serial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_serial.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_serial.cpp"; sourceTree = "<absolute>"; };
+		5A7D8AA0940FE962E1660E1A /* httpconnectionhandlerpool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httpconnectionhandlerpool.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpconnectionhandlerpool.cpp"; sourceTree = "<absolute>"; };
+		5A9FDC160135DCFD2521F199 /* mainWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mainWindow.h; path = "/Users/digilent/git/digilent/digilent-agent/src/mainWindow.h"; sourceTree = "<absolute>"; };
+		5BDBF7E8FDFBE19821ACADDA /* httpRouter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httpRouter.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/httpRouter.h"; sourceTree = "<absolute>"; };
+		612392A14B2B4BA0A072EF75 /* httprequest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httprequest.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httprequest.cpp"; sourceTree = "<absolute>"; };
+		61D038E10CE8D9743B36C91D /* digilent-agent.pro */ = {isa = PBXFileReference; lastKnownFileType = text; name = "digilent-agent.pro"; path = "/Users/digilent/git/digilent/digilent-agent/digilent-agent.pro"; sourceTree = "<absolute>"; };
+		674C1085B5728D243BA28B94 /* mainWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = mainWindow.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/mainWindow.cpp"; sourceTree = "<absolute>"; };
+		69FD0CE5BF9C5A774C0CDBB3 /* moc_staticfilecontroller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_staticfilecontroller.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_staticfilecontroller.cpp"; sourceTree = "<absolute>"; };
+		7A96D654CED34EDBE8DE7BA3 /* agentConfigCtrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = agentConfigCtrl.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/agentConfigCtrl.h"; sourceTree = "<absolute>"; };
+		7B21FAB092B0380868A98487 /* wflDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = wflDevice.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/wflDevice/wflDevice.cpp"; sourceTree = "<absolute>"; };
+		7DDB5CF11F044308005F2859 /* icon.iconset */ = {isa = PBXFileReference; lastKnownFileType = folder.iconset; name = icon.iconset; path = images/icon.iconset; sourceTree = "<group>"; };
+		7DF687181F042A59005A655F /* digilent-agent.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "digilent-agent.entitlements"; sourceTree = "<group>"; };
+		7DF6871D1F043298005A655F /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icon.icns; path = images/icon.icns; sourceTree = "<group>"; };
+		7FB32F9EA805E104B5AD19B1 /* agent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = agent.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/core/agent.cpp"; sourceTree = "<absolute>"; };
+		806A8F7356478D21EA11A122 /* comboBoxEventFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = comboBoxEventFilter.h; path = "/Users/digilent/git/digilent/digilent-agent/src/core/comboBoxEventFilter.h"; sourceTree = "<absolute>"; };
+		82D641101E4C3F061B92BB39 /* httpresponse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httpresponse.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpresponse.cpp"; sourceTree = "<absolute>"; };
+		871CE2BB969EF89DFD76F5D2 /* qrc_mainWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = qrc_mainWindow.cpp; path = "/Users/digilent/git/digilent/digilent-agent/qrc_mainWindow.cpp"; sourceTree = "<absolute>"; };
+		89A37B28C211F9226A99BB66 /* moc_httpClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_httpClient.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_httpClient.cpp"; sourceTree = "<absolute>"; };
+		8D9815BDB5BD9F90D2BC05C5 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		91918846480D6484514A5B3C /* wflSerialDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = wflSerialDevice.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/wflDevice/wflSerialDevice.cpp"; sourceTree = "<absolute>"; };
+		94A99F5932E4835A100856DA /* QtWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWidgets.framework; path = /usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework; sourceTree = "<absolute>"; };
+		95E5675201776018E41BFA42 /* httpcookie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httpcookie.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpcookie.h"; sourceTree = "<absolute>"; };
+		96BED6B306FEF6D5EF23E9D9 /* serial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = serial.cpp; path = "/Users/digilent/git/digilent/digilent-agent/lib/digilent/qtSerial/serial.cpp"; sourceTree = "<absolute>"; };
+		989C05ABF903C70E02677504 /* moc_httpconnectionhandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_httpconnectionhandler.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_httpconnectionhandler.cpp"; sourceTree = "<absolute>"; };
+		9DE6580F67EF618F998E33F2 /* QtConcurrent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtConcurrent.framework; path = /usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework; sourceTree = "<absolute>"; };
+		9E75CBAA69273AC5283C579E /* httpClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httpClient.cpp; path = "/Users/digilent/git/digilent/digilent-agent/lib/digilent/qtHttp/httpClient.cpp"; sourceTree = "<absolute>"; };
+		A1A67BEAA744704B29168D39 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
+		A44B9CDD3D87537AF856EA80 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/main.cpp"; sourceTree = "<absolute>"; };
+		A45D5F8365AE837F36E70F37 /* httpRouter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httpRouter.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/httpRouter.cpp"; sourceTree = "<absolute>"; };
+		A4DB77DCC71249EC1CAA1617 /* agent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = agent.h; path = "/Users/digilent/git/digilent/digilent-agent/src/core/agent.h"; sourceTree = "<absolute>"; };
+		A708756C4CCE161BFCBC6208 /* moc_httpsessionstore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_httpsessionstore.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_httpsessionstore.cpp"; sourceTree = "<absolute>"; };
+		AE7211E97AC915AD0D88C5D0 /* httpcookie.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httpcookie.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpcookie.cpp"; sourceTree = "<absolute>"; };
+		B115A681C91AEB810EA136D5 /* moc_agent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_agent.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_agent.cpp"; sourceTree = "<absolute>"; };
+		B81920B01126D15BB7F9835B /* debugController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = debugController.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/debugController.h"; sourceTree = "<absolute>"; };
+		B9BC93171A3A79B37E648A1C /* httpconnectionhandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httpconnectionhandler.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpconnectionhandler.cpp"; sourceTree = "<absolute>"; };
+		B9F765EDF8E7AAE799AA2345 /* moc_comboBoxEventFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_comboBoxEventFilter.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_comboBoxEventFilter.cpp"; sourceTree = "<absolute>"; };
+		BA9DBF8F10729D8668B8AC66 /* wflSerialDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = wflSerialDevice.h; path = "/Users/digilent/git/digilent/digilent-agent/src/wflDevice/wflSerialDevice.h"; sourceTree = "<absolute>"; };
+		BB21CF17DC20AF6A262E3328 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework; sourceTree = "<absolute>"; };
+		BC588CE8F17C823768485BE6 /* .qmake.stash */ = {isa = PBXFileReference; lastKnownFileType = text; name = .qmake.stash; path = "/Users/digilent/git/digilent/digilent-agent/.qmake.stash"; sourceTree = "<absolute>"; };
+		C17BBE3AA8DB67793E94E9F0 /* moc_agentConfigCtrl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_agentConfigCtrl.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_agentConfigCtrl.cpp"; sourceTree = "<absolute>"; };
+		C32E5B48E5BBF876043B010D /* comboBoxEventFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = comboBoxEventFilter.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/core/comboBoxEventFilter.cpp"; sourceTree = "<absolute>"; };
+		C34E7A4D7431649872310C11 /* httpserver.pri */ = {isa = PBXFileReference; lastKnownFileType = text; name = httpserver.pri; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpserver.pri"; sourceTree = "<absolute>"; };
+		C5667553635A8A24F1AA8379 /* moc_httpRouter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_httpRouter.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_httpRouter.cpp"; sourceTree = "<absolute>"; };
+		D04D6538120A54382FA3C050 /* mainWindow.ui */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = mainWindow.ui; path = "/Users/digilent/git/digilent/digilent-agent/mainWindow.ui"; sourceTree = "<absolute>"; };
+		D4B32C2222F82AC56BADEB21 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		D6647088CA2E3C2673B0018B /* ui_mainWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ui_mainWindow.h; path = "/Users/digilent/git/digilent/digilent-agent/ui_mainWindow.h"; sourceTree = "<absolute>"; };
+		DB56B76B2BEA23F9BF1C56E0 /* digilentPgm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = digilentPgm.h; path = "/Users/digilent/git/digilent/digilent-agent/lib/digilent/pgm/digilentPgm.h"; sourceTree = "<absolute>"; };
+		DCE6A3B42BD5A1EC84658F1A /* mainWindow.qrc */ = {isa = PBXFileReference; lastKnownFileType = text; name = mainWindow.qrc; path = "/Users/digilent/git/digilent/digilent-agent/mainWindow.qrc"; sourceTree = "<absolute>"; };
+		DECE90E792DE47F8811933D8 /* httprequesthandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httprequesthandler.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httprequesthandler.cpp"; sourceTree = "<absolute>"; };
+		E3D8DF82C544BDA9D052F010 /* pgmBlock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = pgmBlock.cpp; path = "/Users/digilent/git/digilent/digilent-agent/lib/digilent/pgm/pgmBlock.cpp"; sourceTree = "<absolute>"; };
+		EC57546CAEDEBE6A1904A46F /* runGuard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = runGuard.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/core/utils/runGuard.cpp"; sourceTree = "<absolute>"; };
+		ECC1861234E9FE0B8007870B /* httpsessionstore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = httpsessionstore.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpsessionstore.cpp"; sourceTree = "<absolute>"; };
+		ECED3DCF6F5A753DB8F078FF /* httplistener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httplistener.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httplistener.h"; sourceTree = "<absolute>"; };
+		EFC74256700C299EC1745341 /* QtSerialPort.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtSerialPort.framework; path = /usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework; sourceTree = "<absolute>"; };
+		F3B9957B88CD7516294F78A4 /* moc_httplistener.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_httplistener.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_httplistener.cpp"; sourceTree = "<absolute>"; };
+		F6E67EA27CD67DFB64AB9E4A /* debugController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = debugController.cpp; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/debugController.cpp"; sourceTree = "<absolute>"; };
+		F8D61D26FE9DCF854143FE44 /* httpconnectionhandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httpconnectionhandler.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpconnectionhandler.h"; sourceTree = "<absolute>"; };
+		FA3ACF816478F2BF40ED0023 /* httpsessionstore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = httpsessionstore.h; path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpsessionstore.h"; sourceTree = "<absolute>"; };
+		FC7E57541848E49B46DDC544 /* moc_wflSerialDevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_wflSerialDevice.cpp; path = "/Users/digilent/git/digilent/digilent-agent/moc_wflSerialDevice.cpp"; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1C883685E82D5676953459A /* Link Binary With Libraries */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6EA92C70282BE3C2BCB8CEA8 /* QtWidgets.framework in Link Binary With Libraries */,
+				3A0A651F01F513A94875697D /* QtGui.framework in Link Binary With Libraries */,
+				51BAF77D5BB40277EC3128B2 /* QtCore.framework in Link Binary With Libraries */,
+				A99B2AA0F9CBBDD12BA126A4 /* DiskArbitration.framework in Link Binary With Libraries */,
+				8D267F2E4776F0ECA2F49DC8 /* IOKit.framework in Link Binary With Libraries */,
+				5A6A637DF98F8897BE3AC30D /* QtNetwork.framework in Link Binary With Libraries */,
+				A23D902BD3E64D59A82F3AF5 /* QtSerialPort.framework in Link Binary With Libraries */,
+				15269E8CC98B6991CDEDAD65 /* QtConcurrent.framework in Link Binary With Libraries */,
+				8771A8C96E9C391044035D99 /* OpenGL.framework in Link Binary With Libraries */,
+				E45E51A644D5FC9F942ECE55 /* AGL.framework in Link Binary With Libraries */,
+			);
+			name = "Link Binary With Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04C51D20F0DC8390F16B5BFF /* qtSerial */ = {
+			isa = PBXGroup;
+			children = (
+				96BED6B306FEF6D5EF23E9D9 /* serial.cpp */,
+				3995B3FBC0A8148AB7D09FCD /* serial.h */,
+			);
+			name = qtSerial;
+			sourceTree = "<group>";
+		};
+		07E163206FEB6FB900D11BE9 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				C34E7A4D7431649872310C11 /* httpserver.pri */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		12E908B8A1C3C07C115504F5 /* Sources [uic] */ = {
+			isa = PBXGroup;
+			children = (
+				D04D6538120A54382FA3C050 /* mainWindow.ui */,
+			);
+			name = "Sources [uic]";
+			sourceTree = "<group>";
+		};
+		25B08E2869634E9BCBA333A2 /* Generated Sources */ = {
+			isa = PBXGroup;
+			children = (
+				871CE2BB969EF89DFD76F5D2 /* qrc_mainWindow.cpp */,
+				F3B9957B88CD7516294F78A4 /* moc_httplistener.cpp */,
+				989C05ABF903C70E02677504 /* moc_httpconnectionhandler.cpp */,
+				4B970C3CDB28B426B50E43F0 /* moc_httpconnectionhandlerpool.cpp */,
+				0E3CABDB4351BA2761155BF5 /* moc_httprequesthandler.cpp */,
+				A708756C4CCE161BFCBC6208 /* moc_httpsessionstore.cpp */,
+				69FD0CE5BF9C5A774C0CDBB3 /* moc_staticfilecontroller.cpp */,
+				C5667553635A8A24F1AA8379 /* moc_httpRouter.cpp */,
+				49E3F54FB0F999EDAFE9CB04 /* moc_mainWindow.cpp */,
+				B9F765EDF8E7AAE799AA2345 /* moc_comboBoxEventFilter.cpp */,
+				C17BBE3AA8DB67793E94E9F0 /* moc_agentConfigCtrl.cpp */,
+				422EEEC64422362DED6BC9EE /* moc_debugController.cpp */,
+				B115A681C91AEB810EA136D5 /* moc_agent.cpp */,
+				51ACC528B24A5AC690B6C868 /* moc_wflDevice.cpp */,
+				59B9ACAA9FCF5C0A8F8AA0B2 /* moc_serial.cpp */,
+				FC7E57541848E49B46DDC544 /* moc_wflSerialDevice.cpp */,
+				89A37B28C211F9226A99BB66 /* moc_httpClient.cpp */,
+				D6647088CA2E3C2673B0018B /* ui_mainWindow.h */,
+			);
+			name = "Generated Sources";
+			sourceTree = "<group>";
+		};
+		2EB56BE3C2D93CDAB0C52E67 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				921315FAA7F261D737F4F4C7 /* src */,
+				EF049EB271DF86565E788F11 /* lib */,
+				994CFA67844055A0579A5E73 /* images */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		379485B6E23F5FACDC4093CD /* httpServer */ = {
+			isa = PBXGroup;
+			children = (
+				5DA110E8FFE6D2E367C58146 /* core */,
+				A45D5F8365AE837F36E70F37 /* httpRouter.cpp */,
+				F6E67EA27CD67DFB64AB9E4A /* debugController.cpp */,
+				0BF418156E5A6220C5A5F8F9 /* agentConfigCtrl.cpp */,
+				5BDBF7E8FDFBE19821ACADDA /* httpRouter.h */,
+				7A96D654CED34EDBE8DE7BA3 /* agentConfigCtrl.h */,
+				B81920B01126D15BB7F9835B /* debugController.h */,
+			);
+			name = httpServer;
+			sourceTree = "<group>";
+		};
+		3A971A0629DC6FCCC39F91E6 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				7B40671FCFB6DA67B0E9D030 /* httpServer */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		5DA110E8FFE6D2E367C58146 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				41CE8CA4D7A78B6D0328D1E9 /* httpglobal.cpp */,
+				2824DB778FC12BB785C2AA1D /* httplistener.cpp */,
+				B9BC93171A3A79B37E648A1C /* httpconnectionhandler.cpp */,
+				5A7D8AA0940FE962E1660E1A /* httpconnectionhandlerpool.cpp */,
+				612392A14B2B4BA0A072EF75 /* httprequest.cpp */,
+				82D641101E4C3F061B92BB39 /* httpresponse.cpp */,
+				AE7211E97AC915AD0D88C5D0 /* httpcookie.cpp */,
+				DECE90E792DE47F8811933D8 /* httprequesthandler.cpp */,
+				4C38DFADF9A0D31281C69C48 /* httpsession.cpp */,
+				ECC1861234E9FE0B8007870B /* httpsessionstore.cpp */,
+				298408812EED5BAFCBE6E6DF /* staticfilecontroller.cpp */,
+				1943C84AC619299F69F45178 /* httpglobal.h */,
+				ECED3DCF6F5A753DB8F078FF /* httplistener.h */,
+				F8D61D26FE9DCF854143FE44 /* httpconnectionhandler.h */,
+				164FB084E5BAC503E6DF6E45 /* httpconnectionhandlerpool.h */,
+				067B604D703F788355CC301D /* httprequest.h */,
+				3D56F85375BFF5A2CDF93BA0 /* httpresponse.h */,
+				95E5675201776018E41BFA42 /* httpcookie.h */,
+				0B6E6EBF3B05DAFEBDF3744A /* httprequesthandler.h */,
+				07F85E46DBA9F79C8FB8F16A /* httpsession.h */,
+				FA3ACF816478F2BF40ED0023 /* httpsessionstore.h */,
+				39410DF89488140C45EAC4E2 /* staticfilecontroller.h */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		68B83E3654153EA7628DDC44 /* pgm */ = {
+			isa = PBXGroup;
+			children = (
+				044727A3049949557548444A /* digilentPgm.cpp */,
+				E3D8DF82C544BDA9D052F010 /* pgmBlock.cpp */,
+				DB56B76B2BEA23F9BF1C56E0 /* digilentPgm.h */,
+				4EB0DC821B2FFDFDF34FF308 /* pgmBlock.h */,
+			);
+			name = pgm;
+			sourceTree = "<group>";
+		};
+		74B182DB50CB5611B5C1C297 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				61D038E10CE8D9743B36C91D /* digilent-agent.pro */,
+				BC588CE8F17C823768485BE6 /* .qmake.stash */,
+				3A971A0629DC6FCCC39F91E6 /* src */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7B40671FCFB6DA67B0E9D030 /* httpServer */ = {
+			isa = PBXGroup;
+			children = (
+				07E163206FEB6FB900D11BE9 /* core */,
+			);
+			name = httpServer;
+			sourceTree = "<group>";
+		};
+		7C757A3E54D18BEE5F7FF0D3 /* wflDevice */ = {
+			isa = PBXGroup;
+			children = (
+				7B21FAB092B0380868A98487 /* wflDevice.cpp */,
+				91918846480D6484514A5B3C /* wflSerialDevice.cpp */,
+				05864C189BC69888A6CCA498 /* wflDevice.h */,
+				BA9DBF8F10729D8668B8AC66 /* wflSerialDevice.h */,
+			);
+			name = wflDevice;
+			sourceTree = "<group>";
+		};
+		87DF60DE337FB58864343E39 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7DDB5CF11F044308005F2859 /* icon.iconset */,
+				7DF6871D1F043298005A655F /* icon.icns */,
+				DCE6A3B42BD5A1EC84658F1A /* mainWindow.qrc */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		921315FAA7F261D737F4F4C7 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				379485B6E23F5FACDC4093CD /* httpServer */,
+				A44B9CDD3D87537AF856EA80 /* main.cpp */,
+				674C1085B5728D243BA28B94 /* mainWindow.cpp */,
+				E62C659644C6E75254031504 /* core */,
+				7C757A3E54D18BEE5F7FF0D3 /* wflDevice */,
+				5A9FDC160135DCFD2521F199 /* mainWindow.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		994CFA67844055A0579A5E73 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				23CDAE1E2D83CB869E09BAEE /* icon.icns */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		A5B4C6580EA7BA631896EFE9 /* digilent */ = {
+			isa = PBXGroup;
+			children = (
+				04C51D20F0DC8390F16B5BFF /* qtSerial */,
+				68B83E3654153EA7628DDC44 /* pgm */,
+				C09277C53BAA4F3D9A113C4E /* qtHttp */,
+			);
+			name = digilent;
+			sourceTree = "<group>";
+		};
+		AF39DD055C3EF8226FBE929D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				94A99F5932E4835A100856DA /* QtWidgets.framework */,
+				04CFD37C57592B0DBAFF43D0 /* QtGui.framework */,
+				BB21CF17DC20AF6A262E3328 /* QtCore.framework */,
+				2B774D8E4178765CE52EAAF5 /* DiskArbitration.framework */,
+				A1A67BEAA744704B29168D39 /* IOKit.framework */,
+				4FDEC8D0EFEAB4A7F9BCC815 /* QtNetwork.framework */,
+				EFC74256700C299EC1745341 /* QtSerialPort.framework */,
+				9DE6580F67EF618F998E33F2 /* QtConcurrent.framework */,
+				D4B32C2222F82AC56BADEB21 /* OpenGL.framework */,
+				8D9815BDB5BD9F90D2BC05C5 /* AGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B8254625CFD509ED2A24A166 /* Sources [moc_predefs] */ = {
+			isa = PBXGroup;
+			children = (
+				5031642BF7B0FFE475722899 /* dummy.cpp */,
+			);
+			name = "Sources [moc_predefs]";
+			sourceTree = "<group>";
+		};
+		C09277C53BAA4F3D9A113C4E /* qtHttp */ = {
+			isa = PBXGroup;
+			children = (
+				9E75CBAA69273AC5283C579E /* httpClient.cpp */,
+				3E16D4D750974301398B1EB7 /* httpClient.h */,
+			);
+			name = qtHttp;
+			sourceTree = "<group>";
+		};
+		D695A1D489A580318BD17A2C /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				EC57546CAEDEBE6A1904A46F /* runGuard.cpp */,
+				1AEBFC8BAA855A320BA172B0 /* runGuard.h */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		E62C659644C6E75254031504 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				C32E5B48E5BBF876043B010D /* comboBoxEventFilter.cpp */,
+				7FB32F9EA805E104B5AD19B1 /* agent.cpp */,
+				D695A1D489A580318BD17A2C /* utils */,
+				806A8F7356478D21EA11A122 /* comboBoxEventFilter.h */,
+				A4DB77DCC71249EC1CAA1617 /* agent.h */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		E8C543AB96796ECAA2E65C57 /* digilent-agent */ = {
+			isa = PBXGroup;
+			children = (
+				7DF687181F042A59005A655F /* digilent-agent.entitlements */,
+				2EB56BE3C2D93CDAB0C52E67 /* Sources */,
+				25B08E2869634E9BCBA333A2 /* Generated Sources */,
+				74B182DB50CB5611B5C1C297 /* Supporting Files */,
+				87DF60DE337FB58864343E39 /* Resources */,
+				B8254625CFD509ED2A24A166 /* Sources [moc_predefs] */,
+				12E908B8A1C3C07C115504F5 /* Sources [uic] */,
+				AF39DD055C3EF8226FBE929D /* Frameworks */,
+				FE0A091FDBFB3E9C31B7A1BD /* Products */,
+			);
+			name = "digilent-agent";
+			sourceTree = "<group>";
+		};
+		EF049EB271DF86565E788F11 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				A5B4C6580EA7BA631896EFE9 /* digilent */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
+		FE0A091FDBFB3E9C31B7A1BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0A51C8E09933FEE08052A6E8 /* digilent-agent.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		53844F158DA6512D4755FB13 /* digilent-agent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "digilent-agent" */;
+			buildPhases = (
+				F7E50F631C51CD5B5DC0BC43 /* Compile Sources */,
+				D1C883685E82D5676953459A /* Link Binary With Libraries */,
+				30414803F31797EB689AE508 /* Copy Bundle Resources */,
+				99542592E9780B9225F24AA8 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3544B1A2257732233030767D /* PBXTargetDependency */,
+			);
+			name = "digilent-agent";
+			productName = "digilent-agent";
+			productReference = 0A51C8E09933FEE08052A6E8 /* digilent-agent.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6DB9C3763D02B1415CD9D565 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				TargetAttributes = {
+					53844F158DA6512D4755FB13 = {
+						DevelopmentTeam = 3GQCL4AKGN;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
+					};
+					9FDFEB10C22B3D35D9897964 = {
+						DevelopmentTeam = 3GQCL4AKGN;
+					};
+				};
+			};
+			buildConfigurationList = DAC4C1AA5EDEA1C85E9CA5E6 /* Build configuration list for PBXProject "digilent-agent" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8C543AB96796ECAA2E65C57 /* digilent-agent */;
+			productRefGroup = FE0A091FDBFB3E9C31B7A1BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				53844F158DA6512D4755FB13 /* digilent-agent */,
+				9FDFEB10C22B3D35D9897964 /* Qt Preprocess */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		30414803F31797EB689AE508 /* Copy Bundle Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DF6871E1F043298005A655F /* icon.icns in Copy Bundle Resources */,
+				7DDB5CF21F044308005F2859 /* icon.iconset in Copy Bundle Resources */,
+			);
+			name = "Copy Bundle Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5E618435888B9D49F8540165 /* Qt Qmake */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "Qt Qmake";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/digilent/git/digilent/digilent-agent/ -f digilent-agent.xcodeproj/qt_makeqmake.mak";
+			showEnvVarsInLog = 0;
+		};
+		7EF0942E79C014DCEC8976BC /* Qt Preprocessors */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "Qt Preprocessors";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/digilent/git/digilent/digilent-agent/ -f digilent-agent.xcodeproj/qt_preprocess.mak";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F7E50F631C51CD5B5DC0BC43 /* Compile Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA32AC68A3592F811DBE534D /* httpglobal.cpp in Compile Sources */,
+				34814A7E772AA0CC5686FD2F /* httplistener.cpp in Compile Sources */,
+				C5129B804AF8B4DF83882C54 /* httpconnectionhandler.cpp in Compile Sources */,
+				763100D45FBDDAC98213F3CE /* httpconnectionhandlerpool.cpp in Compile Sources */,
+				A20D8D78805CC2D42F9EA8E5 /* httprequest.cpp in Compile Sources */,
+				1911C402432A4D6C849AE32C /* httpresponse.cpp in Compile Sources */,
+				EAF623F0B20FA141486F6E26 /* httpcookie.cpp in Compile Sources */,
+				94B9DCDB25FC7ED60A6F3B5F /* httprequesthandler.cpp in Compile Sources */,
+				601C4252075A1EC4626B8BC5 /* httpsession.cpp in Compile Sources */,
+				CEE6158F43B4C408B907B268 /* httpsessionstore.cpp in Compile Sources */,
+				1EC283D8C0C5CF108B9A86E0 /* staticfilecontroller.cpp in Compile Sources */,
+				9E6E0FE931B8AF8D895D73BB /* httpRouter.cpp in Compile Sources */,
+				B0CA407AD5892824248F2EAB /* main.cpp in Compile Sources */,
+				787DEAFBF23E7DCB58FA00E3 /* debugController.cpp in Compile Sources */,
+				26F5E5508117527E51E752AC /* mainWindow.cpp in Compile Sources */,
+				C39FBE1CE805ED7C27CEDE85 /* comboBoxEventFilter.cpp in Compile Sources */,
+				CCFBCCBAF5EA6D89B04A34D1 /* agentConfigCtrl.cpp in Compile Sources */,
+				F0200406F49C71EE80ACFCAE /* agent.cpp in Compile Sources */,
+				2C1E6B9FCC44B2F6D543A77A /* wflDevice.cpp in Compile Sources */,
+				C512FED2BFBE253CC7905497 /* runGuard.cpp in Compile Sources */,
+				AF5FBDA285FE0154714AED36 /* serial.cpp in Compile Sources */,
+				9B68AE797F7CA39AB59F111B /* wflSerialDevice.cpp in Compile Sources */,
+				6EF7A7F88B755470C81EC8CF /* digilentPgm.cpp in Compile Sources */,
+				F8D6D7CD6F1CD2E6BD0B07D3 /* pgmBlock.cpp in Compile Sources */,
+				413381AA6A3025022C14CEB6 /* httpClient.cpp in Compile Sources */,
+				C48B4E7724B4FA4BDA57F5A4 /* qrc_mainWindow.cpp in Compile Sources */,
+				417506F188E96AD16168048E /* moc_httplistener.cpp in Compile Sources */,
+				197F6595D85C5D31610B5811 /* moc_httpconnectionhandler.cpp in Compile Sources */,
+				BA383D40A882A7548C7D1AA6 /* moc_httpconnectionhandlerpool.cpp in Compile Sources */,
+				ABFACE234236EB94B5281FB3 /* moc_httprequesthandler.cpp in Compile Sources */,
+				B287D65002FF546C1CFB88C4 /* moc_httpsessionstore.cpp in Compile Sources */,
+				8984664B51C49AB5D2243BD0 /* moc_staticfilecontroller.cpp in Compile Sources */,
+				1D12E93B72B1DF2AAA55BF37 /* moc_httpRouter.cpp in Compile Sources */,
+				44A86DE97F72A3E12F0680B0 /* moc_mainWindow.cpp in Compile Sources */,
+				0F3B3B69CB06622620E6FB77 /* moc_comboBoxEventFilter.cpp in Compile Sources */,
+				0857EF4C72586BB65983DA37 /* moc_agentConfigCtrl.cpp in Compile Sources */,
+				56366849F6CFCF3974C1AD78 /* moc_debugController.cpp in Compile Sources */,
+				66F110BC2886F7BEFAF66C1E /* moc_agent.cpp in Compile Sources */,
+				51E7DF884A6EC2C93B69FB15 /* moc_wflDevice.cpp in Compile Sources */,
+				CE72C74AE6D9B582AE9788AF /* moc_serial.cpp in Compile Sources */,
+				D8D580285D6671B32D1377F6 /* moc_wflSerialDevice.cpp in Compile Sources */,
+				E58CC54E8EF9F0AF104484FD /* moc_httpClient.cpp in Compile Sources */,
+				A2039440718F72BEEEF490D0 /* dummy.cpp in Compile Sources */,
+			);
+			name = "Compile Sources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3544B1A2257732233030767D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FDFEB10C22B3D35D9897964 /* Qt Preprocess */;
+			targetProxy = 7DF687151F042981005A655F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		339EE1B2CC4FC24589A0EA95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				ARCHS = x86_64;
+				"ARCHS[sdk=macosx*]" = x86_64;
+				CC = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang;
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 3GQCL4AKGN;
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0.0;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					/usr/local/Cellar/qt/5.9.0_1/lib,
+					/usr/local/Cellar/qt/5.9.0_1/lib,
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					.,
+					src/httpServer/core,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers,
+					.,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers,
+					.,
+					"/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/qt/5.9.0_1/lib,
+					/System/Library/Frameworks/,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-O2",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_SERIALPORT_LIB",
+					"-DQT_CONCURRENT_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-stdlib=libc++",
+					"-O2",
+					"-std=gnu++11",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_SERIALPORT_LIB",
+					"-DQT_CONCURRENT_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_LDFLAGS = (
+					"-stdlib=libc++",
+					"-headerpad_max_install_names",
+					"-Wl,-rpath,@executable_path/Frameworks",
+					"-F/usr/local/Cellar/qt/5.9.0_1/lib",
+				);
+				PRODUCT_NAME = "digilent-agent";
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = macosx;
+				SYMROOT = "/Users/digilent/git/digilent/digilent-agent/";
+			};
+			name = Release;
+		};
+		3AA6C32AC930069E80220CF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				ARCHS = x86_64;
+				"ARCHS[sdk=macosx*]" = x86_64;
+				CC = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 3GQCL4AKGN;
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0.0;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					/usr/local/Cellar/qt/5.9.0_1/lib,
+					/usr/local/Cellar/qt/5.9.0_1/lib,
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					.,
+					src/httpServer/core,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers,
+					/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers,
+					.,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers,
+					.,
+					"/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/qt/5.9.0_1/lib,
+					/System/Library/Frameworks/,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-O2",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_SERIALPORT_LIB",
+					"-DQT_CONCURRENT_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-stdlib=libc++",
+					"-O2",
+					"-std=gnu++11",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_NETWORK_LIB",
+					"-DQT_SERIALPORT_LIB",
+					"-DQT_CONCURRENT_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_LDFLAGS = (
+					"-stdlib=libc++",
+					"-headerpad_max_install_names",
+					"-Wl,-rpath,@executable_path/Frameworks",
+					"-F/usr/local/Cellar/qt/5.9.0_1/lib",
+				);
+				PRODUCT_NAME = "digilent-agent";
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = macosx;
+				SYMROOT = "/Users/digilent/git/digilent/digilent-agent/";
+			};
+			name = Debug;
+		};
+		6666AA5E688052234F6758D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				"ARCHS[sdk=macosx*]" = x86_64;
+				CODE_SIGN_ENTITLEMENTS = "digilent-agent.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 3GQCL4AKGN;
+				ENABLE_BITCODE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.digilent.agent;
+				PRODUCT_NAME = "digilent-agent";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		77418F46922677BB04ED38DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				"ARCHS[sdk=macosx*]" = x86_64;
+				CODE_SIGN_ENTITLEMENTS = "digilent-agent.entitlements";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 3GQCL4AKGN;
+				ENABLE_BITCODE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.digilent.agent;
+				PRODUCT_NAME = "digilent-agent";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "digilent-agent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77418F46922677BB04ED38DD /* Debug */,
+				6666AA5E688052234F6758D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAC4C1AA5EDEA1C85E9CA5E6 /* Build configuration list for PBXProject "digilent-agent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AA6C32AC930069E80220CF1 /* Debug */,
+				339EE1B2CC4FC24589A0EA95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6DB9C3763D02B1415CD9D565 /* Project object */;
+}

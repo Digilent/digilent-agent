@@ -70,6 +70,7 @@ RESOURCES += \
     mainWindow.qrc
 
 RC_FILE = digilent-agent.rc
+ICON = images/icon.icns
 
 DISTFILES += \
 #    digilent-agent.ini
