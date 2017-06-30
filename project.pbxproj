@@ -16,6 +16,171 @@
 			shellScript = "make -C /Users/digilent/git/digilent/digilent-agent -f qt_makeqmake.mak";
 			showEnvVarsInLog = "0";
 		};
+		41CE8CA4D7A78B6D0328D1E9 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpglobal.cpp";
+			name = "httpglobal.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		FA32AC68A3592F811DBE534D = {
+			fileRef = "41CE8CA4D7A78B6D0328D1E9";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		2824DB778FC12BB785C2AA1D = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httplistener.cpp";
+			name = "httplistener.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		34814A7E772AA0CC5686FD2F = {
+			fileRef = "2824DB778FC12BB785C2AA1D";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		B9BC93171A3A79B37E648A1C = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpconnectionhandler.cpp";
+			name = "httpconnectionhandler.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		C5129B804AF8B4DF83882C54 = {
+			fileRef = "B9BC93171A3A79B37E648A1C";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		5A7D8AA0940FE962E1660E1A = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpconnectionhandlerpool.cpp";
+			name = "httpconnectionhandlerpool.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		763100D45FBDDAC98213F3CE = {
+			fileRef = "5A7D8AA0940FE962E1660E1A";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		612392A14B2B4BA0A072EF75 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httprequest.cpp";
+			name = "httprequest.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		A20D8D78805CC2D42F9EA8E5 = {
+			fileRef = "612392A14B2B4BA0A072EF75";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		82D641101E4C3F061B92BB39 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpresponse.cpp";
+			name = "httpresponse.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		1911C402432A4D6C849AE32C = {
+			fileRef = "82D641101E4C3F061B92BB39";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		AE7211E97AC915AD0D88C5D0 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpcookie.cpp";
+			name = "httpcookie.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		EAF623F0B20FA141486F6E26 = {
+			fileRef = "AE7211E97AC915AD0D88C5D0";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		DECE90E792DE47F8811933D8 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httprequesthandler.cpp";
+			name = "httprequesthandler.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		94B9DCDB25FC7ED60A6F3B5F = {
+			fileRef = "DECE90E792DE47F8811933D8";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		4C38DFADF9A0D31281C69C48 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpsession.cpp";
+			name = "httpsession.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		601C4252075A1EC4626B8BC5 = {
+			fileRef = "4C38DFADF9A0D31281C69C48";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		ECC1861234E9FE0B8007870B = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpsessionstore.cpp";
+			name = "httpsessionstore.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		CEE6158F43B4C408B907B268 = {
+			fileRef = "ECC1861234E9FE0B8007870B";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		298408812EED5BAFCBE6E6DF = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/staticfilecontroller.cpp";
+			name = "staticfilecontroller.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		1EC283D8C0C5CF108B9A86E0 = {
+			fileRef = "298408812EED5BAFCBE6E6DF";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
 		A45D5F8365AE837F36E70F37 = {
 			isa = PBXFileReference;
 			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/httpRouter.cpp";
@@ -255,10 +420,327 @@
 					);
 			};
 		};
+		F3B9957B88CD7516294F78A4 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_httplistener.cpp";
+			name = "moc_httplistener.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		417506F188E96AD16168048E = {
+			fileRef = "F3B9957B88CD7516294F78A4";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		989C05ABF903C70E02677504 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_httpconnectionhandler.cpp";
+			name = "moc_httpconnectionhandler.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		197F6595D85C5D31610B5811 = {
+			fileRef = "989C05ABF903C70E02677504";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		4B970C3CDB28B426B50E43F0 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_httpconnectionhandlerpool.cpp";
+			name = "moc_httpconnectionhandlerpool.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		BA383D40A882A7548C7D1AA6 = {
+			fileRef = "4B970C3CDB28B426B50E43F0";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		0E3CABDB4351BA2761155BF5 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_httprequesthandler.cpp";
+			name = "moc_httprequesthandler.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		ABFACE234236EB94B5281FB3 = {
+			fileRef = "0E3CABDB4351BA2761155BF5";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		A708756C4CCE161BFCBC6208 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_httpsessionstore.cpp";
+			name = "moc_httpsessionstore.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		B287D65002FF546C1CFB88C4 = {
+			fileRef = "A708756C4CCE161BFCBC6208";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		69FD0CE5BF9C5A774C0CDBB3 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_staticfilecontroller.cpp";
+			name = "moc_staticfilecontroller.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		8984664B51C49AB5D2243BD0 = {
+			fileRef = "69FD0CE5BF9C5A774C0CDBB3";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		C5667553635A8A24F1AA8379 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_httpRouter.cpp";
+			name = "moc_httpRouter.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		1D12E93B72B1DF2AAA55BF37 = {
+			fileRef = "C5667553635A8A24F1AA8379";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		49E3F54FB0F999EDAFE9CB04 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_mainWindow.cpp";
+			name = "moc_mainWindow.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		44A86DE97F72A3E12F0680B0 = {
+			fileRef = "49E3F54FB0F999EDAFE9CB04";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		B9F765EDF8E7AAE799AA2345 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_comboBoxEventFilter.cpp";
+			name = "moc_comboBoxEventFilter.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		0F3B3B69CB06622620E6FB77 = {
+			fileRef = "B9F765EDF8E7AAE799AA2345";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		C17BBE3AA8DB67793E94E9F0 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_agentConfigCtrl.cpp";
+			name = "moc_agentConfigCtrl.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		0857EF4C72586BB65983DA37 = {
+			fileRef = "C17BBE3AA8DB67793E94E9F0";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		422EEEC64422362DED6BC9EE = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_debugController.cpp";
+			name = "moc_debugController.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		56366849F6CFCF3974C1AD78 = {
+			fileRef = "422EEEC64422362DED6BC9EE";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		B115A681C91AEB810EA136D5 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_agent.cpp";
+			name = "moc_agent.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		66F110BC2886F7BEFAF66C1E = {
+			fileRef = "B115A681C91AEB810EA136D5";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		51ACC528B24A5AC690B6C868 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_wflDevice.cpp";
+			name = "moc_wflDevice.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		51E7DF884A6EC2C93B69FB15 = {
+			fileRef = "51ACC528B24A5AC690B6C868";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		59B9ACAA9FCF5C0A8F8AA0B2 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_serial.cpp";
+			name = "moc_serial.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		CE72C74AE6D9B582AE9788AF = {
+			fileRef = "59B9ACAA9FCF5C0A8F8AA0B2";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		FC7E57541848E49B46DDC544 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_wflSerialDevice.cpp";
+			name = "moc_wflSerialDevice.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		D8D580285D6671B32D1377F6 = {
+			fileRef = "FC7E57541848E49B46DDC544";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
+		89A37B28C211F9226A99BB66 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/moc_httpClient.cpp";
+			name = "moc_httpClient.cpp";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.cpp.cpp";
+		};
+		E58CC54E8EF9F0AF104484FD = {
+			fileRef = "89A37B28C211F9226A99BB66";
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					);
+			};
+		};
 		D6647088CA2E3C2673B0018B = {
 			isa = PBXFileReference;
 			path = "/Users/digilent/git/digilent/digilent-agent/ui_mainWindow.h";
 			name = "ui_mainWindow.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		1943C84AC619299F69F45178 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpglobal.h";
+			name = "httpglobal.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		ECED3DCF6F5A753DB8F078FF = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httplistener.h";
+			name = "httplistener.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		F8D61D26FE9DCF854143FE44 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpconnectionhandler.h";
+			name = "httpconnectionhandler.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		164FB084E5BAC503E6DF6E45 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpconnectionhandlerpool.h";
+			name = "httpconnectionhandlerpool.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		067B604D703F788355CC301D = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httprequest.h";
+			name = "httprequest.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		3D56F85375BFF5A2CDF93BA0 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpresponse.h";
+			name = "httpresponse.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		95E5675201776018E41BFA42 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpcookie.h";
+			name = "httpcookie.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		0B6E6EBF3B05DAFEBDF3744A = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httprequesthandler.h";
+			name = "httprequesthandler.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		07F85E46DBA9F79C8FB8F16A = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpsession.h";
+			name = "httpsession.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		FA3ACF816478F2BF40ED0023 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpsessionstore.h";
+			name = "httpsessionstore.h";
+			sourceTree = "<absolute>";
+			lastKnownFileType = "sourcecode.c.h";
+		};
+		39410DF89488140C45EAC4E2 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/staticfilecontroller.h";
+			name = "staticfilecontroller.h";
 			sourceTree = "<absolute>";
 			lastKnownFileType = "sourcecode.c.h";
 		};
@@ -366,6 +848,12 @@
 			name = ".qmake.stash";
 			sourceTree = "<absolute>";
 		};
+		C34E7A4D7431649872310C11 = {
+			isa = PBXFileReference;
+			path = "/Users/digilent/git/digilent/digilent-agent/src/httpServer/core/httpserver.pri";
+			name = "httpserver.pri";
+			sourceTree = "<absolute>";
+		};
 		DCE6A3B42BD5A1EC84658F1A = {
 			isa = PBXFileReference;
 			path = "/Users/digilent/git/digilent/digilent-agent/mainWindow.qrc";
@@ -421,6 +909,22 @@
 			isa = PBXGroup;
 			children = (
 				"871CE2BB969EF89DFD76F5D2",
+				"F3B9957B88CD7516294F78A4",
+				"989C05ABF903C70E02677504",
+				"4B970C3CDB28B426B50E43F0",
+				"0E3CABDB4351BA2761155BF5",
+				"A708756C4CCE161BFCBC6208",
+				"69FD0CE5BF9C5A774C0CDBB3",
+				"C5667553635A8A24F1AA8379",
+				"49E3F54FB0F999EDAFE9CB04",
+				"B9F765EDF8E7AAE799AA2345",
+				"C17BBE3AA8DB67793E94E9F0",
+				"422EEEC64422362DED6BC9EE",
+				"B115A681C91AEB810EA136D5",
+				"51ACC528B24A5AC690B6C868",
+				"59B9ACAA9FCF5C0A8F8AA0B2",
+				"FC7E57541848E49B46DDC544",
+				"89A37B28C211F9226A99BB66",
 				"D6647088CA2E3C2673B0018B");
 			name = "Generated Sources";
 			sourceTree = "<group>";
@@ -508,6 +1012,7 @@
 		379485B6E23F5FACDC4093CD = {
 			isa = PBXGroup;
 			children = (
+				"5DA110E8FFE6D2E367C58146",
 				"A45D5F8365AE837F36E70F37",
 				"F6E67EA27CD67DFB64AB9E4A",
 				"0BF418156E5A6220C5A5F8F9",
@@ -515,6 +1020,34 @@
 				"7A96D654CED34EDBE8DE7BA3",
 				"B81920B01126D15BB7F9835B");
 			name = "httpServer";
+			sourceTree = "<group>";
+		};
+		5DA110E8FFE6D2E367C58146 = {
+			isa = PBXGroup;
+			children = (
+				"41CE8CA4D7A78B6D0328D1E9",
+				"2824DB778FC12BB785C2AA1D",
+				"B9BC93171A3A79B37E648A1C",
+				"5A7D8AA0940FE962E1660E1A",
+				"612392A14B2B4BA0A072EF75",
+				"82D641101E4C3F061B92BB39",
+				"AE7211E97AC915AD0D88C5D0",
+				"DECE90E792DE47F8811933D8",
+				"4C38DFADF9A0D31281C69C48",
+				"ECC1861234E9FE0B8007870B",
+				"298408812EED5BAFCBE6E6DF",
+				"1943C84AC619299F69F45178",
+				"ECED3DCF6F5A753DB8F078FF",
+				"F8D61D26FE9DCF854143FE44",
+				"164FB084E5BAC503E6DF6E45",
+				"067B604D703F788355CC301D",
+				"3D56F85375BFF5A2CDF93BA0",
+				"95E5675201776018E41BFA42",
+				"0B6E6EBF3B05DAFEBDF3744A",
+				"07F85E46DBA9F79C8FB8F16A",
+				"FA3ACF816478F2BF40ED0023",
+				"39410DF89488140C45EAC4E2");
+			name = "core";
 			sourceTree = "<group>";
 		};
 		7C757A3E54D18BEE5F7FF0D3 = {
@@ -525,6 +1058,27 @@
 				"05864C189BC69888A6CCA498",
 				"BA9DBF8F10729D8668B8AC66");
 			name = "wflDevice";
+			sourceTree = "<group>";
+		};
+		3A971A0629DC6FCCC39F91E6 = {
+			isa = PBXGroup;
+			children = (
+				"7B40671FCFB6DA67B0E9D030");
+			name = "src";
+			sourceTree = "<group>";
+		};
+		7B40671FCFB6DA67B0E9D030 = {
+			isa = PBXGroup;
+			children = (
+				"07E163206FEB6FB900D11BE9");
+			name = "httpServer";
+			sourceTree = "<group>";
+		};
+		07E163206FEB6FB900D11BE9 = {
+			isa = PBXGroup;
+			children = (
+				"C34E7A4D7431649872310C11");
+			name = "core";
 			sourceTree = "<group>";
 		};
 		87DF60DE337FB58864343E39 = {
@@ -562,6 +1116,7 @@
 			children = (
 				"61D038E10CE8D9743B36C91D",
 				"BC588CE8F17C823768485BE6",
+				"3A971A0629DC6FCCC39F91E6",
 				"DCE6A3B42BD5A1EC84658F1A");
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -580,6 +1135,17 @@
 		F7E50F631C51CD5B5DC0BC43 = {
 			buildActionMask = 2147483647;
 			files = (
+				"FA32AC68A3592F811DBE534D",
+				"34814A7E772AA0CC5686FD2F",
+				"C5129B804AF8B4DF83882C54",
+				"763100D45FBDDAC98213F3CE",
+				"A20D8D78805CC2D42F9EA8E5",
+				"1911C402432A4D6C849AE32C",
+				"EAF623F0B20FA141486F6E26",
+				"94B9DCDB25FC7ED60A6F3B5F",
+				"601C4252075A1EC4626B8BC5",
+				"CEE6158F43B4C408B907B268",
+				"1EC283D8C0C5CF108B9A86E0",
 				"9E6E0FE931B8AF8D895D73BB",
 				"B0CA407AD5892824248F2EAB",
 				"787DEAFBF23E7DCB58FA00E3",
@@ -595,6 +1161,22 @@
 				"F8D6D7CD6F1CD2E6BD0B07D3",
 				"413381AA6A3025022C14CEB6",
 				"C48B4E7724B4FA4BDA57F5A4",
+				"417506F188E96AD16168048E",
+				"197F6595D85C5D31610B5811",
+				"BA383D40A882A7548C7D1AA6",
+				"ABFACE234236EB94B5281FB3",
+				"B287D65002FF546C1CFB88C4",
+				"8984664B51C49AB5D2243BD0",
+				"1D12E93B72B1DF2AAA55BF37",
+				"44A86DE97F72A3E12F0680B0",
+				"0F3B3B69CB06622620E6FB77",
+				"0857EF4C72586BB65983DA37",
+				"56366849F6CFCF3974C1AD78",
+				"66F110BC2886F7BEFAF66C1E",
+				"51E7DF884A6EC2C93B69FB15",
+				"CE72C74AE6D9B582AE9788AF",
+				"D8D580285D6671B32D1377F6",
+				"E58CC54E8EF9F0AF104484FD",
 				"A2039440718F72BEEEF490D0");
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -877,6 +1459,7 @@
 				MACOSX_DEPLOYMENT_TARGET = "10.10";
 				HEADER_SEARCH_PATHS = (
 					".",
+					"src/httpServer/core",
 					"/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers",
 					"/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers",
 					"/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers",
@@ -971,6 +1554,7 @@
 				MACOSX_DEPLOYMENT_TARGET = "10.10";
 				HEADER_SEARCH_PATHS = (
 					".",
+					"src/httpServer/core",
 					"/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers",
 					"/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers",
 					"/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers",

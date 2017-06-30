@@ -15,7 +15,7 @@ LEXFLAGS  =
 YACC      = yacc
 YACCFLAGS = -d
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SERIALPORT_LIB -DQT_CONCURRENT_LIB -DQT_CORE_LIB
-INCPATH       = -I. -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -F/usr/local/Cellar/qt/5.9.0_1/lib
+INCPATH       = -I. -Isrc/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers -I. -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -F/usr/local/Cellar/qt/5.9.0_1/lib
 DEL_FILE  = rm -f
 MOVE      = mv -f
 
@@ -30,7 +30,12 @@ check: first
 
 benchmark: first
 
-compilers: qrc_mainWindow.cpp moc_predefs.h ui_mainWindow.h
+compilers: qrc_mainWindow.cpp moc_predefs.h moc_httplistener.cpp moc_httpconnectionhandler.cpp moc_httpconnectionhandlerpool.cpp\
+	 moc_httprequesthandler.cpp moc_httpsessionstore.cpp moc_staticfilecontroller.cpp\
+	 moc_httpRouter.cpp moc_mainWindow.cpp moc_comboBoxEventFilter.cpp\
+	 moc_agentConfigCtrl.cpp moc_debugController.cpp moc_agent.cpp\
+	 moc_wflDevice.cpp moc_serial.cpp moc_wflSerialDevice.cpp\
+	 moc_httpClient.cpp ui_mainWindow.h
 compiler_rcc_make_all: qrc_mainWindow.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_mainWindow.cpp
@@ -46,8 +51,348 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/local/Cellar/qt/5.9.0_1/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 -dM -E -o moc_predefs.h /usr/local/Cellar/qt/5.9.0_1/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_httplistener.cpp moc_httpconnectionhandler.cpp moc_httpconnectionhandlerpool.cpp moc_httprequesthandler.cpp moc_httpsessionstore.cpp moc_staticfilecontroller.cpp moc_httpRouter.cpp moc_mainWindow.cpp moc_comboBoxEventFilter.cpp moc_agentConfigCtrl.cpp moc_debugController.cpp moc_agent.cpp moc_wflDevice.cpp moc_serial.cpp moc_wflSerialDevice.cpp moc_httpClient.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_httplistener.cpp moc_httpconnectionhandler.cpp moc_httpconnectionhandlerpool.cpp moc_httprequesthandler.cpp moc_httpsessionstore.cpp moc_staticfilecontroller.cpp moc_httpRouter.cpp moc_mainWindow.cpp moc_comboBoxEventFilter.cpp moc_agentConfigCtrl.cpp moc_debugController.cpp moc_agent.cpp moc_wflDevice.cpp moc_serial.cpp moc_wflSerialDevice.cpp moc_httpClient.cpp
+moc_httplistener.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpServer \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QSettings \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QBasicTimer \
+		src/httpServer/core/httpglobal.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtGlobal \
+		src/httpServer/core/httpconnectionhandler.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QSslConfiguration \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpSocket \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTimer \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QThread \
+		src/httpServer/core/httprequest.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QHostAddress \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMultiMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTemporaryFile \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QUuid \
+		src/httpServer/core/httprequesthandler.h \
+		src/httpServer/core/httpresponse.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		src/httpServer/core/httpcookie.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		src/httpServer/core/httpconnectionhandlerpool.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMutex \
+		src/httpServer/core/httplistener.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/httpServer/core/httplistener.h -o moc_httplistener.cpp
+
+moc_httpconnectionhandler.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QSslConfiguration \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpSocket \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QSettings \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTimer \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QThread \
+		src/httpServer/core/httpglobal.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtGlobal \
+		src/httpServer/core/httprequest.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QHostAddress \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMultiMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTemporaryFile \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QUuid \
+		src/httpServer/core/httprequesthandler.h \
+		src/httpServer/core/httpresponse.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		src/httpServer/core/httpcookie.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		src/httpServer/core/httpconnectionhandler.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/httpServer/core/httpconnectionhandler.h -o moc_httpconnectionhandler.cpp
+
+moc_httpconnectionhandlerpool.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTimer \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMutex \
+		src/httpServer/core/httpglobal.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtGlobal \
+		src/httpServer/core/httpconnectionhandler.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QSslConfiguration \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpSocket \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QSettings \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QThread \
+		src/httpServer/core/httprequest.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QHostAddress \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMultiMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTemporaryFile \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QUuid \
+		src/httpServer/core/httprequesthandler.h \
+		src/httpServer/core/httpresponse.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		src/httpServer/core/httpcookie.h \
+		src/httpServer/core/httpconnectionhandlerpool.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/httpServer/core/httpconnectionhandlerpool.h -o moc_httpconnectionhandlerpool.cpp
+
+moc_httprequesthandler.cpp: src/httpServer/core/httpglobal.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtGlobal \
+		src/httpServer/core/httprequest.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QHostAddress \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpSocket \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMultiMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QSettings \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTemporaryFile \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QUuid \
+		src/httpServer/core/httpresponse.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		src/httpServer/core/httpcookie.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		src/httpServer/core/httprequesthandler.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/httpServer/core/httprequesthandler.h -o moc_httprequesthandler.cpp
+
+moc_httpsessionstore.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTimer \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMutex \
+		src/httpServer/core/httpglobal.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtGlobal \
+		src/httpServer/core/httpsession.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QVariant \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QReadWriteLock \
+		src/httpServer/core/httpresponse.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpSocket \
+		src/httpServer/core/httpcookie.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		src/httpServer/core/httprequest.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QHostAddress \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMultiMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QSettings \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTemporaryFile \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QUuid \
+		src/httpServer/core/httpsessionstore.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/httpServer/core/httpsessionstore.h -o moc_httpsessionstore.cpp
+
+moc_staticfilecontroller.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QCache \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMutex \
+		src/httpServer/core/httpglobal.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtGlobal \
+		src/httpServer/core/httprequest.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QHostAddress \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpSocket \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMultiMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QSettings \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTemporaryFile \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QUuid \
+		src/httpServer/core/httpresponse.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		src/httpServer/core/httpcookie.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		src/httpServer/core/httprequesthandler.h \
+		src/httpServer/core/staticfilecontroller.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/httpServer/core/staticfilecontroller.h -o moc_staticfilecontroller.cpp
+
+moc_httpRouter.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtCore \
+		src/core/agent.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QJsonObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QVector \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		lib/digilent/qtSerial/serial.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QDebug \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPort \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPortInfo \
+		lib/digilent/pgm/digilentPgm.h \
+		lib/digilent/pgm/pgmBlock.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		src/wflDevice/wflDevice.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QThread \
+		src/wflDevice/wflSerialDevice.h \
+		src/httpServer/core/httprequesthandler.h \
+		src/httpServer/core/httpglobal.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtGlobal \
+		src/httpServer/core/httprequest.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QHostAddress \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpSocket \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMultiMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QSettings \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTemporaryFile \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QUuid \
+		src/httpServer/core/httpresponse.h \
+		src/httpServer/core/httpcookie.h \
+		src/httpServer/core/staticfilecontroller.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QCache \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMutex \
+		src/httpServer/agentConfigCtrl.h \
+		src/httpServer/httpRouter.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/httpServer/httpRouter.h -o moc_httpRouter.cpp
+
+moc_mainWindow.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QtNetwork \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers/QSystemTrayIcon \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers/QPushButton \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers/QLineEdit \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers/QComboBox \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QVector \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QEvent \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers/QLabel \
+		src/core/agent.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QJsonObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		lib/digilent/qtSerial/serial.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QDebug \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPort \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPortInfo \
+		lib/digilent/pgm/digilentPgm.h \
+		lib/digilent/pgm/pgmBlock.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		src/wflDevice/wflDevice.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QThread \
+		src/wflDevice/wflSerialDevice.h \
+		src/core/comboBoxEventFilter.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers/QMainWindow \
+		src/mainWindow.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/mainWindow.h -o moc_mainWindow.cpp
+
+moc_comboBoxEventFilter.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		src/core/comboBoxEventFilter.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/core/comboBoxEventFilter.h -o moc_comboBoxEventFilter.cpp
+
+moc_agentConfigCtrl.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QJsonObject \
+		src/httpServer/core/httprequesthandler.h \
+		src/httpServer/core/httpglobal.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtGlobal \
+		src/httpServer/core/httprequest.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QHostAddress \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpSocket \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMultiMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QSettings \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTemporaryFile \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QUuid \
+		src/httpServer/core/httpresponse.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		src/httpServer/core/httpcookie.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		src/core/agent.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QVector \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		lib/digilent/qtSerial/serial.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QDebug \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPort \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPortInfo \
+		lib/digilent/pgm/digilentPgm.h \
+		lib/digilent/pgm/pgmBlock.h \
+		src/wflDevice/wflDevice.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QThread \
+		src/wflDevice/wflSerialDevice.h \
+		src/httpServer/agentConfigCtrl.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/httpServer/agentConfigCtrl.h -o moc_agentConfigCtrl.cpp
+
+moc_debugController.cpp: src/httpServer/core/httprequesthandler.h \
+		src/httpServer/core/httpglobal.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QtGlobal \
+		src/httpServer/core/httprequest.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QHostAddress \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QTcpSocket \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QMultiMap \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QSettings \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QTemporaryFile \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QUuid \
+		src/httpServer/core/httpresponse.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		src/httpServer/core/httpcookie.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		src/httpServer/debugController.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/httpServer/debugController.h -o moc_debugController.cpp
+
+moc_agent.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QJsonObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QVector \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		lib/digilent/qtSerial/serial.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QDebug \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPort \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPortInfo \
+		lib/digilent/pgm/digilentPgm.h \
+		lib/digilent/pgm/pgmBlock.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QByteArray \
+		src/wflDevice/wflDevice.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QThread \
+		src/wflDevice/wflSerialDevice.h \
+		src/core/agent.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/core/agent.h -o moc_agent.cpp
+
+moc_wflDevice.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QThread \
+		src/wflDevice/wflDevice.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/wflDevice/wflDevice.h -o moc_wflDevice.cpp
+
+moc_serial.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QDebug \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPort \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPortInfo \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		lib/digilent/qtSerial/serial.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib lib/digilent/qtSerial/serial.h -o moc_serial.cpp
+
+moc_wflSerialDevice.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QThread \
+		src/wflDevice/wflDevice.h \
+		lib/digilent/qtSerial/serial.h \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QDebug \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers/QList \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPort \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers/QSerialPortInfo \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QString \
+		src/wflDevice/wflSerialDevice.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib src/wflDevice/wflSerialDevice.h -o moc_wflSerialDevice.cpp
+
+moc_httpClient.cpp: /usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers/QObject \
+		/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers/QNetworkAccessManager \
+		lib/digilent/qtHttp/httpClient.h \
+		moc_predefs.h \
+		/usr/local/Cellar/qt/5.9.0_1/bin/moc
+	/usr/local/Cellar/qt/5.9.0_1/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-clang -I/Users/digilent/git/digilent/digilent-agent -I/Users/digilent/git/digilent/digilent-agent/src/httpServer/core -I/usr/local/Cellar/qt/5.9.0_1/lib/QtWidgets.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtGui.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtNetwork.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtSerialPort.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtConcurrent.framework/Headers -I/usr/local/Cellar/qt/5.9.0_1/lib/QtCore.framework/Headers -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/8.1.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/usr/include -F/usr/local/Cellar/qt/5.9.0_1/lib lib/digilent/qtHttp/httpClient.h -o moc_httpClient.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all: ui_mainWindow.h
@@ -65,5 +410,5 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 

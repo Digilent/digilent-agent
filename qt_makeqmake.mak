@@ -175,6 +175,7 @@ project.pbxproj: digilent-agent.pro /usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-cl
 		/usr/local/Cellar/qt/5.9.0_1/mkspecs/features/mac/toolchain.prf \
 		/usr/local/Cellar/qt/5.9.0_1/mkspecs/features/default_pre.prf \
 		/usr/local/Cellar/qt/5.9.0_1/mkspecs/features/mac/default_pre.prf \
+		src/httpServer/core/httpserver.pri \
 		/usr/local/Cellar/qt/5.9.0_1/mkspecs/features/resolve_config.prf \
 		/usr/local/Cellar/qt/5.9.0_1/mkspecs/features/default_post.prf \
 		/usr/local/Cellar/qt/5.9.0_1/mkspecs/features/mac/default_post.prf \
@@ -369,6 +370,7 @@ project.pbxproj: digilent-agent.pro /usr/local/Cellar/qt/5.9.0_1/mkspecs/macx-cl
 /usr/local/Cellar/qt/5.9.0_1/mkspecs/features/mac/toolchain.prf:
 /usr/local/Cellar/qt/5.9.0_1/mkspecs/features/default_pre.prf:
 /usr/local/Cellar/qt/5.9.0_1/mkspecs/features/mac/default_pre.prf:
+src/httpServer/core/httpserver.pri:
 /usr/local/Cellar/qt/5.9.0_1/mkspecs/features/resolve_config.prf:
 /usr/local/Cellar/qt/5.9.0_1/mkspecs/features/default_post.prf:
 /usr/local/Cellar/qt/5.9.0_1/mkspecs/features/mac/default_post.prf:

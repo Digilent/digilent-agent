@@ -72,3 +72,4 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprinty
 *.build
+.DS_Store
