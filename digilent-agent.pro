@@ -26,7 +26,7 @@ TEMPLATE = app
 CONFIG += qt
 
 CONFIG(debug, debug|release) {
-    CONFIG+=console
+    #CONFIG+=console
 }
 
 

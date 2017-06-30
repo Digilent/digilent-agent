@@ -43,6 +43,7 @@ installer/packages/com.digilent.waveformsliveofflinesupport/data/*
 installer/build/*
 installer/working/*
 installer/repo/*
+installer/packages/*
 debug/
 release/
 Makefile
