@@ -42,10 +42,20 @@
 		5A6A637DF98F8897BE3AC30D /* QtNetwork.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4FDEC8D0EFEAB4A7F9BCC815 /* QtNetwork.framework */; };
 		601C4252075A1EC4626B8BC5 /* httpsession.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 4C38DFADF9A0D31281C69C48 /* httpsession.cpp */; settings = {ATTRIBUTES = (); }; };
 		66F110BC2886F7BEFAF66C1E /* moc_agent.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = B115A681C91AEB810EA136D5 /* moc_agent.cpp */; settings = {ATTRIBUTES = (); }; };
-		6EA92C70282BE3C2BCB8CEA8 /* QtWidgets.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 94A99F5932E4835A100856DA /* QtWidgets.framework */; };
+		6EA92C70282BE3C2BCB8CEA8 /* QtWidgets.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 94A99F5932E4835A100856DA /* QtWidgets.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		6EF7A7F88B755470C81EC8CF /* digilentPgm.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 044727A3049949557548444A /* digilentPgm.cpp */; settings = {ATTRIBUTES = (); }; };
 		763100D45FBDDAC98213F3CE /* httpconnectionhandlerpool.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 5A7D8AA0940FE962E1660E1A /* httpconnectionhandlerpool.cpp */; settings = {ATTRIBUTES = (); }; };
 		787DEAFBF23E7DCB58FA00E3 /* debugController.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = F6E67EA27CD67DFB64AB9E4A /* debugController.cpp */; settings = {ATTRIBUTES = (); }; };
+		7D45EF041F0EC99100C14362 /* QtWidgets.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94A99F5932E4835A100856DA /* QtWidgets.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7D45EF051F0EC99100C14362 /* QtGui.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04CFD37C57592B0DBAFF43D0 /* QtGui.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7D45EF061F0EC99100C14362 /* QtCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BB21CF17DC20AF6A262E3328 /* QtCore.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7D45EF071F0EC99100C14362 /* DiskArbitration.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B774D8E4178765CE52EAAF5 /* DiskArbitration.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7D45EF081F0EC99100C14362 /* IOKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A1A67BEAA744704B29168D39 /* IOKit.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7D45EF091F0EC99100C14362 /* QtNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4FDEC8D0EFEAB4A7F9BCC815 /* QtNetwork.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7D45EF0A1F0EC99100C14362 /* QtSerialPort.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFC74256700C299EC1745341 /* QtSerialPort.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7D45EF0B1F0EC99100C14362 /* QtConcurrent.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9DE6580F67EF618F998E33F2 /* QtConcurrent.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7D45EF0C1F0EC99100C14362 /* OpenGL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D4B32C2222F82AC56BADEB21 /* OpenGL.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7D45EF0D1F0EC99100C14362 /* AGL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9815BDB5BD9F90D2BC05C5 /* AGL.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7DDB5CF21F044308005F2859 /* icon.iconset in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = 7DDB5CF11F044308005F2859 /* icon.iconset */; };
 		7DF6871E1F043298005A655F /* icon.icns in Copy Bundle Resources */ = {isa = PBXBuildFile; fileRef = 7DF6871D1F043298005A655F /* icon.icns */; };
 		8771A8C96E9C391044035D99 /* OpenGL.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = D4B32C2222F82AC56BADEB21 /* OpenGL.framework */; };
@@ -92,10 +102,20 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		99542592E9780B9225F24AA8 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				7D45EF041F0EC99100C14362 /* QtWidgets.framework in Embed Frameworks */,
+				7D45EF051F0EC99100C14362 /* QtGui.framework in Embed Frameworks */,
+				7D45EF061F0EC99100C14362 /* QtCore.framework in Embed Frameworks */,
+				7D45EF071F0EC99100C14362 /* DiskArbitration.framework in Embed Frameworks */,
+				7D45EF081F0EC99100C14362 /* IOKit.framework in Embed Frameworks */,
+				7D45EF091F0EC99100C14362 /* QtNetwork.framework in Embed Frameworks */,
+				7D45EF0A1F0EC99100C14362 /* QtSerialPort.framework in Embed Frameworks */,
+				7D45EF0B1F0EC99100C14362 /* QtConcurrent.framework in Embed Frameworks */,
+				7D45EF0C1F0EC99100C14362 /* OpenGL.framework in Embed Frameworks */,
+				7D45EF0D1F0EC99100C14362 /* AGL.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -840,7 +860,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.digilent.agent;
-				PRODUCT_NAME = "digilent-agent";
+				PRODUCT_NAME = "Digilent Agent";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				QT_LIBRARY_SUFFIX = "";
 				SDKROOT = macosx;
@@ -862,7 +882,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.digilent.agent;
-				PRODUCT_NAME = "digilent-agent";
+				PRODUCT_NAME = "Digilent Agent (Debug)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				QT_LIBRARY_SUFFIX = "";
 				SDKROOT = macosx;

@@ -78,7 +78,8 @@ DISTFILES += \
     lib/digilent/qtSerial/LICENSE \
     lib/digilent/qtSerial/README.md \
     lib/digilent/pgm/.gitignore \
-    lib/digilent/pgm/LICENSE
+    lib/digilent/pgm/LICENSE \
+    qt.conf
 
 OTHER_FILES +=
 
