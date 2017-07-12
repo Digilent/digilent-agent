@@ -9,7 +9,7 @@
 *.so
 *.dll
 *.dylib
-
+*.DS_Store
 # Qt-es
 
 /.qmake.cache
@@ -38,10 +38,12 @@ CMakeLists.txt.user*
 
 #Earlgrey
 *.exe
+*.dmg
 installer/packages/com.digilent.waveformsliveagent/data/*
 installer/packages/com.digilent.waveformsliveofflinesupport/data/*
 installer/build/*
 installer/working/*
+installer/waveforms-live-offline
 installer/repo/*
 installer/packages/*
 debug/
