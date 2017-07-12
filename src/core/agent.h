@@ -30,6 +30,7 @@ public:
     int getMajorVersion();
     int getMinorVersion();
     int getPatchVersion();
+    QString getBuildNote();
     QString getFirmwareUploadStatus();
     int getFirmwareUploadProgress();
     bool launchWfl();   
@@ -59,7 +60,8 @@ private:
     bool httpCapable;
     int majorVersion;
     int minorVersion;
-    int patchVersion;    
+    int patchVersion;
+    QString buildNote;
 
     QString firmwareUploadStatus;
     DigilentPgm *pgm;

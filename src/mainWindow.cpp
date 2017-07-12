@@ -51,7 +51,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::createWindowActions()
 {
+#ifdef AGENT_BUILD_NOTE
+    versionAction = new QAction(QString("Agent Version: ") + QString(this->agent->getVersion()) + " - " + this->agent->getBuildNote(), this);
+#else
     versionAction = new QAction(QString("Agent Version: ") + QString(this->agent->getVersion()), this);
+#endif
     versionAction->setEnabled(false);
 
 #ifdef _WIN32

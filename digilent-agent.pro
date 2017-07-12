@@ -26,7 +26,8 @@ TEMPLATE = app
 CONFIG += qt
 
 CONFIG(debug, debug|release) {
-    #CONFIG+=console
+    DEFINES += AGENT_BUILD_NOTE=\\\"DEBUG\\\"
+    CONFIG+=console
 }
 
 
@@ -78,8 +79,7 @@ DISTFILES += \
     lib/digilent/qtSerial/LICENSE \
     lib/digilent/qtSerial/README.md \
     lib/digilent/pgm/.gitignore \
-    lib/digilent/pgm/LICENSE \
-    qt.conf
+    lib/digilent/pgm/LICENSE
 
 OTHER_FILES +=
 

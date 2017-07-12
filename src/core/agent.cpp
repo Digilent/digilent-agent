@@ -20,6 +20,10 @@ Agent::Agent(QObject *parent) : QObject(parent)
     this->minorVersion = 0;
     this->patchVersion = 1;
 
+#ifdef AGENT_BUILD_NOTE
+    this->buildNote = AGENT_BUILD_NOTE;
+#endif
+
     this->firmwareUploadStatus = "idle";
 
     //Initialize devices array with null pointers
@@ -82,6 +86,10 @@ int Agent::getMinorVersion() {
 
 int Agent::getPatchVersion() {
     return this->patchVersion;
+}
+
+QString Agent::getBuildNote() {
+    return this->buildNote;
 }
 
 bool Agent::launchWfl() {
