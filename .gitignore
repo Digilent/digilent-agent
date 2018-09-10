@@ -39,6 +39,7 @@ CMakeLists.txt.user*
 #Earlgrey
 *.exe
 *.dmg
+lib/digilent/adept/*
 installer/packages/com.digilent.waveformsliveagent/data/*
 installer/packages/com.digilent.waveformsliveofflinesupport/data/*
 installer/build/*

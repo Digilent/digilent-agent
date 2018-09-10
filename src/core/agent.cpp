@@ -7,8 +7,21 @@
 #include <QThread>
 #include <QUrl>
 
+//OS specific includes and config
+#ifdef _WIN32
+    #include <windows.h>
+#elif __linux__
+
+#elif __APPLE__
+
+#endif
+
 #include "agent.h"
 
+//FT245 Support
+#include "lib/digilent/adept/include/dpcdecl.h"
+#include "lib/digilent/adept/include/dmgr.h"
+#include "lib/digilent/adept/include/dpti.h"
 
 //Agent::Agent()
 Agent::Agent(QObject *parent) : QObject(parent)
@@ -41,8 +54,12 @@ Agent::~Agent(){
 
 //Return all UART devices on the system that are not busy plus the active device even if it is busy
 QVector<QString> Agent::enumerateDevices() {
+
+    //Start with Adept devices
+    QVector<QString> devices = this->enumerateAdeptDevices();
+
+
     //---------- UART ----------
-    QVector<QString> devices = QVector<QString>();
     QList<QSerialPortInfo> serialPortInfo = Serial::getSerialPortInfo();
 
     //Loop over all devices on the system
@@ -66,11 +83,69 @@ QVector<QString> Agent::enumerateDevices() {
         }
     }
 
+
+
     //---------- HTTP ----------
     //TODO?
 
     return devices;
 }
+
+QVector<QString> Agent::enumerateAdeptDevices() {
+
+    QVector<QString> devices = QVector<QString>();
+
+     //FT245 Variables
+     DVC		dvc;
+     int		idvc;
+     int		cdvc;
+     char	szTmp[1024];
+
+     /* Produce the enumerated list of devices. */
+     // DMGR API Call: DmgrEnumDevices
+     if (!DmgrEnumDevices(&cdvc)) {
+         qDebug("Error enumerating devices\n");
+         return devices;
+     }
+
+     /* Print some basic information about each device. */
+     qDebug() << "Found " << cdvc <<" devices\n";
+
+     //Iterate over all Adept devices to populate devices list
+     for (idvc = 0; idvc < cdvc; idvc++) {
+         QString device = "";
+
+         if (!DmgrGetDvc(idvc, &dvc)) {
+             qDebug("Error getting device info\n");
+         } else {
+             //Build device name and add it to the list
+
+             //Get device name
+             if (!DmgrGetInfo(&dvc, dinfoProdName, szTmp)) {
+                 qDebug(szTmp, "Not accessible (name)");
+             }
+             QString name(szTmp);
+             device.append(name);
+
+            //Get the serial number
+             if (!DmgrGetInfo(&dvc, dinfoSN, szTmp)) {
+                 qDebug(szTmp, "Not accessible (serial)");
+             }
+
+             QString serial(szTmp);
+             device.append(" (");
+             device.append(serial);
+             device.append(")");
+
+             //Add device to list
+             devices.append(device);
+         }
+     }
+     //Free Adept resources
+     DmgrFreeDvcEnum();
+     return devices;
+}
+
 
 QByteArray Agent::getVersion() {
     return QByteArray(QString("%1.%2.%3").arg(majorVersion).arg(minorVersion).arg(patchVersion).toUtf8());

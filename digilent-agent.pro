@@ -46,6 +46,7 @@ SOURCES += \
     lib/digilent/pgm/digilentPgm.cpp \
     lib/digilent/pgm/pgmBlock.cpp \
     lib/digilent/qtHttp/httpClient.cpp \
+    src/wflDevice/wflDptiDevice.cpp
 
 
 
@@ -63,6 +64,23 @@ HEADERS  += \
     lib/digilent/pgm/digilentPgm.h \
     lib/digilent/pgm/pgmBlock.h \
     lib/digilent/qtHttp/httpClient.h \
+    lib/digilent/adept/include/daci.h \
+    lib/digilent/adept/include/daio.h \
+    lib/digilent/adept/include/demc.h \
+    lib/digilent/adept/include/depp.h \
+    lib/digilent/adept/include/dgio.h \
+    lib/digilent/adept/include/djtg.h \
+    lib/digilent/adept/include/dmgr.h \
+    lib/digilent/adept/include/dmgt.h \
+    lib/digilent/adept/include/dpcdecl.h \
+    lib/digilent/adept/include/dpcdefs.h \
+    lib/digilent/adept/include/dpcutil.h \
+    lib/digilent/adept/include/dpio.h \
+    lib/digilent/adept/include/dpti.h \
+    lib/digilent/adept/include/dspi.h \
+    lib/digilent/adept/include/dstm.h \
+    lib/digilent/adept/include/dtwi.h \
+    src/wflDevice/wflDptiDevice.h
 
 FORMS    += \
     mainWindow.ui
@@ -86,3 +104,8 @@ OTHER_FILES +=
 #QMAKE_CXXFLAGS += -static-libgcc -static-libstdc++
 #QMAKE_LFLAGS += -static -lpthread -static-libgcc -static-libstdc++
 
+
+win32: LIBS += -L$$PWD/lib/digilent/adept/lib/ -ldmgr
+
+INCLUDEPATH += $$PWD/lib/digilent/adept/include
+DEPENDPATH += $$PWD/lib/digilent/adept/include

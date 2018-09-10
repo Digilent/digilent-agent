@@ -25,6 +25,7 @@ public:
     WflDevice* activeDevice;
 
     QVector<QString> enumerateDevices();
+    QVector<QString> enumerateAdeptDevices();
     //void flushDevices();
     QByteArray getVersion();
     int getMajorVersion();

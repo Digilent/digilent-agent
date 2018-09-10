@@ -6,8 +6,15 @@
 #include <QDir>
 #include <QString>
 
-//Disable SSL on OSx
-#ifdef __APPLE__
+//Adept Includes
+#include "lib/digilent/adept/include/dpcdecl.h"
+
+//OS specific includes and config
+#ifdef _WIN32
+    #include <windows.h>
+#elif __linux__
+
+#elif __APPLE__
     #include "TargetConditionals.h"
     #if TARGET_OS_MAC
         #define QT_NO_SSL
@@ -91,7 +98,7 @@ int main(int argc, char *argv[])
     //new HttpListener(listenerSettings, new HttpRouter(&app, &mainWindow.activeDevice), &app);
     listenerSettings->beginGroup("listener");
     new HttpListener(listenerSettings, new HttpRouter(agent, &app), &app);
- 
+
     mainWindow.hide();
 
     return app.exec();
