@@ -11,7 +11,7 @@ class WflSerialDevice : public WflDevice{
     Q_OBJECT
 
 public:
-    WflSerialDevice(QString address, QObject *parent = 0);
+    WflSerialDevice(QString address, QString serial, QObject *parent = 0);
     virtual ~WflSerialDevice();
     virtual bool isOpen();
     virtual void execCommand(QByteArray cmd);

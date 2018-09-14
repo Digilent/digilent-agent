@@ -53,47 +53,17 @@ Agent::~Agent(){
 }
 
 //Return all UART devices on the system that are not busy plus the active device even if it is busy
-QVector<QString> Agent::enumerateDevices() {
+QVector<Agent::WflDeviceDescriptor> Agent::enumerateDevices() {
 
-    //Start with Adept devices
-    QVector<QString> devices = this->enumerateAdeptDevices();
-
-
-    //---------- UART ----------
-    QList<QSerialPortInfo> serialPortInfo = Serial::getSerialPortInfo();
-
-    //Loop over all devices on the system
-    for(int i=0; i<serialPortInfo.length(); i++)
-    {
-        if(serialPortInfo[i].isBusy())
-        {
-            //Only add a busy device if it is the active device
-            if(this->activeDevice != 0)
-            {
-                if(serialPortInfo[i].portName() == this->activeDevice->name)
-                {
-                    devices.append(serialPortInfo[i].portName());
-                }
-            }
-        }
-        else
-        {
-            //Device is available, add it
-            devices.append(serialPortInfo[i].portName());
-        }
-    }
-
-
-
-    //---------- HTTP ----------
-    //TODO?
-
+    //Start with Adept devices then append serial devices
+    QVector<WflDeviceDescriptor> devices = this->enumerateAdeptDevices();
+    devices.append(this->enumerateSerialDevices());
     return devices;
 }
 
-QVector<QString> Agent::enumerateAdeptDevices() {
+QVector<Agent::WflDeviceDescriptor> Agent::enumerateAdeptDevices() {
 
-    QVector<QString> devices = QVector<QString>();
+    QVector<Agent::WflDeviceDescriptor> devices = QVector<Agent::WflDeviceDescriptor>();
 
      //FT245 Variables
      DVC		dvc;
@@ -113,7 +83,7 @@ QVector<QString> Agent::enumerateAdeptDevices() {
 
      //Iterate over all Adept devices to populate devices list
      for (idvc = 0; idvc < cdvc; idvc++) {
-         QString device = "";
+         QString deviceName = "";
 
          if (!DmgrGetDvc(idvc, &dvc)) {
              qDebug("Error getting device info\n");
@@ -125,25 +95,103 @@ QVector<QString> Agent::enumerateAdeptDevices() {
                  qDebug(szTmp, "Not accessible (name)");
              }
              QString name(szTmp);
-             device.append(name);
+             deviceName.append(name);
 
             //Get the serial number
              if (!DmgrGetInfo(&dvc, dinfoSN, szTmp)) {
                  qDebug(szTmp, "Not accessible (serial)");
              }
 
-             QString serial(szTmp);
-             device.append(" (");
-             device.append(serial);
-             device.append(")");
+             QString serialNumber(szTmp);
+             deviceName.append(" (");
+             deviceName.append(serialNumber);
+             deviceName.append(")");
 
              //Add device to list
-             devices.append(device);
+            devices.append(newWflDeviceDescriptor(deviceName, WflDeviceType::Dpti, serialNumber));
+
+            //To do remove test
+
+            qDebug() << "Adept " << deviceName << "maps to " << this->dptiToSerialPortName(serialNumber);
          }
+
+
      }
      //Free Adept resources
      DmgrFreeDvcEnum();
      return devices;
+}
+
+QVector<Agent::WflDeviceDescriptor> Agent::enumerateSerialDevices()
+{
+    QVector<Agent::WflDeviceDescriptor> devices = QVector<Agent::WflDeviceDescriptor>();
+
+    QList<QSerialPortInfo> serialPortInfo = Serial::getSerialPortInfo();
+
+    //Loop over all devices on the system
+    for(int i=0; i<serialPortInfo.length(); i++)
+    {
+        if(serialPortInfo[i].isBusy())
+        {
+            //Only add a busy device if it is the active device
+            if(this->activeDevice != 0)
+            {
+                if(serialPortInfo[i].portName() == this->activeDevice->name)
+                {
+                    devices.append(newWflDeviceDescriptor(serialPortInfo[i].portName(), WflDeviceType::Serial, serialPortInfo[i].serialNumber()));
+                }
+            }
+        }
+        else
+        {
+            //Device is available, add it
+            devices.append(newWflDeviceDescriptor(serialPortInfo[i].portName(), WflDeviceType::Serial, serialPortInfo[i].serialNumber()));
+        }
+    }
+    return devices;
+}
+
+
+Agent::WflDeviceDescriptor Agent::newWflDeviceDescriptor(QString name, WflDeviceType type, QString serial)
+{
+    WflDeviceDescriptor wflDevice = WflDeviceDescriptor();
+    wflDevice.Name = name;
+    wflDevice.Type = type;
+    wflDevice.Serial = serial;
+    return wflDevice;
+}
+
+QString Agent::dptiToSerialPortName(QString dptiSerialNumber)
+{
+    QVector<Agent::WflDeviceDescriptor> devices = this->enumerateSerialDevices();
+
+    //Format DPTI serial number if necissary (Trim 'SN:')
+    int i = dptiSerialNumber.indexOf("SN:");
+    if(i >= 0)
+    {
+        dptiSerialNumber = dptiSerialNumber.right(dptiSerialNumber.length() - (i + 3));
+    }
+
+    for(int i=0; i<devices.length(); i++)
+    {
+
+        if(devices[i].Serial.contains(dptiSerialNumber.left(dptiSerialNumber.length()-1)))
+        {
+            return devices[i].Name;
+        }
+    }
+    return "";
+}
+
+//Convert vector of device descritors into vector of device names (QStrings)
+QVector<QString> Agent::getDeviceNames(QVector<WflDeviceDescriptor> deviceDescriptors)
+{
+    QVector<QString> deviceNames = QVector<QString>();
+    for(int i=0; i < deviceDescriptors.length(); i++)
+    {
+        deviceNames.append(deviceDescriptors[i].Name);
+    }
+    return deviceNames;
 }
 
 
@@ -178,10 +226,11 @@ bool Agent::launchWfl() {
 }
 
 //Set the active device by name.  A new device object is created unless the target device is already active and open.  This command also puts the device into JSON mode.
+/*
 bool Agent::setActiveDeviceByName(QString deviceName) {
     qDebug() << "Agent::setActiveDeviceByName()" << "thread: " << QThread::currentThread();
 
-    QVector<QString> devices = enumerateDevices();
+    QVector<QString> devices = this->getDeviceNames(enumerateDevices());
 
     if(this->activeDevice != 0)
     {
@@ -228,6 +277,7 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
             releaseActiveDevice();
         }
     }
+
     //No active device, check if target device is available, if so set it as the active device
     for(int i=0; i<devices.size(); i++)
     {
@@ -255,6 +305,64 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
     //Target device does not exist
     return false;
 }
+*/
+
+bool Agent::setActiveDeviceByName(QString deviceName) {
+    qDebug() << "Agent::setActiveDeviceByName()" << "thread: " << QThread::currentThread();
+
+    QVector<WflDeviceDescriptor> devices = this->enumerateDevices();
+
+
+    //Close active device is one exists
+    if(this->activeDevice != 0)
+    {
+        this->releaseActiveDevice();
+    }
+
+    //Find device descriptor and create new device
+    for(int i=0; i<devices.size(); i++)
+    {
+        if(devices[i].Name == deviceName)
+        {
+            qDebug() << devices[i].Name;
+            //Create device object
+             switch (devices[i].Type) {
+                case WflDeviceType::Serial:
+                    //Create serial device
+                    this->activeDevice = new WflSerialDevice(deviceName, devices[i].Serial);
+                    this->activeDevice->moveToThread(this->getThread());
+                    if(!this->activeDevice->isOpen()){
+                        //Failed to open serial port
+                        return false;
+                    }
+                    this->activeDevice->name = deviceName;
+                    emit activeDeviceChanged(QString(deviceName));
+
+                     //Enable JSON Mode
+                    this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
+                    break;
+                case WflDeviceType::Dpti:
+                    qDebug() << "Creating DPTI Device";
+                    this->activeDevice = new WflDptiDevice(deviceName, devices[i].Serial);
+                    //To do - DPTI Device setup?
+                    break;
+                default:
+                    qDebug() << "Unknown device type";
+                    return false;
+                    break;
+            }
+
+            //Connect release signal to device
+            connect(this, SIGNAL(startReleaseDevice()), activeDevice, SLOT(release()));
+            connect(this, SIGNAL(softResetActiveDeviceSignal()), activeDevice, SLOT(softReset()));
+            return true;
+        }
+    }
+
+    //Target device does not exist
+    return false;
+}
+
 
 //Call to emit signal to free the active device.
 void Agent::releaseActiveDevice(){
@@ -307,11 +415,20 @@ bool Agent::internetAvailable() {
 //Use Digilent PGM to update the active device firmware with the specified firmware hex file.  This function blocks until the firmware upload is complete and ruturns true if the firmware upload was successful and false otherwise.
 bool Agent::updateActiveDeviceFirmware(QString hexPath, bool enterBootloader) {
     firmwareUploadStatus = "uploading";
-    if(this->activeDevice != NULL && this->activeDevice->deviceType == "UART") {
+
+    if(this->activeDevice != NULL) {
 
         this->pgm = new DigilentPgm();
+        QString portName = "";
 
-        QString portName = this->activeDevice->name;
+        //Determine UART port name
+        if(this->activeDevice->deviceType == "UART")
+        {
+            portName = this->activeDevice->name;
+        } else if (this->activeDevice->deviceType == "DPTI")
+        {
+            portName = this->dptiToSerialPortName(this->activeDevice->serialNumber);
+        }
 
         //Send enter device bootloader command if necissary
         if(enterBootloader) {

@@ -12,6 +12,7 @@
 #include "lib/digilent/pgm/digilentPgm.h"
 #include "../wflDevice/wflDevice.h"
 #include "../wflDevice/wflSerialDevice.h"
+#include "../wflDevice/wflDptiDevice.h"
 
 //class Agent
 class Agent : public QObject
@@ -24,8 +25,23 @@ public:
 
     WflDevice* activeDevice;
 
-    QVector<QString> enumerateDevices();
-    QVector<QString> enumerateAdeptDevices();
+    enum class WflDeviceType {
+        Unknown,
+        Serial,
+        Dpti
+    };
+
+
+    struct WflDeviceDescriptor {
+      QString Name;
+      WflDeviceType Type;
+      QString Serial;
+    };
+
+    QVector<WflDeviceDescriptor> enumerateDevices();
+    QVector<WflDeviceDescriptor> enumerateAdeptDevices();
+    QVector<WflDeviceDescriptor> enumerateSerialDevices();
+    QString dptiToSerialPortName(QString dptiSerialNumber);
     //void flushDevices();
     QByteArray getVersion();
     int getMajorVersion();
@@ -38,6 +54,11 @@ public:
     bool internetAvailable();    
     QString waveFormsLiveBrowserPath;
     QThread* getThread();
+    WflDeviceDescriptor newWflDeviceDescriptor(QString name, WflDeviceType type, QString serial);
+    QVector<QString> getDeviceNames(QVector<WflDeviceDescriptor> deviceDescriptors);
+
+
+
 
 
 signals:

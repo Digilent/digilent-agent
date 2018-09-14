@@ -1,11 +1,12 @@
 #include "wflSerialDevice.h"
 #include <QEventLoop>
 
-WflSerialDevice::WflSerialDevice(QString address, QObject* parent) : WflDevice(parent)
+WflSerialDevice::WflSerialDevice(QString address, QString serialNumber, QObject* parent) : WflDevice(parent)
 {
     qDebug() << "WflSerialDevice::WflSerialDevice()" << "thread: " << QThread::currentThread();
-    this->name = "";
+    this->name = address;
     this->deviceType = "UART";
+    this->serialNumber = serialNumber;
 
     //Initialize serial object, open the port and upgrade to the target baud rate (Work around Mac Issue)
     this->serial = new Serial(this);

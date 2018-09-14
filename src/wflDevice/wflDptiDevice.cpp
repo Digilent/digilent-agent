@@ -2,27 +2,35 @@
 #include <QEventLoop>
 
 //FT245 Support
-//#include "lib/digilent/adept/include/dpcdecl.h"
-//#include "lib/digilent/adept/include/dmgr.h"
-//#include "lib/digilent/adept/include/dpti.h"
+#include "lib/digilent/adept/include/dpcdecl.h"
+#include "lib/digilent/adept/include/dmgr.h"
+#include "lib/digilent/adept/include/dpti.h"
 
-WflDptiDevice::WflDptiDevice(QString deviceName, QObject* parent) : WflDevice(parent)
+WflDptiDevice::WflDptiDevice(QString deviceName, QString serialNumber, QObject* parent) : WflDevice(parent)
 {
     qDebug() << "WflDptiDevice::WflDptiDevice()" << "thread: " << QThread::currentThread();
     this->name = deviceName;
-    this->deviceType = "";
+    this->deviceType = "DPTI";
+    this->serialNumber = serialNumber;
 
-    if (!DmgrOpen(this->deviceHandle, deviceName.toLatin1().data()) ) {
+
+    if(!DmgrOpen(&this->deviceHandle, deviceName.toLatin1().data()) ) {
         qDebug() << "Unable to open " << deviceName;
     }
+
+    //Enable DPTI port
+    if(!DptiEnable(this->deviceHandle) ) {
+        qDebug() << "Failed to open DPTI port";
+    }
+
 }
 
 WflDptiDevice::~WflDptiDevice(){
     qDebug() << "WflDptiDevice::~WflDptiDevice()" << "thread: " << QThread::currentThread();
 
-    if(this->deviceHandle != NULL) {
-//        DptiDisable(*this->deviceHandle);
-        DmgrClose(*this->deviceHandle);
+    if(this->deviceHandle != 0) {
+        DptiDisable(this->deviceHandle);
+        DmgrClose(this->deviceHandle);
     }
 
     this->name = "";

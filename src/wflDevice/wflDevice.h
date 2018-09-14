@@ -20,6 +20,7 @@ public:
     //Variables
     QString name;
     QString deviceType;
+    QString serialNumber;
 
 signals:    
     void execCommandComplete(QByteArray response);

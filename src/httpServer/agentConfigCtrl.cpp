@@ -100,7 +100,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
         case e_enumerateDevices:
         {
             QJsonArray devices = QJsonArray();
-            QVector<QString> deviceNames = agent->enumerateDevices();
+            QVector<QString> deviceNames = agent->getDeviceNames(agent->enumerateDevices());
 
             for(int i=0; i<deviceNames.size(); i++)
             {

@@ -24,7 +24,7 @@ class WflDptiDevice : public WflDevice{
     Q_OBJECT
 
 public:
-    WflDptiDevice(QString deviceName, QObject *parent = 0);
+    WflDptiDevice(QString deviceName, QString deviceSerial, QObject *parent = 0);
     virtual ~WflDptiDevice();
     virtual bool isOpen();
     virtual void execCommand(QByteArray cmd);
@@ -44,7 +44,7 @@ public slots:
 
 
 private:
-    HIF *deviceHandle;
+    HIF deviceHandle;
     QByteArray data;
     bool softResetSuccess;
 };

@@ -105,7 +105,7 @@ OTHER_FILES +=
 #QMAKE_LFLAGS += -static -lpthread -static-libgcc -static-libstdc++
 
 
-win32: LIBS += -L$$PWD/lib/digilent/adept/lib/ -ldmgr
+win32: LIBS += -L$$PWD/lib/digilent/adept/lib/ -ldmgr -ldpti
 
 INCLUDEPATH += $$PWD/lib/digilent/adept/include
 DEPENDPATH += $$PWD/lib/digilent/adept/include

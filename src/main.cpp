@@ -6,9 +6,6 @@
 #include <QDir>
 #include <QString>
 
-//Adept Includes
-#include "lib/digilent/adept/include/dpcdecl.h"
-
 //OS specific includes and config
 #ifdef _WIN32
     #include <windows.h>
@@ -20,6 +17,11 @@
         #define QT_NO_SSL
     #endif
 #endif
+
+//Adept Includes
+#include "lib/digilent/adept/include/dpcdecl.h"
+#include "lib/digilent/adept/include/dmgr.h"
+#include "lib/digilent/adept/include/dpti.h"
 
 //HTTP core includes
 #include "httplistener.h"
