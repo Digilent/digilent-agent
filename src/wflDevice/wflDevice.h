@@ -17,6 +17,7 @@ public:
     virtual void execCommand(QByteArray cmd) = 0;
     virtual bool isOpen() = 0;    
 
+
     //Variables
     QString name;
     QString deviceType;
@@ -33,7 +34,14 @@ public slots:
     virtual void release() = 0;
     virtual bool softReset() = 0;
 
-private:
+protected:
+    int validDipPacket(QByteArray data);
+    int getChunkSize(QString data);
+    bool validChunkedData(QByteArray data);
+
+
+
+
 
 };
 

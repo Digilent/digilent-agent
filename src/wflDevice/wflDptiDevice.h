@@ -28,7 +28,7 @@ public:
     virtual ~WflDptiDevice();
     virtual bool isOpen();
     virtual void execCommand(QByteArray cmd);
-    virtual QByteArray writeRead(QByteArray cmd);
+    virtual QByteArray writeRead(QByteArray data);
 
 signals:
     //void startFastWriteRead(QByteArray cmd, int delay, int timeout);
@@ -44,9 +44,19 @@ public slots:
 
 
 private:
-    HIF deviceHandle;
+    HIF deviceHandle = 0;
     QByteArray data;
     bool softResetSuccess;
+
+    //Write
+    bool write(const char *data, int numBytes);                         //Write data to the port.  Return true on success
+    bool write(QByteArray data);                                        //Write data to the port.  Return true on success
+    QByteArray dipWriteRead(QByteArray data, int delay, int timeout);
+
+    //Read
+    QByteArray read();                                                  //Read all available bytes from the buffer
+    unsigned long bytesAvailable();//                                   //Return the number of bytes available in the buffer
+    bool waitForBytesAvailable(unsigned long numBytes, int timeout);    //Wait for the specified number of bytes to be avaialable in the buffer or a timeout
 };
 
 

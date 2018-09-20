@@ -342,10 +342,16 @@ bool Agent::setActiveDeviceByName(QString deviceName) {
                     this->activeDevice->writeRead("{\"mode\":\"JSON\"}\r\n");
                     break;
                 case WflDeviceType::Dpti:
+                {
                     qDebug() << "Creating DPTI Device";
-                    this->activeDevice = new WflDptiDevice(deviceName, devices[i].Serial);
+                    QString name = deviceName.left(deviceName.indexOf('(')).trimmed();
+                    this->activeDevice = new WflDptiDevice(name, devices[i].Serial);
+                    this->activeDevice->moveToThread(this->getThread());
+                    emit activeDeviceChanged(QString(this->activeDevice->name));
+
                     //To do - DPTI Device setup?
                     break;
+                }
                 default:
                     qDebug() << "Unknown device type";
                     return false;

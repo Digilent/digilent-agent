@@ -1,5 +1,6 @@
 #include "wflDptiDevice.h"
 #include <QEventLoop>
+#include <QTime>
 
 //FT245 Support
 #include "lib/digilent/adept/include/dpcdecl.h"
@@ -13,10 +14,16 @@ WflDptiDevice::WflDptiDevice(QString deviceName, QString serialNumber, QObject* 
     this->deviceType = "DPTI";
     this->serialNumber = serialNumber;
 
+    char* name = deviceName.toLatin1().data();
+    qDebug() << deviceName.toLatin1().data();
+    qDebug() << this->serialNumber;
 
-    if(!DmgrOpen(&this->deviceHandle, deviceName.toLatin1().data()) ) {
+    if(!DmgrOpen(&this->deviceHandle, this->serialNumber.toLatin1().data()) ) {
         qDebug() << "Unable to open " << deviceName;
     }
+
+    //Set transfer timeout to 100ms
+    DmgrSetTransTimeout(this->deviceHandle, 100);
 
     //Enable DPTI port
     if(!DptiEnable(this->deviceHandle) ) {
@@ -38,37 +45,9 @@ WflDptiDevice::~WflDptiDevice(){
 
 //Send a command to the device and return the response.  Upon completion this function emits the execCommandComplete signal with the response from the device.
 void WflDptiDevice::execCommand(QByteArray cmd) {
-   /*
-    qDebug() << "WflSerialDevice::execCommand()" << "thread: " << QThread::currentThread();
+    qDebug() << "WflDptiDevice::execCommand()" << "thread: " << QThread::currentThread();
     QByteArray resp = this->writeRead(cmd);
     emit execCommandComplete(resp);
-    */
-}
-
-//Send a signal to the serial object to start the transfer.  This function blocks until the serial object response (via signal) and then this funciton returns the response from the serial device.
-QByteArray WflDptiDevice::writeRead(QByteArray cmd) {
-    /*
-    qDebug() << "WflSerialDevice::writeRead2()" << "thread: " << QThread::currentThread();
-
-    QEventLoop loop;
-
-    connect(this, SIGNAL(writeReadComplete()), &loop, SLOT(quit()));                                                        //Connect signal to exit the blocking loop once this object gets a response
-    connect(this, SIGNAL(startFastWriteRead(QByteArray,int,int)), this->serial, SLOT(fastWriteRead(QByteArray,int,int)));   //Connect signal that this object emits to start the fastWriteRead
-    connect(this->serial, SIGNAL(fastWriteReadResponse(QByteArray)), this, SLOT(onFastWriteReadResponse(QByteArray)));      //Connect the signal that the fastWriteRead emits with the reponse
-
-    //Start the fastWriteRead in thread that owns the serial object
-    emit startFastWriteRead(cmd, 2000, 100);
-
-    //Loop until writeRead is complete and writeReadComplete() signal is emited
-    loop.exec();
-
-    //Disconnect signals before returning
-    disconnect(this, SIGNAL(writeReadComplete()), &loop, SLOT(quit()));
-    disconnect(this, SIGNAL(startFastWriteRead(QByteArray,int,int)), this->serial, SLOT(fastWriteRead(QByteArray,int,int)));
-    disconnect(this->serial, SIGNAL(fastWriteReadResponse(QByteArray)), this, SLOT(onFastWriteReadResponse(QByteArray)));
-
-    */
-    return this->data;
 }
 
 //Close and re-open the serial port;
@@ -100,21 +79,157 @@ bool WflDptiDevice::softReset() {
 
 //Return true if the device serial port is open, false otherwise.
 bool WflDptiDevice::isOpen() {
-    /*
-   return this->serial->isOpen();
-   */
+   return this->deviceHandle != 0;
 }
 
 //Release this device and free the COM port by destroying this object.
 void WflDptiDevice::release(){
-    /*
-    qDebug() << "WflSerialDevice::release()" << "thread: " << QThread::currentThread();
+     qDebug() << "WflDptiDevice::release() - Done" << "thread: " << QThread::currentThread();
 
-    //Close the serial port so it is immediatly available to other processes, then schedule this object and it's children for deletion
-    this->serial->close();
-    //this->deleteLater();
-    emit releaseComplete();
-
-    qDebug() << "WflSerialDevice::release() - Done" << "thread: " << QThread::currentThread();
-    */
+        //Disable the DPTI port and close.
+     if(this->deviceHandle != 0)
+     {
+        DptiDisable(this->deviceHandle);
+        DmgrClose(this->deviceHandle);
+     }
+     emit releaseComplete();
+     qDebug() << "WflDptiDevice::release()  - Complete";
 }
+
+
+
+
+
+//---------------------------- Write ---------------------------
+//bool write(const char *data, int numBytes);
+
+bool WflDptiDevice::write(QByteArray data)
+{
+    return DptiIO(this->deviceHandle, reinterpret_cast <BYTE *>(data.data()), static_cast <unsigned long>(data.length()), nullptr, 0, false);
+}
+
+QByteArray WflDptiDevice::writeRead(QByteArray cmd)
+{
+    return dipWriteRead(cmd, 2000, 100);
+}
+
+//Write data then read until a valid DIP resposne is received or a timeout
+QByteArray WflDptiDevice::dipWriteRead(QByteArray data, int delay, int timeout)
+{
+    qDebug() << "WflDptiDevice::dipWriteRead()" << "thread: " << QThread::currentThread();
+
+    QByteArray resp;
+    QTime stopWatch;
+    stopWatch.start();
+
+
+    //To do (???) - Clear incoming buffer before writing new command
+
+    //Write Command
+    this->write(data);
+
+    //Read until first byte comes in or the delay expires
+    stopWatch.restart();
+    while(bytesAvailable() < 1)
+    {
+        if(stopWatch.elapsed() > delay)
+        {
+            qDebug() << "WflDptiDevice::dipWriteRead() - Timeout while waiting for first byte of resposne";
+            return QByteArray();
+        }
+    }
+
+    //Read all available bytes, reset timeout
+    resp.append(read());
+    stopWatch.restart();
+
+    //Continue reading as long as bytes continue coming in until the DIP packet is complete or a timeout
+    while(stopWatch.elapsed() < timeout)
+    {
+        if(bytesAvailable())
+        {
+            resp.append(read());
+            //Check if DIP packet is complete
+            while(resp.length() > 0)
+            {
+                int status = validDipPacket(data);
+                if(status < 0 ){
+                    //Response is malformed strip leading byte and try again
+                    resp = resp.mid(1);
+                }
+                else if (status > 0)
+                {
+                    return resp;
+                }
+                //Packet looks valid but is not complete.
+            }
+            stopWatch.restart();
+        }
+    }
+
+    //Timeout waiting for more bytes
+    qDebug() << "WflDptiDevice::dipWriteRead() - Timeout waiting for DIP packet to complete";
+    return resp;
+}
+
+//---------------------------- Read ---------------------------
+//Read all available bytes from the DPTI buffer.  Data is returned as a byte array.
+QByteArray WflDptiDevice::read() {
+    if(this->deviceHandle == 0) {
+        return nullptr;
+    }
+
+    unsigned long count = bytesAvailable();
+    QByteArray data(static_cast<int>(count), '0');
+
+    DptiIO(this->deviceHandle, nullptr, 0, reinterpret_cast <BYTE *>(data.data()), count, false);
+    unsigned long rxCount = 0;
+    if(!DmgrGetTransResult(this->deviceHandle, nullptr, &rxCount, 0))
+    {
+        qDebug() << "Error when reading from DPTI buffer";
+        return nullptr;
+    } else if(rxCount != count) {
+        qDebug() << "Error when reading from DPTI buffer - incorrect number of bytes read";
+        return nullptr;
+    } else {
+        return data;
+    }
+}
+
+//Read the specified number of bytes from the buffer.
+/*
+QByteArray read(qint64 numBytes)
+{
+
+}
+*/
+
+//Return the number of bytes available in the DPTI buffer
+unsigned long WflDptiDevice::bytesAvailable()
+{
+    unsigned long count;
+    if(this->deviceHandle != 0){
+        DptiGetQueueStatus(this->deviceHandle, &count);
+    }
+    return count;
+}
+
+//Wait for the specified number of bytes to be avialable or timeout.  Returns true if the specified number of bytes are available, false otherwise.
+bool WflDptiDevice::waitForBytesAvailable(unsigned long numBytes, int timeout) {
+
+    QTime startTime = QTime::currentTime();
+    QTime doneTime = startTime.addMSecs(timeout);
+    while(QTime::currentTime() < doneTime) {
+        if(bytesAvailable() >= numBytes) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
+
+

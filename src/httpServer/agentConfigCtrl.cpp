@@ -174,6 +174,7 @@ QJsonObject AgentConfigCtrl::processCommand(QJsonObject cmdObj, QByteArray data)
                 res.insert("statusCode", qint64(0x80000666));
             }
             break;
+
         }
         case e_uploadFirmware:
         {
