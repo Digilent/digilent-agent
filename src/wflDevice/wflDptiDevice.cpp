@@ -22,8 +22,8 @@ WflDptiDevice::WflDptiDevice(QString deviceName, QString serialNumber, QObject* 
         qDebug() << "Unable to open " << deviceName;
     }
 
-    //Set transfer timeout to 100ms
-    DmgrSetTransTimeout(this->deviceHandle, 100);
+    //Set transfer timeout
+    DmgrSetTransTimeout(this->deviceHandle, 1000);
 
     //Enable DPTI port
     if(!DptiEnable(this->deviceHandle) ) {
@@ -110,7 +110,7 @@ bool WflDptiDevice::write(QByteArray data)
 
 QByteArray WflDptiDevice::writeRead(QByteArray cmd)
 {
-    return dipWriteRead(cmd, 2000, 100);
+    return dipWriteRead(cmd, 2000, 2000);
 }
 
 //Write data then read until a valid DIP resposne is received or a timeout
@@ -135,8 +135,9 @@ QByteArray WflDptiDevice::dipWriteRead(QByteArray data, int delay, int timeout)
         if(stopWatch.elapsed() > delay)
         {
             qDebug() << "WflDptiDevice::dipWriteRead() - Timeout while waiting for first byte of resposne";
-            return QByteArray();
+            return read();
         }
+        break;
     }
 
     //Read all available bytes, reset timeout
@@ -152,7 +153,7 @@ QByteArray WflDptiDevice::dipWriteRead(QByteArray data, int delay, int timeout)
             //Check if DIP packet is complete
             while(resp.length() > 0)
             {
-                int status = validDipPacket(data);
+                int status = validDipPacket(resp);
                 if(status < 0 ){
                     //Response is malformed strip leading byte and try again
                     resp = resp.mid(1);
@@ -162,13 +163,18 @@ QByteArray WflDptiDevice::dipWriteRead(QByteArray data, int delay, int timeout)
                     return resp;
                 }
                 //Packet looks valid but is not complete.
+                break;
             }
             stopWatch.restart();
         }
     }
 
     //Timeout waiting for more bytes
+
     qDebug() << "WflDptiDevice::dipWriteRead() - Timeout waiting for DIP packet to complete";
+    qDebug() << "-------------------------------------\r\n\r\n";
+    qDebug() << resp;
+    qDebug() << "-------------------------------------\r\n\r\n";
     return resp;
 }
 
@@ -211,6 +217,7 @@ unsigned long WflDptiDevice::bytesAvailable()
     if(this->deviceHandle != 0){
         DptiGetQueueStatus(this->deviceHandle, &count);
     }
+    //qDebug() << "=======Count: " << count;
     return count;
 }
 

@@ -93,7 +93,7 @@ void MainWindow::createTrayIcon()
     
     #ifdef _WIN32
         //Add check for updates button on Windows only since it depends on the maintainence tool
-        trayIconMenu->addAction(checkForUpdatesAction);
+        //trayIconMenu->addAction(checkForUpdatesAction);
     #endif
 
     trayIconMenu->addAction(quitAction);

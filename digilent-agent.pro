@@ -27,7 +27,7 @@ CONFIG += qt
 
 CONFIG(debug, debug|release) {
     DEFINES += AGENT_BUILD_NOTE=\\\"DEBUG\\\"
-    CONFIG+=console
+    //CONFIG+=console
 }
 
 
@@ -106,6 +106,10 @@ OTHER_FILES +=
 
 
 win32: LIBS += -L$$PWD/lib/digilent/adept/lib/ -ldmgr -ldpti
+macx{
+    LIBS += -rpath @executable_path/../Frameworks
+    LIBS += -L$$OUT_PWD/digilent-agent.app/Contents/Frameworks -ldmgr -ldpti
+}
 
 INCLUDEPATH += $$PWD/lib/digilent/adept/include
 DEPENDPATH += $$PWD/lib/digilent/adept/include

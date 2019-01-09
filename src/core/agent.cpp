@@ -30,8 +30,8 @@ Agent::Agent(QObject *parent) : QObject(parent)
 
     this->httpCapable = true;
     this->majorVersion = 1;
-    this->minorVersion = 0;
-    this->patchVersion = 1;
+    this->minorVersion = 2;
+    this->patchVersion = 2;
 
 #ifdef AGENT_BUILD_NOTE
     this->buildNote = AGENT_BUILD_NOTE;
