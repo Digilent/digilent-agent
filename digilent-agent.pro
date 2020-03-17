@@ -16,7 +16,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = digilent-agent
 target.path = /usr/bin
 
-wwwRoot.path = /usr/share/digilent-agent/www
+wwwRoot.path = /usr/share/digilent/digilent-agent/www
 wwwRoot.files = www/*
 
 INSTALLS += target
