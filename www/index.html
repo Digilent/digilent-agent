@@ -1,5 +1,65 @@
-<html>
-    <body>
-        Static Home Page...
-    </body>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Waveforms Live</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4e8ef7">
+
+    <!-- cordova.js required for cordova apps -->
+    <script src="cordova.js"></script>
+
+    <!-- un-comment this code to enable service worker
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('assets/service-worker.js')
+        .then(() => console.log('service worker installed'))
+        .catch(err => console.log('Error', err));
+    }
+  </script>-->
+
+    <script language="javascript" type="text/javascript" src="assets/js/jquery1.8.3.min.js"></script>
+        <script type="text/javascript">
+        $(window).load(function () {
+            $(".loader").fadeOut("slow");
+        });
+    </script>
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.flot.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.flot.tooltip.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/math.functions.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/wflDictionary.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.flot.symbol.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.flot.zoompan.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.flot.cursors.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.flot.axislabels.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.flot.resize.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.flot.timelinechart.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.flot.canvas.js"></script>
+    <script language="javascript" type="text/javascript" src="assets/js/threeBucket.js"></script>
+
+    <link href="build/main.css" rel="stylesheet">
+
+</head>
+
+<body class="platform-browser platform-cordova platform-webview">
+    <div class="loader" style="position: fixed;left: 0px;top: 0px;width: 100%;height: 100%;z-index: 9999;background-color:#535353;justify-content:center;display:flex;align-items:center;">
+        <img src="assets/img/waveforms-live.svg" style="width: 60%;max-width: 640px;" />
+    </div>
+    <!-- Ionic's root component and where the app will load -->
+    <ion-app></ion-app>
+
+    <!-- The polyfills js is generated during the build process -->
+    <script src="build/polyfills.js"></script>
+
+    <!-- The bundle js is generated during the build process -->
+    <script src="build/main.js"></script>
+
+</body>
+
 </html>
